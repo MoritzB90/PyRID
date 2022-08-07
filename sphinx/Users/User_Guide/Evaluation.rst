@@ -10,7 +10,7 @@ We can create an instance of the Evaluation class by
 	
 	Evaluation = prd.Evaluation()
 
- and then load an hdf5 file:
+and then load an hdf5 file:
 
 .. code-block:: python
 
