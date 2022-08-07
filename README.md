@@ -6,9 +6,9 @@ Disclaimer: PyRID is currently in early state development (version 0.1). As such
 
 PyRID is a tool for particle based reaction diffusion simulations and is highly influenced and inspired by 
 
-- `ReaDDy <https://readdy.github.io/>`_
-- `MCell <https://mcell.org/>`_
-- `Sarkas <https://murillo-group.github.io/sarkas/>`_
+- [ReaDDy](https://readdy.github.io/)
+- [MCell](https://mcell.org/)
+- [Sarkas](https://murillo-group.github.io/sarkas/)
 
 PyRID is an attempt to combine several features of the above mentioned tools, which include
 
