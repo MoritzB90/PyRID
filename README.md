@@ -45,15 +45,17 @@ Installation
 5. Create a new environment:
 
    ```
-   conda create -n pyrid-env
+   conda create -n pyrid-env python=3.9
 
    conda activate pyrid-env
    ```
 
-5. Pip install PyRID:
+5. Pip install PyRID and install numba and h5py via conda:
 
    ```
-   $ pip install PyRID-0.0.1.tar.gz
+   pip install PyRID-0.0.1.tar.gz
+   conda install numba
+   conda install h5py
    ```
 
 To run your PyRID python scripts you can use, e.g., Spyder or Jupyter Lab, which both come with the Anaconda distribution.
