@@ -12,18 +12,24 @@ Installation
    `Anaconda <https://www.anaconda.com/products/distribution>`_
 
 
-2. Download PyRID from the GitHub repository and extract it:
+2. Download PyRID-0.0.1.tar.gz from the GitHub repository and extract it:
 
    `PyRID on GitHub <https://github.com/MoritzB90/PyRID>`_
 
 3. Open Anaconda Prompt on your computer.
 
-4. Go to the directory to which you downloaded PyRID:
+4. Go to the directory to which you downloaded PyRID-0.0.1.tar.gz:
 
    >>> $ cd <your directory>
 
-5. Pip install PyRID:
+5. Create a new environment:
 
-   >>> $ pip install pyrid
+   >>> conda create -n pyrid-env
 
-To edit your python scripts and run pyrid we recommend to use Spyder or Jupyter Lab, which both come with the Anaconda distribution.
+   >>> conda activate pyrid-env
+
+6. Pip install PyRID:
+
+   >>> $ pip install PyRID-0.0.1.tar.gz
+
+To run your PyRID python scripts you can use, e.g., Spyder or Jupyter Lab, which both come with the Anaconda distribution.
