@@ -6,10 +6,10 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='PyPatch',
+    name='PyRID',
     packages=find_packages(),
     version='0.0.1',
-    description='PyPatch is a pure python library for the simulation of Brownian dynamics of patchy bead models',
+    description='PyRID is a Python library for particle-based reaction diffusion simulations',
     author='Moritz F P Becker',
     license='MIT',
     install_requires = ["seaborn >= 0.11.2", "matplotlib >= 3.5.0", "h5py >=2.10.0", "numpy >= 1.18", "numba >= 0.55.1", "plotly >= 5.7.0", "pyvis >= 0.2.1"],
