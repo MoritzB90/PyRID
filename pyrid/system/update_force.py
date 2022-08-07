@@ -47,7 +47,7 @@ def react_interact_test(comp_i, loc_type_i, mol_idx_j, mol_idx_i, RBs, System):
         #. If one of the particles belongs to a surface molecule and the other to a volume molecule
             #. reactions are always allowed if one of the compartments is the simulation box (System), otherwise neither reactions, nor interactions are allowed.
         
-    We neglect reactions for surface moelcules at an angle above 90 degree because the error introduced by using euclidian distances becomes large. In general, you should not use meshes with high local curvature (relative to the molecule size and reaction readius) and/or large angles between neighboring triangle for this reason. Also, triangles that are far apart in terms of the geodesic distance can come close to each other in terms of euclidian distance. In the latter case, the angle between the triangle is, however, in most cases larger than 90 degree. Thereby, neglecting reactions also prevents this type of erroneous reactions.
+    We neglect reactions for surface molecules at an angle above 90 degree because the error introduced by using euclidian distances becomes large. In general, you should not use meshes with high local curvature (relative to the molecule size and reaction readius) and/or large angles between neighboring triangle for this reason. Also, triangles that are far apart in terms of the geodesic distance can come close to each other in terms of euclidian distance. In the latter case, the angle between the triangle is, however, in most cases larger than 90 degree. Thereby, neglecting reactions also prevents this type of erroneous reactions.
     
     """
     
@@ -130,25 +130,20 @@ def update_force_append_reactions(Particles, System, RBs, HGrid):
     
     One way to approach this problem would be, to choose a small cell size (e.g. based on the samllest cutoff radius) and just iterate not just over the nearest neighbour cells but over as many cells such that the cutoff radius of the larger proteins/SVs is covered. This approach has has a big disadvantages: Whereas for the smaller partciles we actually reduce the number of unnecessary distance calculations, for the larger particles we don't. We can, however, still take advantage of Newton's 3rd law. For this, we only do the distance calculation if the radius of particle i is larger than the radius of particle j. If the radii are equal, we only do the calculation if index i is smaller than index j.
     
-    A much better approach has been introduced by :cite:t:`Ogarko2012` and makes use of a so called hierarchical grid (see :numref:`Fig1`). This approach is the one we use in PyRID. In the hierarchical grid approach, each particle is assigned to a different cell grid depending on its cutoff radius, i.e. the grid consists of different levels or hierarchies, each having a different cell size. This has the downside of taking up more memory, howewer, it drastically reduces the number of distance calculations we need to do for the larger particles and also takes advantage of Newtons third law, enabling polydisiperse system simulations with almost no performance loss. The algorithm for the distance checks works as follows:
+    A much better approach has been introduced by :cite:t:`Ogarko2012` and makes use of a so called hierarchical grid. This approach is the one we use in PyRID. In the hierarchical grid approach, each particle is assigned to a different cell grid depending on its cutoff radius, i.e. the grid consists of different levels or hierarchies, each having a different cell size. This has the downside of taking up more memory, howewer, it drastically reduces the number of distance calculations we need to do for the larger particles and also takes advantage of Newtons third law, enabling polydisiperse system simulations with almost no performance loss. The algorithm for the distance checks works as follows:
         
         1. Iterate over all particles
         2. Assign each particle to a cell on their respective level in the hierarchical grid
         3. Iterate over all particles once more
         4. Do a distance check for the nearest neigbour cells on the level the current particle sites in. This is done using the classical linekd cell list algorithm.
         5. Afterwards, do a cross-level search. For this, distance checks are only done on lower hierarchy levels, i.e. on levels with smaller partcile sizes than the current one. This way, we do not need to double check the same particle pair (3rd law). However, in this step, we will have to iterate over potentialy many empty cells (Note: this should, in principle, also be doable in a more efficient way).
-    
-
-    .. figure:: ../../../Graphics/Ogarko2012_Fig1.png
-        :width: 50%
-        :name: Fig1
-        
-        Image copied from :cite:t:`Ogarko2012`.
         
         
     *Mesh collision response*
     
-    PyRID currently does not put too much effort into accurately resolving particle mesh collisions but rather uses a straightforward but approximate method.
+    The distance between particle and mesh triangles is calculated and based on the distance a repulsive force is determined. 
+    The repulsive force is normalized by the total number of triangle collisions. This approach is not exact but works sufficiently well.
+    Particle vertex collisions are neglected if one or more particle face collisions have been detected.
 
     """
     

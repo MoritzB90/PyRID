@@ -20,6 +20,7 @@ PyRID is an attempt to combine several features of the above mentioned tools, wh
 Documenttaion
 =============
 
+Go to the PyRID documentation -> https://moritzb90.github.io/PyRID_doc/
 
 Installation
 ============
@@ -46,5 +47,5 @@ Installation
    ```
    $ pip install pyrid
    ```
-   
+
 To edit your python scripts and run pyrid we recommend to use Spyder or Jupyter Lab, which both come with the Anaconda distribution.
