@@ -8,6 +8,7 @@ import h5py
 import os
 # import math
 # import itertools
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 # from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
@@ -31,7 +32,7 @@ pio.renderers.default = 'browser'
 
 # from ..evaluation import direct_coexistence_method_util as dcm
 from ..evaluation import diffusion_util as diff
-
+from ..math.transform_util import unique_pairing
 
 # from ..observables_util.plot_util import plot_observable
 
@@ -60,11 +61,11 @@ class Evaluation(object):
         self.file_name = file_name
             
         if path is None:
-            self.path = os.getcwd()+'\\Files\\'+self.file_name
-            self.fig_path = os.getcwd()+'\\Figures\\'
+            self.path = Path(os.getcwd()) / 'Files' / self.file_name
+            self.fig_path = Path(os.getcwd()) / 'Figures'
         else:
-            self.path = path + self.file_name
-            self.fig_path = path +'\\Figures\\'
+            self.path = Path(path) / self.file_name
+            self.fig_path = Path(path) / 'Figures'
             
             try:
                 os.makedirs(self.fig_path) 
@@ -151,11 +152,11 @@ class Evaluation(object):
             self.file_name = file_name
             
         if path is None:
-            self.path = os.getcwd()+'\\Files\\hdf5\\'+self.file_name+'.h5'
-            self.fig_path = os.getcwd()+'\\Figures\\'
+            self.path = Path(os.getcwd()) / 'Files/hdf5' / (self.file_name+'.h5')
+            self.fig_path = Path(os.getcwd()) / 'Figures'
         else:
-            self.path = path + self.file_name+'.h5'
-            self.fig_path = path +'\\Figures\\'
+            self.path = Path(path) / (self.file_name+'.h5')
+            self.fig_path = Path(path) / 'Figures'
             
             try:
                 os.makedirs(self.fig_path) 
@@ -167,7 +168,7 @@ class Evaluation(object):
         
         self.units = dict()
         for measure in hdf['Setup']['units']:
-            self.units[measure] = hdf['Setup']['units'][measure][()]
+            self.units[measure] = hdf['Setup']['units'][measure][()].decode()
             
         
         self.Temp = hdf['Setup']['Temp'][()]
@@ -253,7 +254,7 @@ class Evaluation(object):
             if fig_path is None:
                 fig_path = Simulation.fig_path
                 
-            plt.savefig(fig_path+fig_name+'_MSD.png', bbox_inches="tight", dpi=300)
+            plt.savefig(fig_path / (fig_name+'_MSD.png'), bbox_inches="tight", dpi=300)
             
 
     #%%
@@ -319,7 +320,7 @@ class Evaluation(object):
             if fig_path is None:
                 fig_path = Simulation.fig_path
                 
-            plt.savefig(fig_path+fig_name+'_RotDiff_Pu.png', bbox_inches="tight", dpi=300)
+            plt.savefig(fig_path / (fig_name+'_RotDiff_Pu.png'), bbox_inches="tight", dpi=300)
                 
     
     #%%
@@ -393,11 +394,12 @@ class Evaluation(object):
                     fig_name = self.file_name + ''
                 if fig_path is None:
                     fig_path = self.fig_path
-                plt.savefig(fig_path+fig_name+'_RDF_'+mol1+'-'+mol2+'.png', bbox_inches="tight", dpi = 300)
+                plt.savefig(fig_path / (fig_name+'_RDF_'+mol1+'-'+mol2+'.png'), bbox_inches="tight", dpi = 300)
 
       
         hdf.close()
         
+        return fig, ax
         
     #%%
     
@@ -552,7 +554,7 @@ class Evaluation(object):
     
     #%%
     
-    def plot_observable(self, measure, molecules = 'All', Reaction_Type = None, educt = None, bond_pairs = 'All', particle_educt = None, step = 0, save_fig = False, fig_name = None , fig_path = None, sampling = None, formats = ['png']):
+    def plot_observable(self, measure, molecules = 'All', Reaction_Type = None, educt = None, bond_pairs = 'All', particle_educt = None, step = 0, save_fig = False, fig_name = None , fig_path = None, sampling = None, formats = ['png'], show = True):
         
         # Measures = ['Position', 'Energy', 'Pressure', 'Volume', 'Virial', 'Virial Tensor', 'Number', 'Orientation', 'Bonds', 'Reactions', 'Force', 'Torque', 'RDF']
         
@@ -667,9 +669,12 @@ class Evaluation(object):
                 fig_path = self.fig_path
             for frmt in formats:
                 if measure == 'Reactions':
-                    plt.savefig(fig_path+fig_name+'_'+measure+'_'+Reaction_Type+f'.{frmt}', bbox_inches="tight", dpi = 300)
+                    plt.savefig(fig_path / (fig_name+'_'+measure+'_'+Reaction_Type+f'.{frmt}'), bbox_inches="tight", dpi = 300)
                 else:
-                    plt.savefig(fig_path+fig_name+'_'+measure+f'.{frmt}', bbox_inches="tight", dpi = 300)
+                    plt.savefig(fig_path / (fig_name+'_'+measure+f'.{frmt}'), bbox_inches="tight", dpi = 300)
+            
+        if show:
+            plt.show()
             
         return fig, ax
     
@@ -830,7 +835,7 @@ class Evaluation(object):
                                 Nodes['name'].append(i_name)
                                 Nodes['color'].append(self.molecules_colors_hex[educts[0]%24])
                                 
-                                if educts[0]== educts[1]:
+                                if educts[0] == educts[1]:
                                     educt_1_idx = 96000+int(educts[1])
                                 else:
                                     educt_1_idx = int(educts[1])
@@ -857,7 +862,7 @@ class Evaluation(object):
                                     
             elif graph_subtype == 'product_relations':
                 
-                node_idx = 0
+                prod_node_idx = 96000
                 for i in range(N_particles):
                     for j in range(N_particles-i):
                         j = (N_particles-1)-j
@@ -872,6 +877,7 @@ class Evaluation(object):
                             
                             if reaction_educt_type == 'Molecule':
                                 
+                                node_idx = int(unique_pairing(educts[0],educts[1]))
                                 Nodes['index'].append(int(node_idx))
                                 i_name = Simulation.System.molecule_id_to_name[educts[0]]
                                 j_name = Simulation.System.molecule_id_to_name[educts[1]]
@@ -879,7 +885,7 @@ class Evaluation(object):
                                 Nodes['color'].append(self.molecules_colors_hex[educts[0]%24])
                                 
                                 p0 = node_idx
-                                node_idx += 1
+                                # node_idx += 1
                                 
                                 for path in Simulation.System.Reactions_Dict[reaction_id].paths:
                                     
@@ -896,9 +902,9 @@ class Evaluation(object):
                                     if p_name in Product_Node_id:
                                         p1 = Product_Node_id[p_name]
                                     else:
-                                        Product_Node_id[p_name] = int(node_idx)
-                                        p1 = int(node_idx)
-                                        node_idx += 1
+                                        Product_Node_id[p_name] = int(prod_node_idx)
+                                        p1 = int(prod_node_idx)
+                                        prod_node_idx += 1
                                     
                                     Nodes['index'].append(p1)
                                     Nodes['name'].append(p_name)
@@ -918,15 +924,37 @@ class Evaluation(object):
         
         #%%
         
+        if graph_type == 'Interactions':
+            arrow_type = "to from"
+        elif graph_type == 'Unimolecular':
+            arrow_type = "to"
+        elif graph_type == 'Bimolecular':
+            if graph_subtype == 'product_relations':
+                arrow_type = "to"
+            if graph_subtype == 'educt_relations':
+                arrow_type = "to from"
+            
+        # g.add_node('A', shape = 'ellipse', opacity = 0.5, fixed = True, font = '40px arial black', heightConstraint = 100, widthConstraint = 100, margin = 0)
+        # g.add_node('B', opacity = 0.5)
+        # g.add_edge('A','B', arrows = "to from", dashes = True, length = 200, shadow = True, smooth = True)
+        # g.add_edge('B','A', arrows = "to from", dashes = True, length = 200)
+        # g.show('tmp.html')
+        
         # g = Network(height="100%", width="100%", bgcolor="#222222", font_color="white", directed = True)
         g = Network(height="70%", width="50%", bgcolor="white", font_color="black", directed = True)
         
-        g.add_nodes(list(Nodes['index']), title = list(Nodes['name']), label = list(Nodes['name']), shape=['box']*len(Nodes['index']), color = Nodes['color'], size = [10]*len(Nodes['index']))
+        for i in range(len(Nodes['index'])):
+            g.add_node(Nodes['index'][i], title = Nodes['name'][i], label = Nodes['name'][i], shape = 'box', color = Nodes['color'][i], opacity = 1.0, font = '20px arial black')#, heightConstraint = 50, widthConstraint = 50)
+            
+        # g.add_nodes(list(Nodes['index']), title = list(Nodes['name']), label = list(Nodes['name']), shape=['box']*len(Nodes['index']), color = Nodes['color'], size = [10]*len(Nodes['index']))
         
         #, weight = Edges['rate'][i]/max(Edges['rate']), value = Edges['rate'][i]/max(Edges['rate'])
         
         for i in range(len(Edges['indices'])):
-            g.add_edge(Edges['indices'][i][0],Edges['indices'][i][1], title=Edges['rate'][i], label=str(Edges['label'][i]), color = Edges['color'][i])
+            
+            g.add_edge(Edges['indices'][i][0],Edges['indices'][i][1], title=Edges['rate'][i], label=str(Edges['label'][i]), color = Edges['color'][i], arrows = arrow_type, dashes = False, shadow = True, smooth = True)
+            
+            # g.add_edge(Edges['indices'][i][0],Edges['indices'][i][1], title=Edges['rate'][i], label=str(Edges['label'][i]), color = Edges['color'][i], arrows = "to from")
         
         # g.toggle_physics(False)
         
@@ -935,19 +963,19 @@ class Evaluation(object):
         g.set_edge_smooth("dynamic")
         g.barnes_hut(gravity=-3000,
         central_gravity=0.3,
-        spring_length=100,
+        spring_length=200,
         spring_strength=0.05,
         damping=0.5,
         overlap=0)
         
         try:
-            os.makedirs(self.fig_path+'Graphs//') 
+            os.makedirs(self.fig_path / 'Graphs') 
         except FileExistsError:
             # directory already exists
             pass
             
         # g.set_options('{"layout": {"randomSeed":0}}')
-        g.show(self.fig_path+'Graphs//'+self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')
+        g.show(str(self.fig_path / 'Graphs' / (self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')))
         
 #%%
 

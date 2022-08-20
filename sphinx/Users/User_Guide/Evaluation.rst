@@ -14,7 +14,7 @@ and then load an hdf5 file:
 
 .. code-block:: python
 
-	Evaluation.load_file('my_hdf5_file', path = 'my_path//')
+	Evaluation.load_file('my_hdf5_file', path = 'my_path/')
 
 
 Reading and plotting data

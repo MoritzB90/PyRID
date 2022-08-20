@@ -7,8 +7,8 @@ Large scale toy-model
 	
 	import pyrid as prd
 
-	file_path='Files//'
-	fig_path = 'Figures//'
+	file_path='Files/'
+	fig_path = 'Figures/'
 	file_name='Large_Toy_Model'
 	    
 	nsteps = 1e4
@@ -197,7 +197,7 @@ Large scale toy-model
 
 .. code-block:: python
 	
-	vertices, triangles, Compartments = prd.load_compartments('Compartments//Synapse.obj')
+	vertices, triangles, Compartments = prd.load_compartments('Compartments/Synapse.obj')
 
 	Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale = 1e3/2)
 

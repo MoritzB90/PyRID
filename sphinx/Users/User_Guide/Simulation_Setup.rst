@@ -52,8 +52,8 @@ In addition, there are many other parameters the user can define. For example th
 	                            nsteps = 1e5,
 	                            length_unit = 'nanometer', 
 	                            time_unit = 'ns',
-	                            file_path = 'my_directory//',
-	                            fig_path = 'Figures//',
+	                            file_path = 'my_directory/',
+	                            fig_path = 'Figures/',
 	                            file_name='my_first_simulation')
 
 By default, PyRID writes the molecule trajectories into a .xyz file with a stride of 100. You may change these settings:
@@ -67,8 +67,8 @@ By default, PyRID writes the molecule trajectories into a .xyz file with a strid
 	                            nsteps = 1e5,
 	                            length_unit = 'nanometer', 
 	                            time_unit = 'ns',
-	                            file_path = 'my_directory//',
-	                            fig_path = 'Figures//',
+	                            file_path = 'my_directory/',
+	                            fig_path = 'Figures/',
 	                            file_name='my_first_simulation',
 	                            write_trajectory = True,
 	                            stride = 100)
@@ -84,8 +84,8 @@ ALso, the user can set a random seed. Thereby, a simulation will be exactly repr
 	                            nsteps = 1e5,
 	                            length_unit = 'nanometer', 
 	                            time_unit = 'ns',
-	                            file_path = 'my_directory//',
-	                            fig_path = 'Figures//',
+	                            file_path = 'my_directory/',
+	                            fig_path = 'Figures/',
 	                            file_name='my_first_simulation',
 	                            write_trajectory = True,
 	                            stride = 100,
@@ -102,8 +102,8 @@ PyRID supports three different types of boundary conditions: 'periodic', 'repuls
 	                            nsteps = 1e5,
 	                            length_unit = 'nanometer', 
 	                            time_unit = 'ns',
-	                            file_path = 'my_directory//',
-	                            fig_path = 'Figures//',
+	                            file_path = 'my_directory/',
+	                            fig_path = 'Figures/',
 	                            file_name='my_first_simulation',
 	                            write_trajectory = True,
 	                            stride = 100,

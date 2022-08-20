@@ -622,7 +622,7 @@ def plot_compartment_0(Simulation, System, vertices, triangles, Compartments, co
         if fig_path is None:
             fig_path = Simulation.fig_path
         
-        fig.write_image(fig_path+fig_name+'_Compartment_'+comp_name+'.png', width=2000, height=2000, scale=1) #, engine='kaleido') 
+        fig.write_image(fig_path / (fig_name+'_Compartment_'+comp_name+'.png'), width=2000, height=2000, scale=1) #, engine='kaleido') 
         
     if show:
         fig.show()  
@@ -924,7 +924,7 @@ def plot_scene(Simulation, save_fig = False, fig_name = None, fig_path = None, p
             if fig_path is None:
                 fig_path = Simulation.fig_path
             
-            fig.write_image(fig_path+fig_name+'_MolDistr_.png', width=2000, height=2000, scale=1) #, engine='kaleido') 
+            fig.write_image(fig_path / (fig_name+'_MolDistr_.png'), width=2000, height=2000, scale=1) #, engine='kaleido') 
         
     else:
     
@@ -1401,7 +1401,7 @@ def plot_cell_grid(Simulation, save_fig = False, fig_name = None, fig_path = Non
             fig_name = Simulation.file_name + ''
         if fig_path is None:
             fig_path = Simulation.fig_path
-        plt.savefig(fig_path+fig_name+'_CellGrid.png', bbox_inches="tight", dpi = 300)
+        plt.savefig(fig_path / (fig_name+'_CellGrid.png'), bbox_inches="tight", dpi = 300)
     
 #%%
 
@@ -1551,7 +1551,7 @@ def plot_sphere_packing(Compartment_Number, Simulation, points, ptype, save_fig 
                     fig_name = Simulation.file_name + '_' + Compartment.name
                 if fig_path is None:
                     fig_path = Simulation.fig_path
-                plt.savefig(fig_path+fig_name+'_Sphere_packing.png', bbox_inches="tight", dpi = 300)
+                plt.savefig(fig_path / (fig_name+'_Sphere_packing.png'), bbox_inches="tight", dpi = 300)
                 # plt.savefig('Sphere_packing.svg', dpi = 300)
                 
         
@@ -1583,7 +1583,7 @@ def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None
     my_molecule = Simulation.System.molecule_types[molecule]
     
     # Titles = [r'$D_{tt} \, (\mu m^2/s)$', '$D_{rr} \, (rad/s)$', '$D_{tr}  \, (\mu m/s)$', '$D_{rt} \, (\mu m/s)$']
-    Titles = [r'$D_{tt} \, $'+'$({0}^2/{1})$'.format(Simulation.units['Length'], Simulation.System.time_unit), '$D_{rr} \,$'+'$(rad/{})$'.format(Simulation.System.time_unit), '$D_{tr}  \, $'+'$({0}/{1})$'.format(Simulation.System.length_unit, Simulation.System.time_unit), '$D_{rt} \,  $'+'$({0}/{1})$'.format(Simulation.System.length_unit, Simulation.System.time_unit)]
+    Titles = [r'$D_{tt} \, $'+'$({0}^2/{1})$'.format(Simulation.units['Length'], Simulation.System.time_unit), '$D_{rr} \,$'+'$(rad^2/{})$'.format(Simulation.System.time_unit), '$D_{tr}  \, $'+'$({0}/{1})$'.format(Simulation.System.length_unit, Simulation.System.time_unit), '$D_{rt} \,  $'+'$({0}/{1})$'.format(Simulation.System.length_unit, Simulation.System.time_unit)]
     
     Data = [my_molecule.mu_tb*(Simulation.System.kbt), my_molecule.mu_rb*(Simulation.System.kbt)]
     
@@ -1684,7 +1684,7 @@ def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None
     # cb = fig.colorbar(im1, cax=cax, orientation='vertical')
     # cb.formatter.set_scientific(True)
     # cb.locator.axis.get_offset_text().set_x(5)
-    sns.heatmap(Data[1], ax = right, annot=True, annot_kws={"fontsize":8}, fmt=".2g", cbar_kws={"shrink": .7, "ticks": np.round([np.min(Data[1]), (np.max(Data[1])-np.min(Data[1]))/2, np.max(Data[1])*0.95],3)}, cmap = "YlOrBr")
+    sns.heatmap(Data[1], ax = right, linewidths=.5, annot=True, annot_kws={"fontsize":8}, fmt=".2g", cbar_kws={"shrink": .7, "ticks": np.round([np.min(Data[1]), (np.max(Data[1])-np.min(Data[1]))/2, np.max(Data[1])*0.95],3)}, cmap = "YlOrBr")
         
     if show:
         plt.show()
@@ -1696,7 +1696,7 @@ def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None
         if fig_path is None:
             fig_path = Simulation.fig_path
         print('saved figure.')
-        fig.savefig(fig_path+fig_name+'_DiffusionMatrix.png', bbox_inches="tight", dpi = 300)
+        fig.savefig(fig_path / (fig_name+'_DiffusionMatrix.png'), bbox_inches="tight", dpi = 300)
     
     
     
@@ -1764,7 +1764,7 @@ def plot_potential(Simulation, Potentials, yU_limits, yF_limits, r_limits = None
         fig_name = Simulation.file_name
         fig_path = Simulation.fig_path
         print('saved figure.')
-        plt.savefig(fig_path+fig_name+'_potential_energy.png', bbox_inches="tight", dpi = 300)
+        plt.savefig(fig_path / (fig_name+'_potential_energy.png'), bbox_inches="tight", dpi = 300)
     
     plt.figure('figF')
     plt.ylim(yF_limits[0],yF_limits[1])
@@ -1777,7 +1777,7 @@ def plot_potential(Simulation, Potentials, yU_limits, yF_limits, r_limits = None
         fig_name = Simulation.file_name
         fig_path = Simulation.fig_path
         print('saved figure.')
-        plt.savefig(fig_path+fig_name+'_potential_force.png', bbox_inches="tight", dpi = 300)
+        plt.savefig(fig_path / (fig_name+'_potential_force.png'), bbox_inches="tight", dpi = 300)
         
     if show:
         plt.show()
@@ -1857,7 +1857,7 @@ def plot_concentration_profile(Simulation, axis = 0, save_fig = False, fig_name 
             fig_name = Simulation.file_name + '_' + axis_name[axis]
         if fig_path is None:
             fig_path = Simulation.fig_path
-        plt.savefig(fig_path+fig_name+'_Profile.png', bbox_inches="tight", dpi = 300)
+        plt.savefig(fig_path / (fig_name+'_Profile.png'), bbox_inches="tight", dpi = 300)
     
     
     if show:

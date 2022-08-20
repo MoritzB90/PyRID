@@ -15,8 +15,8 @@ import pyrid as prd
 
 
 #File name and path
-file_path='Files//'
-fig_path = 'Figures//'
+file_path='Files/'
+fig_path = 'Figures/'
 file_name='Large_Toy_Model'
     
 nsteps = 1e4
@@ -240,7 +240,7 @@ Evaluation.plot_reactions_graph(Simulation, graph_type = 'Unimolecular')
 # Import Compartments
 #-----------------------------------------------------
 
-vertices, triangles, Compartments = prd.load_compartments('Compartments//Synapse.obj')
+vertices, triangles, Compartments = prd.load_compartments('Compartments/Synapse.obj')
 
 Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale = 1e3/2)
 

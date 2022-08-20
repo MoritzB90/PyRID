@@ -216,18 +216,18 @@ def write(j, Simulation, System, Particles):
     if j%Simulation.stride==0:
         if Simulation.write_trajectory==True:    
     
-            open(Simulation.file_path+Simulation.file_name+'.xyz', "a").write(str(Particles.occupied.n)+'\n\n')
-            with open(Simulation.file_path+Simulation.file_name+'.xyz', "a") as f:
+            open(Simulation.file_path / (Simulation.file_name+'.xyz'), "a").write(str(Particles.occupied.n)+'\n\n')
+            with open(Simulation.file_path / (Simulation.file_name+'.xyz'), "a") as f:
                 np.savetxt(f, pos_data(Particles, System), fmt = ('%s','%f','%f','%f'), delimiter='\t')
                 
                 
-            open(Simulation.file_path+Simulation.file_name+'.pid', "a").write(str(Particles.occupied.n)+'\n\n')
-            with open(Simulation.file_path+Simulation.file_name+'.pid', "a") as f:
+            open(Simulation.file_path / (Simulation.file_name+'.pid'), "a").write(str(Particles.occupied.n)+'\n\n')
+            with open(Simulation.file_path / (Simulation.file_name+'.pid'), "a") as f:
                 np.savetxt(f, data_id(Particles, System), fmt = ('%d'))            
     
     
             if System.barostat[0]['active'] == True:
-                open(Simulation.file_path+Simulation.file_name+'.box', "a").write('{0} {1} {2}\n'.format(System.box_lengths[0],System.box_lengths[1],System.box_lengths[2]))
+                open(Simulation.file_path / (Simulation.file_name+'.box'), "a").write('{0} {1} {2}\n'.format(System.box_lengths[0],System.box_lengths[1],System.box_lengths[2]))
                 
 #%%
 
@@ -271,7 +271,7 @@ def write_init(Simulation, System):
                 Radii[ptype+'_'+str(bound)+'_shape'] = System.particle_types[ptype][0]['radius']
                 Radii_interaction[ptype+'_'+str(bound)+'_shape'] = System.particle_types[ptype][0]['cutoff']
                 
-        f = open(Simulation.file_path+Simulation.file_name+'.prop', "w")
+        f = open(Simulation.file_path / (Simulation.file_name+'.prop'), "w")
         f.write('Radii = {}\n'.format(Radii))
         f.write('Radii_interaction = {}\n'.format(Radii_interaction))
         f.write('kB = {}\n'.format(System.kB))
@@ -284,7 +284,7 @@ def write_init(Simulation, System):
         
     if Simulation.write_trajectory==True:
         
-        f = open(Simulation.file_path+Simulation.file_name+'.xyz.tcl', "w")
+        f = open(Simulation.file_path / (Simulation.file_name+'.xyz.tcl'), "w")
         f.write("""
         mol delete top
         """
@@ -319,9 +319,9 @@ def write_init(Simulation, System):
 #%%
 
     if Simulation.write_trajectory==True:
-        f = open(Simulation.file_path+Simulation.file_name+'.xyz', "w")
+        f = open(Simulation.file_path / (Simulation.file_name+'.xyz'), "w")
         f.close()
-        f = open(Simulation.file_path+Simulation.file_name+'.pid', "w")
+        f = open(Simulation.file_path / (Simulation.file_name+'.pid'), "w")
         f.close()
-        f = open(Simulation.file_path+Simulation.file_name+'.box', "w")
+        f = open(Simulation.file_path / (Simulation.file_name+'.box'), "w")
         f.close()

@@ -6,6 +6,7 @@
 import numpy as np
 import glob
 import os
+from pathlib import Path
 
 from ..molecules import rigidbody_util as rbu
 from ..molecules import particles_util as pu
@@ -34,11 +35,11 @@ def load_checkpoint(System, directory = 'checkpoints/', file = None):
     """
     
     if file == None:
-        list_of_files = glob.glob(directory+'*') # * means all if need specific format then *.csv
+        list_of_files = glob.glob(Path(directory) / '*') # * means all if need specific format then *.csv
         latest_file = max(list_of_files, key=os.path.getmtime)
         data = np.load(latest_file)
     else:
-        data = np.load(directory+file, allow_pickle=True)
+        data = np.load(Path(directory) / file, allow_pickle=True)
     
     
     print('time step loaded: ', data['step'])
@@ -141,6 +142,6 @@ def save(Simulation, System, RBs, Particles, HGrid, checkpoint_counter):
     
     """
     
-    np.savez(Simulation.checkpoint[0]['directory']+Simulation.file_name + '_' + str(checkpoint_counter), step = Simulation.current_step, P_Data = Particles.Data, P_n = Particles.n, P_occupied_Data = Particles.occupied.Data, P_occupied_index = Particles.occupied.index, P_occupied_n = Particles.occupied.n, RBs_Data = RBs.Data, RBs_n = RBs.n, RBs_occupied_Data = RBs.occupied.Data, RBs_occupied_index = RBs.occupied.index, RBs_occupied_n = RBs.occupied.n, box_lengths = System.box_lengths, cells_per_dim = System.cells_per_dim, N = System.N, Np = System.Np, Nmol = System.Nmol, Nbonds = System.N_bonds, HGrid = HGrid)
+    np.savez(Path(Simulation.checkpoint[0]['directory']) / (Simulation.file_name + '_' + str(checkpoint_counter)), step = Simulation.current_step, P_Data = Particles.Data, P_n = Particles.n, P_occupied_Data = Particles.occupied.Data, P_occupied_index = Particles.occupied.index, P_occupied_n = Particles.occupied.n, RBs_Data = RBs.Data, RBs_n = RBs.n, RBs_occupied_Data = RBs.occupied.Data, RBs_occupied_index = RBs.occupied.index, RBs_occupied_n = RBs.occupied.n, box_lengths = System.box_lengths, cells_per_dim = System.cells_per_dim, N = System.N, Np = System.Np, Nmol = System.Nmol, Nbonds = System.N_bonds, HGrid = HGrid)
     
     

@@ -358,6 +358,33 @@ class RBs(HolesArray):
                     elif Particles[pi]['pos'][dim]<-System.box_lengths[dim]/2:
                         Particles[pi]['pos'][dim] += System.box_lengths[dim]
                     
+
+    def update_force(self, Particles, i):
+        
+        """Updates the total force and torque acting on rigid bead molecule i by summing over all forces and torques of its particles.
+        
+        Parameters
+        ----------
+        Particles : `object`
+            Instance of Particles class  
+        i : `int64`
+            Molecule index
+        
+        
+        """
+        
+        i+=1
+        
+        self.Data[i]['force'][:] = 0.0
+        for pi0 in range(self.Data[i]['topology_N']):
+            pi = self.Data[i]['topology'][pi0]
+            self.Data[i]['force'][0] += Particles[pi]['force'][0]
+            self.Data[i]['force'][1] += Particles[pi]['force'][1]
+            self.Data[i]['force'][2] += Particles[pi]['force'][2]
+            
+            Particles.clear_force(pi)
+            Particles[pi]['number_reactions'] = 0
+
                     
     def update_force_torque(self, Particles, i):
         

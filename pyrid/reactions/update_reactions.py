@@ -991,6 +991,8 @@ def update_reactions(System, Particles, RBs):
                         product_id = System.Reactions_Dict[reaction_type_index].paths[reaction_path_index]['products_ids'][0]
                         product_name = str(System.molecule_id_to_name[product_id])
                         
+                        placement_factor = System.Reactions_Dict[reaction_type_index].paths[reaction_path_index]['placement_factor']
+                        
                         convert_molecule_type(System, product_id, product_name, RBs, Particles, i_rb)
                         
                         # Position the product molecule
@@ -1002,7 +1004,7 @@ def update_reactions(System, Particles, RBs):
                                     if abs(dX[dim])>System.box_lengths[dim]/2:
                                         dX[dim] = np.sign(dX[dim])*System.box_lengths[dim] - dX[dim]
                               
-                            RBs[i_rb]['dX'][:] = dX/2
+                            RBs[i_rb]['dX'][:] = dX*placement_factor
                             if educt_1_loc_id == 0: # Both volume molecules
                                 RBs.update_particle_pos(Particles, System, i_rb)
                             elif educt_1_loc_id == 1: # Both surface molecules

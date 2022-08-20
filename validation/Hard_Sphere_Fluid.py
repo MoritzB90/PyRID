@@ -13,8 +13,8 @@ import pyrid as prd
 # Set Parameters
 #-----------------------------------------------------
 
-file_path='Files//'
-fig_path = 'Figures//'
+file_path='Files/'
+fig_path = 'Figures/'
 file_name='Hard_Sphere_Fluid'
     
 nsteps = 2e3

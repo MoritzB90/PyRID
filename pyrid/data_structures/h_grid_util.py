@@ -64,7 +64,7 @@ def update_hgrid(HGrid, box_lengths, N, System):
     
     """
     
-    eps = 1.0 + 1e-8 # We scale the overall grid size by this factor relatove to the simulation box size. This way, the cell grid is slioghtly larger than the simulation box. If we don't do this, we can get out of bounds errors for points that lie exactly in the plane of a positive box boundary!
+    eps = 1.0 + 1e-8 # We scale the overall grid size by this factor relative to the simulation box size. This way, the cell grid is slightly larger than the simulation box. If we don't do this, we can get out of bounds errors for points that lie exactly in the plane of a positive box boundary!
     
     N_Levels = len(HGrid[0]['L'])
 
@@ -117,7 +117,7 @@ def create_hgrid(Particles, particle_types, box_lengths, N, System):
     
     """
     
-    eps = 1.0 + 1e-8 # We scale the overall grid size by this factor relatove to the simulation box size. This way, the cell grid is slioghtly larger than the simulation box. If we don't do this, we can get out of bounds errors for points that lie exactly in the plane of a positive box boundary!
+    eps = 1.0 + 1e-8 # We scale the overall grid size by this factor relative to the simulation box size. This way, the cell grid is slightly larger than the simulation box. If we don't do this, we can get out of bounds errors for points that lie exactly in the plane of a positive box boundary!
     
     Radii = []
     Types = []

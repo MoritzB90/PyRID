@@ -13,3 +13,10 @@ The add-on in addition helps you to create nice looking renders and animations b
     :name: fig:blender_addon
     
     **Blender add-on GUI.**
+
+
+Linux users
+-----------
+
+Any progress output, e.g. when loading files or when rendering will be output to the console. Therefore, 
+Linux users should always start blender from the console! For Windows users, the Blender console (not available for Linux) will open automatically when running the PyRID addon.

@@ -9,6 +9,7 @@ from scipy.linalg import sqrtm
 import os
 import warnings
 import h5py
+from pathlib import Path
 
 from .system import update_pos as upos
 from .system import update_force as uf
@@ -132,20 +133,8 @@ class Simulation(object):
     
     """
     
-    def __init__(self, box_lengths = np.array([50.0,50.0,50.0]), dt = 0.1, Temp = 293.15, eta = 1e-21, stride = 100, write_trajectory = True, file_path = 'Files//', file_name = 'PyRID', fig_path = 'Figures//', boundary_condition = 'periodic', nsteps = 10000, sim_time = None, wall_force = 100.0, seed = None, length_unit = 'nanometer', time_unit = 'ns', cells_per_dim = None, max_cells_per_dim = 50) :
+    def __init__(self, box_lengths = np.array([50.0,50.0,50.0]), dt = 0.1, Temp = 293.15, eta = 1e-21, stride = 100, write_trajectory = True, file_path = 'Files/', file_name = 'PyRID', fig_path = 'Figures/', boundary_condition = 'periodic', nsteps = 10000, sim_time = None, wall_force = 100.0, seed = None, length_unit = 'nanometer', time_unit = 'ns', cells_per_dim = None, max_cells_per_dim = 50) :
                       
-        
-        try:
-            os.makedirs(file_path) 
-        except FileExistsError:
-            # directory already exists
-            pass
-        
-        try:
-            os.makedirs(fig_path) 
-        except FileExistsError:
-            # directory already exists
-            pass
             
         np.set_printoptions(precision=np.finfo(np.float64).precision*2)
         
@@ -159,9 +148,22 @@ class Simulation(object):
         
         # self.Observables = {}
         
-        self.file_path = file_path
+        self.file_path = Path(file_path)
         self.file_name = file_name
-        self.fig_path = fig_path
+        self.fig_path = Path(fig_path)
+        
+        try:
+            os.makedirs(self.file_path) 
+        except FileExistsError:
+            # directory already exists
+            pass
+        
+        try:
+            os.makedirs(self.fig_path) 
+        except FileExistsError:
+            # directory already exists
+            pass
+        
         self.write_trajectory = write_trajectory
         self.stride = stride
         self.current_step = 0
@@ -214,8 +216,11 @@ class Simulation(object):
         
         t_total = 0.0
         for key in self.Timer:
-            print(key+': ', self.current_step/self.Timer[key],' it/s | ', (self.Timer[key]/self.current_step)*1e3, ' ms/it' )
-            t_total += self.Timer[key]/self.current_step
+            if key != 'pu/s':
+                print(key+': ', (self.current_step-1)/self.Timer[key],' it/s | ', (self.Timer[key]/(self.current_step-1))*1e3, ' ms/it' )
+                t_total += self.Timer[key]/(self.current_step-1)
+            else:
+                print('total pu/s: ', self.Timer[key]/(self.current_step-1),' pu/s')
             
     def k_micro(self, mol_type_1, mol_type_2, k_macro, R_react, loc_type = 'Volume'):
         
@@ -264,7 +269,7 @@ class Simulation(object):
         
         self.System.add_barostat_berendsen(Tau_P, P0, start)
         
-    def set_compartments(self, Compartments, triangles, vertices, mesh_scale = 1.0):
+    def set_compartments(self, Compartments, triangles, vertices, mesh_scale = 1.0, adapt_box = False):
         
         """A brief description of what the function (method in case of classes) is and what it’s used for
         
@@ -316,7 +321,7 @@ class Simulation(object):
             
         # --------------------
         #Add mesh:
-        self.System.add_mesh(vertices, triangles, mesh_scale, box_triangle_ids, triangle_ids_transparent)
+        self.System.add_mesh(vertices, triangles, mesh_scale, box_triangle_ids, triangle_ids_transparent, adapt_box)
         
         # -------------------
         
@@ -353,7 +358,8 @@ class Simulation(object):
                 
         self.System.create_cell_list()
                 
-                
+        if adapt_box:
+            print('Simulation box has been adapted. box_lengths = ', self.System.box_lengths)
         
     def register_particle_type(self, Type, radius):
         self.System.register_particle_type(Type, radius)
@@ -414,7 +420,7 @@ class Simulation(object):
         
     #%%
     
-    def add_bm_reaction(self, reaction_type, educt_types, product_types, particle_pairs, pair_rates, pair_radii):
+    def add_bm_reaction(self, reaction_type, educt_types, product_types, particle_pairs, pair_rates, pair_radii, placement_factor = 0.5):
         
         for i,particle_types in enumerate(particle_pairs):
             educt_1_radius = self.System.particle_types[particle_types[0]][0]['radius']
@@ -423,7 +429,7 @@ class Simulation(object):
             if pair_radii[i] < educt_1_radius+educt_2_radius:
                 warnings.warn('Warning: The reaction radius for the particle pair {0}, {1} is smaller than the sum of their radii. The reaction radius should not be smaller than {2:.3g}'.format(particle_types[0], particle_types[1], educt_1_radius+educt_2_radius))
             
-        self.System.add_bm_reaction(reaction_type, np.array(educt_types), np.array(product_types), np.array(particle_pairs), np.array(pair_rates), np.array(pair_radii))
+        self.System.add_bm_reaction(reaction_type, np.array(educt_types), np.array(product_types), np.array(particle_pairs), np.array(pair_rates), np.array(pair_radii), placement_factor)
             
     #%%
     
@@ -979,7 +985,7 @@ class Simulation(object):
             self.progress_properties = ['it/s', 'pu/s']+progress_bar_properties
         
         if self.Observer is not None:
-            self.hdf = h5py.File(self.file_path+'hdf5/'+self.file_name+'.h5', 'a')
+            self.hdf = h5py.File(self.file_path / 'hdf5' / (self.file_name+'.h5'), 'a')
         
         print_system_count = False
         
@@ -1018,6 +1024,8 @@ class Simulation(object):
         checkpoint_counter = 0
         
         self.Timer = {}
+        self.Timer['total'] = 0.0
+        self.Timer['pu/s'] = 0.0
         self.Timer['force'] = 0.0
         self.Timer['integrate'] = 0.0
         self.Timer['reactions'] = 0.0
@@ -1064,16 +1072,15 @@ class Simulation(object):
         self.System.current_step = j
         while not done:
                 
-    
+            
+            start_loop = time.perf_counter()
+            
             #%%
             
             # ------------------------------------------
             # Progress
             # ------------------------------------------
-            if keep_time and self.Observer is not None:
-                self.Observer.Time_passed.append(time.perf_counter()-start)
-            
-            
+
             if j%progress_stride == 0 and j>1:
                 # if (time.perf_counter()-time_stamp)>0.0:
                 itps = progress_stride/(time.perf_counter()-time_stamp)
@@ -1084,9 +1091,12 @@ class Simulation(object):
                 
                 time_stamp = time.perf_counter()
             
-            if j == 1: # We start counting time after the first iteration so the result does not get biased by the initial jit compilation!
+            if j == 1: # We start measuring time after the first iteration so the result does not get biased by the initial jit compilation!
                 start = time.perf_counter()
                 time_stamp = time.perf_counter()
+                
+                if keep_time and self.Observer is not None:
+                    self.Observer.Time_passed.append(time.perf_counter()-start)
                 
             #%%
             
@@ -1112,9 +1122,10 @@ class Simulation(object):
                 upos.update_rb_compartments(self.RBs, self.Particles, self.System)
             else:
                 upos.update_rb(self.RBs, self.Particles, self.System)
-    
-            end_pos = time.perf_counter() - start_pos
-            self.Timer['integrate']+=end_pos
+                
+            if j>0:
+                end_pos = time.perf_counter() - start_pos
+                self.Timer['integrate']+=end_pos
 
             
             #%%
@@ -1134,9 +1145,10 @@ class Simulation(object):
                 #Ideales Gas: P =2/3*N/V*Ekin, Ekin = 1/2*m*v^2 = f/2*kB*T (3D: f=3)
                 
                 # Pressure_Tensor = (self.System.N*self.System.kbt + Vir_Tensor)/self.System.volume
-    
-            end_force = time.perf_counter() - start_force
-            self.Timer['force']+=end_force
+                
+            if j>0:
+                end_force = time.perf_counter() - start_force
+                self.Timer['force']+=end_force
             
             
             #%%
@@ -1156,9 +1168,9 @@ class Simulation(object):
                     if j == event['timepoint']:
                         self.release_molecules(event)
                         
-                    
-                end_react = time.perf_counter() - start_react
-                self.Timer['reactions']+=end_react
+                if j>0:
+                    end_react = time.perf_counter() - start_react
+                    self.Timer['reactions']+=end_react
                 
             else:
                 self.System.reactions_left = 0
@@ -1216,8 +1228,9 @@ class Simulation(object):
                 
                 self.System.update_rb_barostat(self.RBs, self.Particles)
                 
-            end_barostat = time.perf_counter() - start_barostat
-            self.Timer['barostat']+=end_barostat
+            if j>0:
+                end_barostat = time.perf_counter() - start_barostat
+                self.Timer['barostat']+=end_barostat
             
             
             #%%
@@ -1254,9 +1267,10 @@ class Simulation(object):
                 
                 if self.Observer.observing_rdf == True:
                     self.Observer.update_rdf(self, self.hdf)
-                
-            end_obs = time.perf_counter() - start_obs
-            self.Timer['observables']+=end_obs
+            
+            if j>0:
+                end_obs = time.perf_counter() - start_obs
+                self.Timer['observables']+=end_obs
             
             
             #%%
@@ -1277,9 +1291,18 @@ class Simulation(object):
             
                 wru.write(j, self, self.System, self.Particles)
                 
-            end_write = time.perf_counter() - start_write
-            self.Timer['write']+=end_write
+            if j>0:
+                end_write = time.perf_counter() - start_write
+                self.Timer['write']+=end_write
+
+
+            #%%
             
+            if j>0:
+                end_loop = time.perf_counter() - start_loop
+                self.Timer['total'] += end_loop
+                self.Timer['pu/s'] += self.System.Np/end_loop
+                
             #%%
             
             if j==self.nsteps or time.perf_counter()-start>self.sim_time:
@@ -1294,6 +1317,8 @@ class Simulation(object):
             if j==1:
                 print('Simulation started!'+'(JIT Compilation Time:{:1.1f} s)'.format(time.perf_counter()-time_jit))
                 
+
+             
         #%%
         print('\n')
         

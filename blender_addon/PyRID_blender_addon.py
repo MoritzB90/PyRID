@@ -18,7 +18,7 @@ import os
 from bpy.app.handlers import persistent
 import ctypes
 import os
-
+from sys import platform
 
 
 #%%
@@ -214,8 +214,8 @@ global box_size
 
 box_size = None
 
-user32 = ctypes.windll.user32
-screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+#user32 = ctypes.windll.user32
+screensize = None #user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
 #------
 # Functions
@@ -1077,7 +1077,7 @@ class XYZ_OT_InitPyRID(bpy.types.Operator):
         scene = bpy.context.scene
         mytool = scene.my_tool
         
-        if mytool.console_closed:
+        if mytool.console_closed and platform == 'win32':
             bpy.ops.wm.console_toggle()
             mytool.console_closed = False
             
@@ -1209,7 +1209,7 @@ class XYZ_OT_Run(bpy.types.Operator):
         mytool = scene.my_tool
         
         # init
-        if mytool.console_closed:
+        if mytool.console_closed and platform == 'win32':
             bpy.ops.wm.console_toggle()
             mytool.console_closed = False
             
@@ -1261,7 +1261,7 @@ class XYZ_OT_ReloadPos(bpy.types.Operator):
         scene = bpy.context.scene
         mytool = scene.my_tool
         
-        if mytool.console_closed:
+        if mytool.console_closed and platform == 'win32':
             bpy.ops.wm.console_toggle()
             mytool.console_closed = False
         

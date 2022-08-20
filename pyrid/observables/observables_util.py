@@ -7,6 +7,7 @@ import numpy as np
 import h5py
 import os
 import math
+from pathlib import Path
 
 from ..evaluation.rdf_util import create_rb_hgrid, radial_distr_function
 
@@ -35,7 +36,7 @@ class Observables(object):
     def __init__(self, Simulation):
         
         try:
-            os.makedirs(Simulation.file_path+'/hdf5') 
+            os.makedirs(Simulation.file_path / 'hdf5') 
         except FileExistsError:
             # directory already exists
             pass
@@ -70,7 +71,7 @@ class Observables(object):
         self.observables_setup = dict()
         self.observing_rdf = False
 
-        hdf = h5py.File(Simulation.file_path+'hdf5/'+Simulation.file_name+'.h5', 'w')
+        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'w')
         
         #------------------
         # System Setup
@@ -204,7 +205,7 @@ class Observables(object):
         self.observables_setup[Property]['current_step'] = 0
         
         # if save==True:
-        hdf = h5py.File(Simulation.file_path+'hdf5/'+Simulation.file_name+'.h5', 'a')
+        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'a')
             
         if stepwise == True:
             group = hdf.create_group('stepwise/'+Property, track_order=False)
@@ -383,7 +384,7 @@ class Observables(object):
         
         """
         
-        hdf = h5py.File(Simulation.file_path+'hdf5/'+Simulation.file_name+'.h5', 'a')
+        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'a')
         
         self.observing_rdf =True
         self.rdf_nsteps = int((Simulation.nsteps)/stride)

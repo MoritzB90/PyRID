@@ -41,7 +41,7 @@ value_head = nb.int64[:]
 
 item_t_react = np.dtype([('educts_index', (np.int64, (2,))), ('id', np.int64), ('unique_educts_id', np.float64)],  align=True)
 
-item_t_paths = np.dtype([('rate', np.float64), ('radius', np.float64), ('products_ids', (np.int64, 1000)), ('products_loc', (np.int64, 1000)), ('products_direction', (np.int64, 1000)), ('n_products', np.int64), ('type_id', np.int64), ('type', 'U20'), ('n_success', np.int64), ('n_success_binned', np.int64),],  align=True)
+item_t_paths = np.dtype([('rate', np.float64), ('radius', np.float64), ('products_ids', (np.int64, 1000)), ('products_loc', (np.int64, 1000)), ('products_direction', (np.int64, 1000)), ('n_products', np.int64), ('type_id', np.int64), ('type', 'U20'), ('n_success', np.int64), ('n_success_binned', np.int64),('placement_factor', np.float64),],  align=True)
        
 spec_darray = [
     ('n', nb.int64),
@@ -194,7 +194,7 @@ class Reaction(DenseArrayReact):
         self.paths = np.zeros(1, dtype = item_t_paths)
         
     
-    def add_path(self, System, path_type, rate, products_ids = None, product_surf_vol = None, product_direction = None, radius = None):
+    def add_path(self, System, path_type, rate, products_ids = None, product_surf_vol = None, product_direction = None, radius = None, placement_factor = 0.5):
         
         """Adds a new reaction path to the reaction class instance.
         
@@ -244,6 +244,10 @@ class Reaction(DenseArrayReact):
 
         if radius is not None:
             self.paths[i]['radius'] = radius # This is the radius, which is used, e.g. when resolving fission or production reactions.
+            
+        if path_type == 'fusion':
+            # TODO: It might make sense to calculate the placement_factor from the diffusion coefficients of the educt molecules. I havent put much thought in this, but it would make sense that a product is placed closer to the heavier molecule educt. Why is this never implenented this way (MCell, ReaDDy ...)? This should then also be considered for the placement in fission reactions.
+            self.paths[i]['placement_factor'] = placement_factor
         
         self.paths[i]['rate'] = rate
         self.paths[i]['type'] = path_type

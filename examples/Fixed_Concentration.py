@@ -15,8 +15,8 @@ import pyrid as prd
 
 
 #File name and path
-file_path='Files//'
-fig_path = 'Figures//'
+file_path='Files/'
+fig_path = 'Figures/'
 file_name='Fixed_Concentration'
     
 
@@ -66,7 +66,7 @@ Simulation.register_particle_type('Core_2', 2.5)
 # Import Compartments
 #-----------------------------------------------------
 
-vertices, triangles, Compartments = prd.load_compartments('Compartments//Synapse.obj')
+vertices, triangles, Compartments = prd.load_compartments('Compartments/Synapse.obj')
 
 Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale = 1e3/2)
 

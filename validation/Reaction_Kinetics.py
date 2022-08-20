@@ -16,8 +16,8 @@ import pyrid as prd
 #-----------------------------------------------------
 
 
-file_path='Files//'
-fig_path = 'Figures//'
+file_path='Files/'
+fig_path = 'Figures/'
 file_name='Reaction_Kinetics'
     
 nsteps = 1e5
@@ -97,10 +97,10 @@ Simulation.set_diffusion_tensor('D', D_tt, D_rr)
 
 #%%
 
-prd.plot.plot_mobility_matrix('A', Simulation, save_fig = True, show = True)
-prd.plot.plot_mobility_matrix('B', Simulation, save_fig = True, show = True)
-prd.plot.plot_mobility_matrix('C', Simulation, save_fig = True, show = True)
-prd.plot.plot_mobility_matrix('D', Simulation, save_fig = True, show = True)
+prd.plot.plot_mobility_matrix('A', Simulation, save_fig = False, show = True)
+prd.plot.plot_mobility_matrix('B', Simulation, save_fig = False, show = True)
+prd.plot.plot_mobility_matrix('C', Simulation, save_fig = False, show = True)
+prd.plot.plot_mobility_matrix('D', Simulation, save_fig = False, show = True)
 
 #%%
 
@@ -216,9 +216,9 @@ plt.text(0.40,0.70,'$k_{{-1}} = {0:.3g} \, ns^{{-1}}$'.format(5e-5), transform=f
 
 lgd = plt.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left", mode="expand", borderaxespad=0, ncol=4, prop=fontLgd)
 
-plt.savefig('Figures//ReactionKinetics.png', dpi = 300, bbox_inches="tight")
+# plt.savefig('Figures//ReactionKinetics.png', dpi = 300, bbox_inches="tight")
 
-plt.savefig('Figures//ReactionKinetics.svg', dpi = 300, bbox_inches="tight")
+# plt.savefig('Figures//ReactionKinetics.svg', dpi = 300, bbox_inches="tight")
 
 
     

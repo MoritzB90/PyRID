@@ -13,8 +13,8 @@ import pyrid as prd
 # Set Parameters
 #-----------------------------------------------------
 
-file_path='Files//'
-fig_path = 'Figures//'
+file_path='Files/'
+fig_path = 'Figures/'
 file_name='Dendritic_Spine'
     
 nsteps = 1e5
@@ -171,7 +171,7 @@ Simulation.add_um_reaction('production', 'C', 0.0005, ['C']+['D']*25, product_lo
 # Import Compartments
 #-----------------------------------------------------
 
-vertices, triangles, Compartments = prd.load_compartments('Compartments//DendriticSpine2.obj')
+vertices, triangles, Compartments = prd.load_compartments('Compartments/DendriticSpine.obj')
 
 Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale = 1e3/2)
     

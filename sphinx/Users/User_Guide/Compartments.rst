@@ -32,7 +32,7 @@ Once you have a correctly formatted mesh, you can import it into PyRID by
 
 .. code-block:: python
 
-   vertices, triangles, Compartments = prd.load_compartments('Compartments//my_mesh.obj')
+   vertices, triangles, Compartments = prd.load_compartments('Compartments/my_mesh.obj')
 
 Here, vertices is an array, containing all the vertices of all the meshes in my_mesh.obj and triangles contains the indices of all the vertices that make up the individual mesh faces. Compartments is a dictionary containing for each compartment the list of triangle indices and the triangle indices for the face groups, if defined.
 The mesh has only been read but not yet added to the simulation. This can be done by

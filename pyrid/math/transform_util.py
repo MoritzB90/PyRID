@@ -109,7 +109,7 @@ def is_diagonal(M):
 @nb.njit
 def cantor_pairing(k1,k2):
     
-    """The Cantor pairing function maps a natural number (unsigned integer) pair k1,k2 to a unique natural number n such that the mapping is bijective, i.e. the original pair can always be recovered from n.
+    """The Cantor pairing function maps a natural number (unsigned integer) pair k1,k2 to a unique natural number n such that the mapping is bijective, i.e. the original pair can always be recovered from n. The cantor pairing is sensitive to the order, e.g. (0,1)->2.0 whereas (1,0)->1.0 .
     
     Parameters
     ----------
@@ -136,7 +136,7 @@ def cantor_pairing(k1,k2):
 @nb.njit
 def unique_pairing(k1,k2):
     
-    """The unique pairing function maps a natural number (unsigned integer) pair k1,k2 to a unique natural number n such that the mapping is bijective, i.e. the original pair can always be recovered from n.
+    """The unique pairing function maps a natural number (unsigned integer) pair k1,k2 to a unique natural number n such that the mapping is bijective, i.e. the original pair can always be recovered from n. In contrast to the cantor pairing method, this emtjod is insensitive to the order of the integer pair, e.g. (0,1)->1 just as (1,0)->1 .
     
     Parameters
     ----------
@@ -147,8 +147,8 @@ def unique_pairing(k1,k2):
     
     Notes
     -----
-    This function is just needed when validating the reaction handling functions against
-    new implementations which may change the order in whcih reactions are resolved. The function enables to assign a unique id for each educt pair and thereby enables sorting the reactions by the educts! Educt order is exchangeable!
+    This function is used for mapping an educt pair to a unique node index when creating reaction graphs. Also, it is needed when validating the reaction handling functions against
+    new implementations which may change the order in which reactions are executed. The function enables to assign a unique id for each educt pair and thereby enables sorting the reactions by the educts! Educt order is exchangeable!
     
     from: https://math.stackexchange.com/questions/882877/produce-unique-number-given-two-integers
     

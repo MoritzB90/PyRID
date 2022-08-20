@@ -8,8 +8,8 @@ Fixed concentration boundary
 
 .. code-block:: python
 	
-	file_path='Files//'
-	fig_path = 'Figures//'
+	file_path='Files/'
+	fig_path = 'Figures/'
 	file_name='Fixed_Concentration'  
 
 	nsteps = 1e5
@@ -45,7 +45,7 @@ Fixed concentration boundary
 
 .. code-block:: python
 	
-	vertices, triangles, Compartments = prd.load_compartments('Compartments//Synapse.obj')
+	vertices, triangles, Compartments = prd.load_compartments('Compartments/Synapse.obj')
 
 	Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale = 1e3/2)
 

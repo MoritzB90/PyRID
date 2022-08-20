@@ -38,6 +38,12 @@ def k_macro(D1, D2, k_micro, R_react):
     
     return 4*np.pi*(D1+D2)*(R_react-np.sqrt((D1+D2)/k_micro)*np.tanh(R_react*np.sqrt(k_micro/(D1+D2))))
 
+
+def k_macro_surf(D1, D2, k_micro, R_react):
+    
+    return 20/7*np.pi/R_react*(D1+D2)*(R_react-np.sqrt((D1+D2)/k_micro)*np.tanh(R_react*np.sqrt(k_micro/(D1+D2))))
+
+
 #%%
 
 def k_micro(System, mol_type_1, mol_type_2, k_macro, R_react, loc_type = 'Volume'):
@@ -83,6 +89,10 @@ def k_micro(System, mol_type_1, mol_type_2, k_macro, R_react, loc_type = 'Volume
     def k_macro_root(x, D1, D2, k_macro, R_react):
     
         return 4*np.pi*(D1+D2)*(R_react-np.sqrt((D1+D2)/abs(x[0]))*np.tanh(R_react*np.sqrt(abs(x[0])/(D1+D2))))-k_macro
+
+    def k_macro_root_surf(x, D1, D2, k_macro, R_react):
+    
+        return 20/7*np.pi/R_react*(D1+D2)*(R_react-np.sqrt((D1+D2)/abs(x[0]))*np.tanh(R_react*np.sqrt(abs(x[0])/(D1+D2))))-k_macro
     
     lamb = np.sqrt(4*(D1+D2)*System.dt) # Diffusion length constant
     if R_react < 10*lamb:
@@ -92,10 +102,14 @@ def k_micro(System, mol_type_1, mol_type_2, k_macro, R_react, loc_type = 'Volume
     R_react_infty = k_macro/(4*np.pi*(D1+D2))
     if R_react < R_react_infty:
         warnings.warn('Warning: The reaction radius is too small to be able to match the macroscopic reaction rate! The minimum reaction radius for an infinite microscopic reaction rate that is in agreement with the given macroscopic reaction rate is {0:.3g}'.format(R_react_infty))
+    
+    if loc_type == 'Volume':
+        k_micro_0 = k_macro/(4/3*np.pi*R_react**3)
+        k_micro_sol = root(k_macro_root, [k_micro_0], args = (D1, D2, k_macro, R_react,), method='lm')
+    elif loc_type == 'Surface':
+        k_micro_0 = k_macro/(np.pi*R_react**2)
+        k_micro_sol = root(k_macro_root_surf, [k_micro_0], args = (D1, D2, k_macro, R_react,), method='lm')
         
-    k_micro_0 = k_macro/(4/3*np.pi*R_react**3)
-    k_micro_sol = root(k_macro_root, [k_micro_0], args = (D1, D2, k_macro, R_react,), method='lm')
-
     if k_micro_sol.x[0]*System.dt>0.1:
         warnings.warn('Warning: The reaction rate for the bi-molecule reaction of the educts {0}, {1} is larger 1/(10*dt). k*dt = {2:.3g}. The discretization errors may become too large! Please increase the reaction radius or lower the macroscopic reaction rate or the integration time step!'.format(mol_type_1, mol_type_2, k_micro_sol.x[0]*System.dt))
     

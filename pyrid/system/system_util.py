@@ -729,6 +729,7 @@ spec = [
     ('dx_rand', rnd.Interpolate.class_type.instance_type),
     ('compartments_id', nb.types.DictType(nb.types.string, nb.int64)),
     ('compartments_name', nb.types.ListType(nb.types.string)),
+    ('adapt_box', nb.types.boolean),
 ]
 
 @jitclass(spec)
@@ -977,6 +978,7 @@ class System(object):
         self.Np = 0
         self.dim = 3
         self.box_lengths = box_lengths
+        self.area = 2*(self.box_lengths[1]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[1])
         self.max_cells_per_dim = max_cells_per_dim
         self.volume = self.box_lengths.prod()
         # self.Epot = 0.0
@@ -1007,6 +1009,7 @@ class System(object):
         
         self.mesh_scale = 1.0
         self.mesh = False
+        self.adapt_box = False
         
         self.AABB = np.empty((2,3))
         self.AABB[0] = -box_lengths/2
@@ -1323,7 +1326,10 @@ class System(object):
         
         """
         
-        comp_id = self.compartments_id[str(comp_name)]
+        if str(comp_name) == 'Box':
+            comp_id = 0
+        else:
+            comp_id = self.compartments_id[str(comp_name)]
         
         if location == 0:
             D = self.molecule_types[molecule_name].Dtrans
@@ -1473,7 +1479,7 @@ class System(object):
         self.box_area = np.sum(self.Mesh[triangle_ids_border]['triangle_area'])
         
         
-    def add_mesh(self, vertices, triangles, mesh_scale = 1.0, box_triangle_ids = None, triangle_ids_transparent = None):
+    def add_mesh(self, vertices, triangles, mesh_scale = 1.0, box_triangle_ids = None, triangle_ids_transparent = None, adapt_box = False):
         
         """Set up the mesh for the mesh compartments.
         
@@ -1537,6 +1543,8 @@ class System(object):
         
         """
         
+        self.adapt_box = adapt_box
+        
         vertices*=mesh_scale
         self.mesh_scale = mesh_scale
         
@@ -1545,6 +1553,23 @@ class System(object):
         self.Mesh = np.zeros(len(triangles), dtype = item_t_mesh)
         self.N_triangles = len(triangles)
         
+        if self.adapt_box:
+            
+            for dim in range(3):
+                self.box_lengths[dim] = np.max(self.vertices[:,dim])-np.min(self.vertices[:,dim])
+                
+            self.AABB[0] = -self.box_lengths/2
+            self.AABB[1] = self.box_lengths/2
+            self.origin[0] = self.AABB[0][0]
+            self.origin[1] = self.AABB[0][1]
+            self.origin[2] = self.AABB[0][2]
+            
+            self.area = 2*(self.box_lengths[1]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[1])
+            self.volume = self.box_lengths.prod()
+            
+            # print('Simulation box has been adapted. box_lengths = ', self.box_lengths)
+            
+            
         if triangle_ids_transparent is not None:
             self.triangle_ids_transparent = triangle_ids_transparent
         
@@ -1647,7 +1672,21 @@ class System(object):
         
             self.Mesh[tri_id]['triangle_distance'] = np.dot(self.Mesh[tri_id]['triangle_coord'][3], self.vertices[self.Mesh[tri_id]['triangles'][0]])
             
+        if self.adapt_box:
             
+            for dim in range(3):
+                self.box_lengths[dim] = np.max(self.vertices[:,dim])-np.min(self.vertices[:,dim])
+                
+            self.AABB[0] = -self.box_lengths/2
+            self.AABB[1] = self.box_lengths/2
+            self.origin[0] = self.AABB[0][0]
+            self.origin[1] = self.AABB[0][1]
+            self.origin[2] = self.AABB[0][2]
+            
+            self.area = 2*(self.box_lengths[1]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[2] + self.box_lengths[0]*self.box_lengths[1])
+            self.volume = self.box_lengths.prod()
+            
+            # print('Simulation box has been updated. box_lengths = ', self.box_lengths)
 
     def add_edges(self):
         
@@ -1920,7 +1959,7 @@ class System(object):
             if product_types is not None:
                 
                 products_ids = np.empty(1, dtype = np.int64)
-                products_ids[0] = self.particle_types[str(product_types[0])][0]['id']
+                products_ids[0] = self.molecule_types[str(product_types[0])].type_id
                 
                 self.Reactions_Dict[self.um_reaction_id[educt_id]].add_path(self, reaction_type, rate, products_ids)
             
@@ -2244,7 +2283,7 @@ class System(object):
 #%%
 
 
-    def add_bm_reaction(self, reaction_type, educt_types, product_types, particle_pairs, pair_rates, pair_Radii):
+    def add_bm_reaction(self, reaction_type, educt_types, product_types, particle_pairs, pair_rates, pair_Radii, placement_factor = 0.5):
 
         """Registeres a Bi-Molecular (BM) reaction for an educt molecule.
         
@@ -2343,7 +2382,7 @@ class System(object):
                 products_ids = np.empty(1, dtype = np.int64)
                 products_ids[0] = self.molecule_types[str(product_types[0])].type_id
                 
-                self.Reactions_Dict[current_reaction_id].add_path(self, reaction_type, rate, products_ids)
+                self.Reactions_Dict[current_reaction_id].add_path(self, reaction_type, rate, products_ids, placement_factor = placement_factor)
                 
             if  reaction_type == 'enzymatic_mol':
             
