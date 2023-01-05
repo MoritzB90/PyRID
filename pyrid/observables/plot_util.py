@@ -1702,7 +1702,7 @@ def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None
     
 #%%
 
-def plot_potential(Simulation, Potentials, yU_limits, yF_limits, r_limits = None, show = True, save_fig = False):
+def plot_potential(Simulation, Potentials, yU_limits = None, yF_limits = None, r_limits = None, show = True, save_fig = False):
     
     """A brief description of what the function (method in case of classes) is and what it’s used for
     
@@ -1754,7 +1754,8 @@ def plot_potential(Simulation, Potentials, yU_limits, yF_limits, r_limits = None
         plt.plot(r, F, label = pot.name.replace('_', ' '))
     
     plt.figure('figU')
-    plt.ylim(yU_limits[0],yU_limits[1])
+    if yU_limits is not None:
+        plt.ylim(yU_limits[0],yU_limits[1])
     plt.axhline(0, color= 'k', linewidth = 1, linestyle = '--')
     plt.xlabel('r in {}'.format(Simulation.units['Length']))
     plt.ylabel('U in {}'.format(Simulation.units['Energy']))
@@ -1767,7 +1768,8 @@ def plot_potential(Simulation, Potentials, yU_limits, yF_limits, r_limits = None
         plt.savefig(fig_path / (fig_name+'_potential_energy.png'), bbox_inches="tight", dpi = 300)
     
     plt.figure('figF')
-    plt.ylim(yF_limits[0],yF_limits[1])
+    if yF_limits is not None:
+        plt.ylim(yF_limits[0],yF_limits[1])
     plt.axhline(0, color= 'k', linewidth = 1, linestyle = '--')
     plt.xlabel('r in {}'.format(Simulation.units['Length']))
     plt.ylabel('F in {}'.format(Simulation.units['Force']))

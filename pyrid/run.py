@@ -135,7 +135,8 @@ class Simulation(object):
     
     def __init__(self, box_lengths = np.array([50.0,50.0,50.0]), dt = 0.1, Temp = 293.15, eta = 1e-21, stride = 100, write_trajectory = True, file_path = 'Files/', file_name = 'PyRID', fig_path = 'Figures/', boundary_condition = 'periodic', nsteps = 10000, sim_time = None, wall_force = 100.0, seed = None, length_unit = 'nanometer', time_unit = 'ns', cells_per_dim = None, max_cells_per_dim = 50) :
                       
-            
+        # print('Initialized simulation.')
+        
         np.set_printoptions(precision=np.finfo(np.float64).precision*2)
         
         box_lengths = np.array(box_lengths)
@@ -1239,7 +1240,7 @@ class Simulation(object):
             # Update HGrid
             # ------------------------------------------
             
-            if len(self.HGrid[0]['ls'])<=self.System.Np:
+            if len(self.HGrid[0]['ls'])<=self.System.Np or len(self.HGrid[0]['head'])<np.sum(self.HGrid[0]['NCells']):
             
                 self.HGrid = hu.create_hgrid(self.Particles, self.System.particle_types, self.System.box_lengths, self.System.Np, self.System)
                 
@@ -1328,5 +1329,23 @@ class Simulation(object):
         
         if self.Observer is not None:
             self.hdf.close() 
+           
+        #%%
+        
+        box_lengths = self.System.box_lengths
+            
+        self.particles_left_box = []
+        for i0 in range(self.Particles.occupied.n):
+            i = self.Particles.occupied[i0]
+            
+            pos_i = self.Particles[i]['pos']
+
+            within_box = -box_lengths[0]/2<=pos_i[0]<box_lengths[0]/2 and -box_lengths[1]/2<=pos_i[1]<box_lengths[1]/2 and -box_lengths[2]/2<=pos_i[2]<box_lengths[2]/2
+        
+            if within_box == False:
+                self.particles_left_box.append(i)
+                
+        if len(self.particles_left_box)>0:
+            warnings.warn('Warning: Molecules have left the simulation box! You may want to choose a smaller time step and/or check the initial distribution of molecules (avoid molecules that overlap while also repelling each other). To check which particles have left the simualtion box call Simulation.particles_left_box')
         
     

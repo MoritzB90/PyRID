@@ -180,7 +180,7 @@ Simulation.add_bp_reaction('bind', ['Patch_1', 'Patch_1'], ['Patch_1', 'Patch_1'
 
 #%%
 
-prd.plot.plot_potential(Simulation, [(prd.potentials.CSW, np.array([rw, eps_csw, alpha])), (prd.potentials.PHS, np.array([sigma, EpsR, lr, la]))], yU_limits = [-60,430], yF_limits = [-1.7e5,5e5], r_limits = [0,0.006])
+prd.plot.plot_potential(Simulation, [(prd.potentials.CSW, np.array([rw, eps_csw, alpha])), (prd.potentials.PHS, np.array([sigma, EpsR, lr, la]))], yU_limits = [-20,40], yF_limits = [-2e2,4e2], r_limits = [0,6], save_fig = True)
 
 #%%
 

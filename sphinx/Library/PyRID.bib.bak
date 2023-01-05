@@ -1336,4 +1336,70 @@
   publisher = {{EMBO}},
 }
 
+@Article{Yogurtcu2015,
+  author    = {Osman N. Yogurtcu and Margaret E. Johnson},
+  journal   = {The Journal of Chemical Physics},
+  title     = {Theory of bi-molecular association dynamics in 2D for accurate model and experimental parameterization of binding rates},
+  year      = {2015},
+  month     = {aug},
+  number    = {8},
+  pages     = {084117},
+  volume    = {143},
+  doi       = {10.1063/1.4929390},
+  publisher = {{AIP} Publishing},
+}
+
+@Article{Andrews2016,
+  author    = {Steven S Andrews},
+  journal   = {Bioinformatics},
+  title     = {Smoldyn: particle-based simulation with rule-based modeling, improved molecular interaction and a library interface},
+  year      = {2016},
+  month     = {dec},
+  number    = {5},
+  pages     = {710--717},
+  volume    = {33},
+  doi       = {10.1093/bioinformatics/btw700},
+  editor    = {Jonathan Wren},
+  publisher = {Oxford University Press ({OUP})},
+}
+
+@Article{Varga2020,
+  author    = {Matthew J. Varga and Yiben Fu and Spencer Loggia and Osman N. Yogurtcu and Margaret E. Johnson},
+  journal   = {Biophysical Journal},
+  title     = {{NERDSS}: A Nonequilibrium Simulator for Multibody Self-Assembly at the Cellular Scale},
+  year      = {2020},
+  month     = {jun},
+  number    = {12},
+  pages     = {3026--3040},
+  volume    = {118},
+  doi       = {10.1016/j.bpj.2020.05.002},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{Noe2020,
+  author    = {Frank No{\'{e}} and Alexandre Tkatchenko and Klaus-Robert Müller and Cecilia Clementi},
+  journal   = {Annual Review of Physical Chemistry},
+  title     = {Machine Learning for Molecular Simulation},
+  year      = {2020},
+  month     = {apr},
+  number    = {1},
+  pages     = {361--390},
+  volume    = {71},
+  doi       = {10.1146/annurev-physchem-042018-052331},
+  publisher = {Annual Reviews},
+}
+
+@Article{Hamilton1844,
+  author    = {William Rowan Hamilton},
+  journal   = {The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science},
+  title     = {{II}. $\less$i$\greater$On quaternions$\mathsemicolon$ or on a new system of imaginaries in algebra$\less$/i$\greater$},
+  year      = {1844},
+  month     = {jul},
+  number    = {163},
+  pages     = {10--13},
+  volume    = {25},
+  doi       = {10.1080/14786444408644923},
+  publisher = {Informa {UK} Limited},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

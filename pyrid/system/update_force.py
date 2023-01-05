@@ -186,30 +186,32 @@ def update_force_append_reactions(Particles, System, RBs, HGrid):
         mtype_idx_i = RBs[mol_idx_i]['type_id']
         mpos_i = RBs[mol_idx_i]['pos']
         
-        within_box = True
-        if System.boundary_condition_id == 1:
-            # Check if particle is within box volume:
-            within_box = -box_lengths[0]/2<=pos_i[0]<box_lengths[0]/2 and -box_lengths[1]/2<=pos_i[1]<box_lengths[1]/2 and -box_lengths[2]/2<=pos_i[2]<box_lengths[2]/2
-            
-        #Only add the particle to the linked cell list if there is actually any pair-interaction or bimol-reaction defined for this partricle type:
-        if System.pair_interaction[ptype_idx_i]:
+        # within_box = True
+        # if System.boundary_condition_id == 1:
+        # Check if particle is within box volume:
+        within_box = -box_lengths[0]/2<=pos_i[0]<box_lengths[0]/2 and -box_lengths[1]/2<=pos_i[1]<box_lengths[1]/2 and -box_lengths[2]/2<=pos_i[2]<box_lengths[2]/2
         
-            h = Particles[i]['h']
-            h_start = HGrid[0]['head_start'][h]
-            cells_per_dim_prim = HGrid[0]['cells_per_dim'][h]
+        if within_box:
             
-            # Determine what cell, in each direction, the i-th particle is in
-            cx = int((pos_i[0]+box_lengths[0]/2) / HGrid[0]['sh'][h][0])
-            cy = int((pos_i[1]+box_lengths[1]/2) / HGrid[0]['sh'][h][1])
-            cz = int((pos_i[2]+box_lengths[2]/2) / HGrid[0]['sh'][h][2])
+            #Only add the particle to the linked cell list if there is actually any pair-interaction or bimol-reaction defined for this partricle type:
+            if System.pair_interaction[ptype_idx_i]:
             
-            # within_box = True
+                h = Particles[i]['h']
+                h_start = HGrid[0]['head_start'][h]
+                cells_per_dim_prim = HGrid[0]['cells_per_dim'][h]
+                
+                # Determine what cell, in each direction, the i-th particle is in
+                cx = int((pos_i[0]+box_lengths[0]/2) / HGrid[0]['sh'][h][0])
+                cy = int((pos_i[1]+box_lengths[1]/2) / HGrid[0]['sh'][h][1])
+                cz = int((pos_i[2]+box_lengths[2]/2) / HGrid[0]['sh'][h][2])
+                
+                # within_box = True
+                
+                # if System.boundary_condition_id == 1:
+                #     # Check if particle is within box volume:
+                #     within_box = 0<=cx<cells_per_dim_prim[0] and 0<=cy<cells_per_dim_prim[1] and 0<=cz<cells_per_dim_prim[2]
             
-            # if System.boundary_condition_id == 1:
-            #     # Check if particle is within box volume:
-            #     within_box = 0<=cx<cells_per_dim_prim[0] and 0<=cy<cells_per_dim_prim[1] and 0<=cz<cells_per_dim_prim[2]
-            
-            if within_box:
+            # if within_box:
                 
                 c = cx + cy * cells_per_dim_prim[0] + cz * cells_per_dim_prim[0] * cells_per_dim_prim[1]
                 # List of particle indices occupying a given cell
@@ -595,10 +597,13 @@ def update_force_append_reactions(Particles, System, RBs, HGrid):
             cy_start, cy_end = cy - 1, cy + 2
             cx_start, cx_end = cx - 1, cx + 2
             
-            within_box = True
+            # within_box = True
+            # Check if particle is within box volume:
+            within_box = 0<=cx<cells_per_dim_prim[0] and 0<=cy<cells_per_dim_prim[1] and 0<=cz<cells_per_dim_prim[2]
+                
             if System.boundary_condition_id != 0:
-                # Check if particle is within box volume:
-                within_box = 0<=cx<cells_per_dim_prim[0] and 0<=cy<cells_per_dim_prim[1] and 0<=cz<cells_per_dim_prim[2]
+                # # Check if particle is within box volume:
+                # within_box = 0<=cx<cells_per_dim_prim[0] and 0<=cy<cells_per_dim_prim[1] and 0<=cz<cells_per_dim_prim[2]
                 
                 if cz_start < 0:
                     cz_start = 0 
