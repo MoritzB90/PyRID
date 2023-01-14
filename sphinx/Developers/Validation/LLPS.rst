@@ -387,6 +387,6 @@ Figure :ref:`fig:Phase-diagram_Esp` shows the phase diagrams for 3,4, and 5 site
     
     **Phase diagram.**
 
-.. figure:: Figures/LLPS_Tetrahedral.png
+.. figure:: Figures/LLPS_5_sites.png
     :width: 50%
     :name: fig:LLPS_Tetrahedral

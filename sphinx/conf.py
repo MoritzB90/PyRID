@@ -31,7 +31,7 @@ release = '15.06.2022'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'numpydoc', 'sphinxcontrib.bibtex']#, 'sphinx.ext.imgmath']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'numpydoc', 'sphinxcontrib.bibtex', 'sphinx_design']#, 'sphinx.ext.imgmath']
 
 #imgmath_image_format = 'svg'
 
@@ -115,3 +115,5 @@ html_logo = "_static/PyRID_Logo_Render2_cropped.png"
 def setup(app):
     app.add_css_file('my_theme.css')
 
+
+exclude_patterns = ['Developers/Theory/exclude/*', 'Developers/Theory_old/*']
