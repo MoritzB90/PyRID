@@ -319,7 +319,7 @@ accurately represent the rotation, we need to ensure that it keeps its
 unit length. However, due to the finite time step in simulations, the
 quaternion will diverge from unit length over time. Thus, it is
 necessary to frequently re-normalize the quaternion.
-:cite:p:`Ilie2015` point out that re-normalization will
+:cite:t:`Ilie2015` point out that re-normalization will
 introduce a bias by changing the sampled phase space distribution.
 Thereby, it is more appropriate to introduce a constraint force using
 the method of undetermined Lagrange multipliers as is used in molecular
@@ -362,7 +362,7 @@ proteins, the diffusion tensor is unknown. Therefore, it would often be
 more convenient to calculate the diffusion tensor directly from the
 coarse-grained representation of a molecule in terms of the rigid bead
 model. Pioneering work in this direction has been done by
-:cite:p:`Bloomfield1967` and :cite:p:`Torre1977`.
+:cite:t:`Bloomfield1967` and :cite:t:`Torre1977`.
 In the following I will only present the main results that are needed
 for the calculation of the rigid bead model diffusion tensor. For the
 interested reader, a more in depth introduction can be found in
@@ -728,7 +728,7 @@ overlaps with faces as valid contacts but not edges or vertices. If
 element is used to calculate the repulsive force, which in this case is
 either an edge or a vertex. To calculate the distance between the bead
 and a triangle, PyRID uses the "Point to Triangle" algorithm by
-:cite:p:`Eberly2001`.
+:cite:t:`Eberly2001`.
 
 Ray tracing
 ^^^^^^^^^^^
@@ -746,7 +746,7 @@ mesh) are resolved via reflection.
 
 where :math:`\hat{\boldsymbol{n}}` is the normal vector of the triangle
 face. Collision tests are done using the "Fast Voxel Traversal Algorithm
-for Ray Tracing" introduced by :cite:p:`Amanatides87`.
+for Ray Tracing" introduced by :cite:t:`Amanatides87`.
 
 Surface molecules
 ~~~~~~~~~~~~~~~~~
@@ -1298,7 +1298,7 @@ Bi-molecular reactions cannot be evaluated the same way as uni-molecular
 reactions since we cannot sample from the corresponding probability
 space as we have done for the uni-molecular reactions, because we do not
 know when two molecules meet in advance. Here, we use a reaction scheme
-introduced by :cite:p:`Doi1976`, which is also used in the
+introduced by :cite:t:`Doi1976`, which is also used in the
 Brownian dynamics simulation tool ReaDDy
 :cite:p:`Schoeneberg2013, Hoffmann2019`. In this scheme, two
 molecules can only react if the inter-molecular distance
@@ -1698,7 +1698,7 @@ Surface molecules
 
 The distribution of molecules on the surface of a mesh compartment is a
 little more involved. Here, we utilize an algorithm introduced by
-:cite:p:`Corsini2012`:
+:cite:t:`Corsini2012`:
 
 #. Generate a sample pool S by uniformly distributing points on the mesh
    surface.
@@ -1995,7 +1995,7 @@ particle j. If the radii are equal, we only do the calculation if index
 i is smaller than index j.
 
 A much better approach has been introduced by
-:cite:p:`Ogarko2012` that makes use of a so called
+:cite:t:`Ogarko2012` that makes use of a so called
 hierarchical grid. This approach is the one I use in PyRID. In the
 hierarchical grid approach, each particle is assigned to a different
 cell grid depending on its cutoff radius, i.e. the grid consists of

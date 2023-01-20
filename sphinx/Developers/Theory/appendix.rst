@@ -48,7 +48,7 @@ Oseen tensor. The mobility :math:`\boldsymbol{\mu}` is defined as the
 ratio of a particle‘s drift velocity and the applied force; thereby, the
 Oseen tensor represents an approximation for the hydrodynamic
 interaction part of the mobility matrix.
-:cite:p:`Bloomfield1967` first introduced a formulation of
+:cite:t:`Bloomfield1967` first introduced a formulation of
 the translational mobility tensor for a system of multiple dispersed
 beads using the Oseen tensor to describe the hydrodynamic interaction
 between the beads, and by assigning each bead its friction coefficient
@@ -66,9 +66,9 @@ Here, the first term is just the mobility coefficient of a single
 particle with radius :math:`\sigma_i` in the absence of any other beads.
 The second term is the Oseen tensor. However, since the Oseen tensor
 only considers the distance between the bead centers but neglects their
-finite radius :math:`\sigma_i` :cite:p:`Torre1977`
+finite radius :math:`\sigma_i` :cite:t:`Torre1977`
 established a correction to the Oseen tensor for nonidentical spheres
-(also see :cite:p:`Torre2007`):
+(also see :cite:t:`Torre2007`):
 
 .. math::
    :label: modified_Oseen_appdx

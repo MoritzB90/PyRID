@@ -214,6 +214,11 @@ class Reaction(DenseArrayReact):
             In case of a surface moelcule having a volume moelcule product indicates whether the product is to be released into the simulation box volume (0) or the mesh compartment (1). Default = None
         radius : `float64`
             Reaction radius in case of a bimolecular/biparticle reaction. Default = None
+        placement_factor : `float64` [0,1]
+            Only for fusion reactions: Affects where between the educt molecules the product molecule is placed. A factor of 0.5 means in the middle. 
+            A smaller factor will shift the product towards the first educt, a larger value towards the second educt molecule. 
+            A value different from 0.5 may increase accuracy in the case of a strong size difference between the two educts (a strong difference in the diffusion tensors). 
+            Default = 0.5
             
         Raises
         ------

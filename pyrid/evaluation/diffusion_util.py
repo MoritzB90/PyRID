@@ -22,24 +22,19 @@ plt.rcParams.update({'font.size': 14})
 @nb.njit
 def calc_MSD_population(time_steps,position):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the Mean Squared Distance (MSD) from the position data (one dimension x, y or z) of a molecule population. 
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
+    time_steps : `int64[:]`
+        Time steps.
+    position : `float64[t,N]`
+        Position vectors for t timesteps of a molecule population of size N (one dimension x, y or z).
     
     Returns
     -------
-    dtype
-        Some information
+    `list`
+        MSD in one dimension (x, y or z).
     
     """
     
@@ -62,24 +57,25 @@ def calc_MSD_population(time_steps,position):
 
 def MSD(position_trace, Delta_t, time_interval, stride, molecule):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the MSD for each dimension (x,y, and z) of a molecule population.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
+    position_trace : `float64[t,N,3]`
+        Position data for a molecule population of size N at t different time steps.
+    Delta_t : `int64`
+        Time step.
+    time_interaval : `int64`
+        The time step until which the molecule positions are sampled for the MSD calculation. Note: Currently sampling always starts at time step 0.
+    stride : `int64`
+        Stride with which the molecule positions are sampled.
+    molecule : `string`
+        Name of the molecule type.
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(list(float64[:],float64[:],float64[:]), float64[:])
+        MSD in each dimension and the corresponding time vector.
     
     """
 
@@ -106,24 +102,20 @@ def MSD(position_trace, Delta_t, time_interval, stride, molecule):
 @nb.njit
 def calcP2_anisotropic(time_steps,orientation_trace):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the rotational time correlation function P2 regarding one rotation axis from the orientations of a molecule population.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    time_steps : `int64[:]`
+        Time steps.
+    orientation_trace : `float64[t,N]`
+        Orientations regarding one axis of a molecule population of size N at t different time steps.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
+
     Returns
     -------
-    dtype
-        Some information
+    `float64[:]`
+        P2 regarding one rotation axis.
     
     """
     
@@ -150,24 +142,18 @@ def calcP2_anisotropic(time_steps,orientation_trace):
 @nb.njit
 def calc_orientation_quat(q):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the rotation matrix from a rotation / orientation quaternion.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    q : `float64[4]`
+        Rotation quaternion.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    `float64[3,3]`
+        Rotation / Orientation matrix.
     
     """
         
@@ -192,24 +178,22 @@ def calc_orientation_quat(q):
 @nb.njit
 def calcP2_anisotropic_Population(time_interval, stride, orientation_trace):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the rotational time correlation function P2 around each of the three rotation axis of a molecule population.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    time_interaval : `int64`
+        Target time step. Note: Currently sampling always starts at time step 0.
+    stride : `int64`
+        Stride with which the molecule orientations are sampled.
+    orientation_trace : `float64[t,N,4]`
+        Orientations (in quaternion representation) of a molecule population of size N at t different time steps.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(float64[:], float64[:], float64[:])
+        P2 for each rotation axis.
     
     """
     
@@ -252,24 +236,24 @@ def calcP2_anisotropic_Population(time_interval, stride, orientation_trace):
 
 def calc_A_B(u, Drot, D_rr, Delta):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the parameters A (F) and B (G) used in the theoretical prediction of the rotational time correlation function P2.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    u : `float64[3]`
+        Basis vector.
+    Drot : `float64`
+        Rotational diffusion constant.
+    D_rr : `float64[3,3]`
+        Rotational diffusion tensor.
+    Delta : `float64`
+        Delta.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(float64, float64)
+        A (F) and B (G).
     
     """
     
@@ -288,24 +272,22 @@ def calc_A_B(u, Drot, D_rr, Delta):
 
 def calc_P_theory(t, u, D_rr):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Theoretical prediction of the rotational time correlation function P2.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    t : `float64[:]`
+        Time vector
+    u : `float64[3]`
+        Basis vector
+    D_rr : `float64[3,3]`
+        Rotational diffusion tensor.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    float64[:]
+        P2 (Theory)
     
     """
     
@@ -350,24 +332,33 @@ def calc_P_theory(t, u, D_rr):
 
 def P2(orientation_trace, Delta_t, D_rr, time_interval, stride, Simulation, molecule, theory_only = False):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the rotational time correlation function P2 from the orientation traces of a molecule population 
+    as well as the corresponding theoretical prediction for validation purposes.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    orientation_trace : `float64[t,N,4]`
+        Orientations (in quaternion representation) of a molecule population of size N at t different time steps.
+    Delta_t : `float64`
+        Time step.
+    D_rr : `float64[:,:]`
+        Rotational diffusion tensor.
+    time_interaval : `int64`
+        Target time step. Note: Currently sampling always starts at time step 0.
+    stride : `int64`
+        Stride with which the molecule orientations are sampled.
+    Simulation : `object`
+        Instance of the Simulation class.
+    molecule : `string`
+        Molecule type
+    theory_only : `boolean`
+        If True, only the theoretical prediction of P2 is returned. Default = False.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(list(float64[:], float64[:], float64[:]), list(float64[:], float64[:], float64[:]), float64[:])
+        P2 (Simulation), P2 (Theory), time vector
     
     """
     

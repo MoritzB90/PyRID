@@ -18,24 +18,24 @@ from scipy.optimize import curve_fit
 
 def center_profile(Histograms0, box_lengths, axes,cells_axes):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Centers the molecule density profile.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
+    Histogram0 : `float64[:]`
+        Density profile.
+    box_lengths : `float64[3]`
+        Simulation box lengths
+    axes : 0, 1 or 2
+        Coordinate axis corresponding to the density profile (axis along which the profile has been sampled).
+    cells_axes : `int64`
+        Number of cells / bins along the chosen axis.
+
     
     Returns
     -------
-    dtype
-        Some information
+    float64
+        Value by which to shift the density profile such that it is centered.
     
     """
     
@@ -48,24 +48,28 @@ def center_profile(Histograms0, box_lengths, axes,cells_axes):
 
 def calc_profile(path, moltype, box_lengths, axes, cells_axes, section):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the density profile of a molecule population along a given coordinate axis.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    path : `string`
+        directory of the hdf5 file.
+    moltype : `string`
+        Molecule type
+    box_lengths : `float64[3]`
+        Simulation box lengths
+    axes : 0, 1 or 2
+        Coordinate axis along which to calculate the density profile.
+    cells_axes : `int64`
+        Number of cells /  bins by which to divide the simulation box along the chosen axis.
+    section : `int64[2]`
+        Time interval (section) over which the density profile is averaged.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    float64[:]
+        Density profile / histogram
     
     """
         
@@ -121,24 +125,20 @@ def calc_profile(path, moltype, box_lengths, axes, cells_axes, section):
 
 def calc_phase_diagram(Histograms, cutoff):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the phase diagram from a given density profile by identifying the dense and the dilute phase.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Histogram : `float64[:]`
+        Density profile.
+    cutoff : `float64`
+        Fraction of the maximum density at which to distinguish between dilute and dense phase.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(float64, float64)
+        Volume fractions of the dense and the dilute phase.
     
     """
     
@@ -162,24 +162,26 @@ def calc_phase_diagram(Histograms, cutoff):
 
 def density_hyperbolic_tangent(z,z0,d, dense, dilute):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """The hyperbolic tangent function can be used to fit the density profile.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    z : `float64[:]`
+        Location / Distance values along z-axis.
+    z0 : `float64`
+        Location shift.
+    d : `float64`
+        fitting parameter
+    dense: `float64`
+        Volume fraction dense phase.
+    dilute : `float64`
+        Volume fraction dilute phase.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    float64[:]
+        Fit of the density profile.
     
     """
     
@@ -197,30 +199,25 @@ def density_hyperbolic_tangent(z,z0,d, dense, dilute):
 
 def critical_Temp(eps_csw, d, eps_c, x):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Equation to estimate the critical temperature (inverse interaction strength). critical_Temp() is called by critical_point_fit() for fitting. Based on: Silmore 2017, "Vapour–liquid phase equilibrium and surface tension of fully flexible Lennard–Jones chains"
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    eps_csw : `float64`
+        Interaction energy constant
+    d : `float64`
+        fitting parameter
+    eps_c : `float64`
+        Critical interaction energy constant of the highest-valency molecule (interaction energy at the critical point where the two phase regime ends).
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    float64
+        Critical temperature (inverse interaction strength)
     
     """
     
-    '''
-    Based on: Silmore 2017, "Vapour–liquid phase equilibrium and surface tension of fully flexible Lennard–Jones chains"
-    '''
     
     # kbt = 2.4
     # return d*(1-(kbt/eps_csw)/Tc)
@@ -230,30 +227,25 @@ def critical_Temp(eps_csw, d, eps_c, x):
 
 def critical_Density(eps_csw, s2, phi_c):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Equation to estimate the critical density / volume fraction. critical_Density() is called by critical_point_fit() for fitting. Based on: Silmore 2017, "Vapour–liquid phase equilibrium and surface tension of fully flexible Lennard–Jones chains"
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
+    eps_csw : `float64`
+        Interaction energy constant
+    s2 : `float64`
+        fitting parameter
+    phi_c : `float64`
+        Volume fraction of the condensed (dense) phase.
+
     
     Returns
     -------
-    dtype
-        Some information
+    float64
+        Critical density.
     
     """
     
-    '''
-    Based on: Silmore 2017, "Vapour–liquid phase equilibrium and surface tension of fully flexible Lennard–Jones chains"
-    '''
     
     # kbt = 2.4
     # return d*(1-(kbt/eps_csw)/Tc)
@@ -263,24 +255,22 @@ def critical_Density(eps_csw, s2, phi_c):
 
 def critical_point_fit(pp_strength, dense, dilute):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Estimates the critical temperature (inverse interaction strength) and density / volume fraction from a selection of phase diagram points.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    pp_strength : `float64[:]`
+        List of particle-particle interaction strengths.
+    dense : `float64[:]`
+        Volume fractions of the dense phase (condensate) corresponding to particle-particle interaction strengths kept in pp_strength.
+    dilute : `float64[:]`
+        Volume fractions of the dilute phase corresponding to particle-particle interaction strengths kept in pp_strength.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(float64, float64)
+        Estimates for the critical temperature (inverse interaction strength) and the critical density (volume fraction).
     
     """
     

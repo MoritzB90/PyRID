@@ -100,10 +100,10 @@ problem for small interacting molecules or atoms, where the time step
 needs to be chosen small enough to resolve the interactions but large
 enough for the the approximation of over-damped kinetics. Thereby, if
 the molecules are of similar size as the solvent molecules, BD may not
-correctly describe the dynamics. :cite:p:`Winter2009`
+correctly describe the dynamics. :cite:t:`Winter2009`
 introduced a Langevin integration scheme that enables the accurate
 simulation of small molecules. Here, we will however use the well
-established BD scheme introduced by :cite:p:`Ermak1978`.
+established BD scheme introduced by :cite:t:`Ermak1978`.
 Another thing to keep in mind is that BD is only applicable for
 Newtonian fluids. Also, since the details of the interaction between
 solvent particles and bead particles are neglected, simulations of

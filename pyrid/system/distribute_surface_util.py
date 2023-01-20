@@ -623,6 +623,28 @@ def pds(Compartment, System, mol_types, number, facegroup = None, multiplier = 5
 @nb.njit
 def mc(System, Compartment, mol_types, N, face_group = None):
 
+    """Does Monte Carlo sampling for N molecules on the surface of a triangulated mesh compartment returning vectors for the molecule positions, types and orientations 
+    and triangle indices.
+    
+    Parameters
+    ----------
+    Compartment : `object`
+        Instance of Compartment class
+    mol_types : `list of strings`
+        List of molecule types to distribute.
+    N : `int64[:]`
+        Total number of molecules to distribute per molecule type.
+    face_group : `string`
+        Name of the face group on whose triangles to distribute the molecules.
+    
+    
+    Returns
+    -------
+    tuple(float64[:,3], int64[:], float64[:,4], int64[:])
+        molecule positions, molecule types, molecule orientations in quaternion representation
+    
+    """
+
     N_total = np.sum(N)
     
     mol_type_ids = np.empty(len(mol_types), dtype = np.int64)

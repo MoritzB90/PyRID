@@ -17,11 +17,11 @@ from ..evaluation.rdf_util import create_rb_hgrid, radial_distr_function
 class Observables(object):
     
     """
-    A brief summary of the classes purpose and behavior
+    The Observables class keeps track of all the observables and writes these to an hdf5 file.
     
     Attributes
     ----------
-    attribute_1 : dtype
+    binned : `dict`
         Some Information
     attribute_2 : dtype
         Some Information

@@ -379,7 +379,7 @@ After we have set up our bash scripts, let us write our actual PyRID python scri
 	Evaluation.plot_observable('Volume', save_fig = True)
 
 
-Figure :ref:`fig:Phase-diagram_Esp` shows the phase diagrams for 3,4, and 5 sites of interactions and compares the result with those from :cite:p:`Espinosa2020`. The analysis of the data is not discussed here for now, however, you can have a look at :cite:p:`Espinosa2020`.
+Figure :ref:`fig:Phase-diagram_Esp` shows the phase diagrams for 3,4, and 5 sites of interactions and compares the result with those from :cite:p:`Espinosa2020`. The analysis of the data is not discussed here for now, however, the interested reader is referred to :cite:p:`Espinosa2020` and :func:`pyrid.evaluation.direct_coexistence_method_util`.
 
 .. figure:: Figures/Phase-diagram_Esp.png
     :width: 30%

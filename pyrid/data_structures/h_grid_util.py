@@ -9,24 +9,15 @@ import numba as nb
 @nb.njit
 def update_particle_level(Particles, particle_types):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Updates /sets the hierarchical grid level of all particles in the simulation according to the respective particle type.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Particles : `object`
+        Instance of the Particles class
+    particle_types : `nb.types.DictType`
+        Numba dictionary containing the names of all particle types and their properties, such as radius and hierarchical grid level.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -43,24 +34,21 @@ def update_particle_level(Particles, particle_types):
 @nb.njit
 def update_hgrid(HGrid, box_lengths, N, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Updates the hierarchical grid. This function is only called when the Berendsen barostat is used as in this case the simulation box size is changing. 
+    This necessitates an update of certain grid parameters such as cell size and number.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    HGrid : `array like`
+        Numpy structures array that is the hierarchical grid. The structured array contains several fields defined by the np.dtype: 
+        `np.dtype([('L', np.int64, (N_Levels,)), ('sh', np.float64, (N_Levels,3)), ('head', np.int64, (np.sum(NCells)*2,)), ('head_start', np.int64, (N_Levels,)), ('ls', np.int64, (2*N+1,)), ('NCells', np.int64, (N_Levels,)), ('cells_per_dim', np.int64, (N_Levels,3)), ('cutoff', np.float64, (N_Levels,))],  align=True)`
+    box_lengths : `floa64[3]`
+        Length of the simulation box in each dimension.
+    N : `int64`
+        Total number of particles in the simulation.
+    System : `object`
+        Instance of the System class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -96,24 +84,49 @@ def update_hgrid(HGrid, box_lengths, N, System):
     
 def create_hgrid(Particles, particle_types, box_lengths, N, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Creates a hierarchical grid.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Particles : `object`
+        Instance of the Particles class
+    particle_types : `nb.types.DictType`
+        Numba dictionary containing the names of all particle types and their properties, such as radius and hierarchical grid level.
+    box_lengths : `floa64[3]`
+        Length of the simulation box in each dimension.
+    N : `int64`
+        Total number of particles in the simulation.
+    System : `object`
+        Instance of the System class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
+    
+    Notes
+    -----
+    
+    *Hierarchical Grid*
+    
+    The computationally most expensive part in molecular dynamics simulations is usually the calculation of the pairwise interaction forces, beacuase to calculate these, we need to determine the distance between particles. When doing this in the most naiv way, i.e. for each particle i we iterate over all the other particles j in the system and calculate the distance, the computation time will increase quadratically with the number of partciles in the system (:math:`O(N^2)`). Even if we take into account Newtons third law, this will decrease the number of computations (:math:`O(\\frac{1}{2}N(N-1))`), but the computational complexity still is quadratic in N. 
+    A straight forward method to significantly improve the situation is the linked cell list approach :cite:p:`Allen2017` (pp.195: 5.3.2 Cell structures and linked lists) where the simulation box is divided into :math:`n \\times n \\times n` cells. The number of cells must be chosen such that the side length of the cells in each dimension :math:`s = L/n`, where :math:`L` is the simulation box length, is greater than the maximum cutoff radius for the pairwise molecular interactions (and in our case also bimolecular reactions). This will decrease the computational complexity to :math:`O(14 N \\rho s^3 )`, where :math:`\\rho` is the molecule density (assuming a mostly homogeneous distribution of molecules). Thereby, the computation time increase rather linear with :math:`N` instead of quadratically (:math:`N^2`).
+    
+    However, one problem with this method is that it does not efficiently handle polydisperse particle size distributions. This becomes a problem when doing minimal coarse graining of proteins and other structures we find in the cell such as vesicles. As mentioned above, n should be chosen such that the cell length is greater than teh maximum cutoff radius. If we would like to simulate, e.g. proteins (:math:`r \\approx 2-5 nm`) in the presence of synaptic vesicles (:math:`r \\approx 20-30 nm`), the cells become way larger than necessary from the perspective of the small proteins. 
+    
+    One way to approach this problem would be, to choose a small cell size (e.g. based on the samllest cutoff radius) and just iterate not just over the nearest neighbour cells but over as many cells such that the cutoff radius of the larger proteins/SVs is covered. This approach has has a big disadvantages: Whereas for the smaller partciles we actually reduce the number of unnecessary distance calculations, for the larger particles we don't. We can, however, still take advantage of Newton's 3rd law. For this, we only do the distance calculation if the radius of particle i is larger than the radius of particle j. If the radii are equal, we only do the calculation if index i is smaller than index j.
+    
+    A much better approach has been introduced by :cite:t:`Ogarko2012` and makes use of a so called hierarchical grid. This approach is the one we use in PyRID. In the hierarchical grid approach, each particle is assigned to a different cell grid depending on its cutoff radius, i.e. the grid consists of different levels or hierarchies, each having a different cell size. This has the downside of taking up more memory, howewer, it drastically reduces the number of distance calculations we need to do for the larger particles and also takes advantage of Newtons third law, enabling polydisiperse system simulations with almost no performance loss. The algorithm for the distance checks works as follows:
+        
+        1. Iterate over all particles
+        2. Assign each particle to a cell on their respective level in the hierarchical grid
+        3. Iterate over all particles once more
+        4. Do a distance check for the nearest neigbour cells on the level the current particle sites in. This is done using the classical linekd cell list algorithm.
+        5. Afterwards, do a cross-level search. For this, distance checks are only done on lower hierarchy levels, i.e. on levels with smaller partcile sizes than the current one. This way, we do not need to double check the same particle pair (3rd law). However, in this step, we will have to iterate over potentialy many empty cells (Note: this should, in principle, also be doable in a more efficient way).
+        
+
     
     Returns
     -------
-    dtype
-        Some information
+    array like
+        Numpy structures array that is the hierarchical grid. The structured array contains several fields defined by the np.dtype: 
+        `np.dtype([('L', np.int64, (N_Levels,)), ('sh', np.float64, (N_Levels,3)), ('head', np.int64, (np.sum(NCells)*2,)), ('head_start', np.int64, (N_Levels,)), ('ls', np.int64, (2*N+1,)), ('NCells', np.int64, (N_Levels,)), ('cells_per_dim', np.int64, (N_Levels,3)), ('cutoff', np.float64, (N_Levels,))],  align=True)`
     
     """
     

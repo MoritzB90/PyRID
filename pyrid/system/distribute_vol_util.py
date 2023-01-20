@@ -1035,6 +1035,25 @@ def poisson_disc_sampling(Compartment, System, radii, mol_type_ids, N, weights, 
 @nb.njit
 def mc(System, Compartment, mol_types, N):
 
+    """Does Monte Carlo sampling for N molecules inside a compartment returning vectors for the molecule positions, types and orientations.
+    
+    Parameters
+    ----------
+    Compartment : `object`
+        Instance of Compartment class
+    mol_types : `list of strings`
+        List of molecule types to distribute.
+    N : `int64[:]`
+        Total number of molecules to distribute per molecule type.
+    
+    
+    Returns
+    -------
+    tuple(float64[:,3], int64[:], float64[:,4])
+        molecule positions, molecule types, molecule orientations in quaternion representation
+    
+    """
+
     mol_type_ids = np.empty(len(mol_types), dtype = np.int64)
     for i, moltype in enumerate(mol_types):
         mol_type_ids[i] = System.molecule_types[str(mol_types[i])].type_id

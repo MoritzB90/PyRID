@@ -37,8 +37,21 @@ class DenseArray(object):
         
     Methods
     -------
-    method_1(arguments)
-        Some general information about this method
+    add(self, pid)
+        Adds a particle index to the array.
+    remove(self, k)
+        Removes the element with index k from the array.
+    _resize(self, new_cap)
+        Resize internal data array to a new capacity (new_cap).
+    _resize_index(self, new_cap)
+        Resize the index array to a new capacity (new_cap).
+    make_array(self, new_cap)
+        Returns a new array with capacity new_cap.
+    make_index(self, new_cap)
+        Returns a new array with capacity new_cap.
+    clear(self)
+        Clears the array by setting the number of elements in the array to 0.
+
         
     Notes
     -----
@@ -63,6 +76,16 @@ class DenseArray(object):
         
         """
         Return element at index k.
+
+        Parameters
+        ----------
+        k : `int64`
+            Index
+        
+        Returns
+        -------
+        array like
+            Data at index k
         """
         
         return self.Data[k]
@@ -71,30 +94,25 @@ class DenseArray(object):
         
         """ 
         Set value of item at index k.
+
+        Parameters
+        ----------
+        k : `int64`
+            Index
+        value : `array like`
+            Value to which the element at index k is set to.
         """
         
         self.Data[k] = value
     
     def add(self, pid):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Adds a particle index to the array.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
+        pid : `int64`
+            particle index
         
         """
         
@@ -111,29 +129,13 @@ class DenseArray(object):
         
     def remove(self, k):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Removes the element with index k from the array. Attention: k does not refer to the index of the array but the id of a specific element!
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        k : `int64`
+            Index
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
-        
-        """
-        
-        """
-        Attention: k does not refer to the index of the array but the id of a specific element!
         """
         
         # Get the id (id_swap) of the last item in the reactions list
@@ -145,29 +147,13 @@ class DenseArray(object):
 
     def _resize(self, new_cap):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Resize internal data array to a new capacity (new_cap).
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        new_cap : `int64`
+            New array capacity.
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
-        
-        """
-        
-        """
-        Resize internal array to capacity new_cap
         """
 
         Data_resized = self.make_array(new_cap) # New bigger array
@@ -180,29 +166,13 @@ class DenseArray(object):
         
     def _resize_index(self, new_cap):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Resize the index array to a new capacity (new_cap).
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
-        
-        """
-        
-        """
-        Resize internal array to capacity new_cap
+        new_cap : `int64`
+            New array capacity.
+          
         """
 
         index_new = self.make_index(new_cap) # New bigger array
@@ -215,19 +185,44 @@ class DenseArray(object):
           
     def make_array(self, new_cap):
         """
-        Returns a new array with new_cap capacity
+        Returns a new array with capacity new_cap
+
+        Parameters
+        ----------
+        new_cap : `int64`
+            New array capacity.
+        
+        Returns
+        -------
+        int64[:]
+            numpy zeros array of size new_cap.
         """
         
         return np.zeros(new_cap, dtype = np.int64)
 
     def make_index(self, new_cap):
         """
-        Returns a new array with new_cap capacity
+        Returns a new array with capacity new_cap
+
+        Parameters
+        ----------
+        new_cap : `int64`
+            New array capacity.
+        
+        Returns
+        -------
+        int64[:]
+            numpy zeros array of size new_cap.
         """
         
         return np.zeros(new_cap, dtype = np.int64)
     
     def clear(self):
+        """
+        Clears the array by setting the number of elements in the array to 0.
+
+        """
+
         self.n = 0
         
         
@@ -238,7 +233,7 @@ class DenseArray(object):
 class HolesArray(object):
     
     """
-    Implementation of a dense dynamics array.
+    Implementation of a dynamics array "with holes".
     
     Attributes
     ----------
@@ -251,11 +246,31 @@ class HolesArray(object):
     Data : `array_like`
         Structured numpy array containing a linked list, connecting the holes in the array, and containing the actual data.
         `dtype = np.dtype([('next', np.uint64),('name', 'U20'), ... , align = True)`
+    slot : `int64`
+        saves the current slot when a new item is added. 
+    item_t : `np.dtype`
+        structured array data type that contains fields for the free linked list and the actual data. dtype = np.dtype([('next', np.uint64),('name', 'U20'), ... , align = True)
+
         
     Methods
     -------
-    method_1(arguments)
-        Some general information about this method
+    len(self)
+        Returns the length of the array. The length is defined by the number of elements in the array not counting the holes.
+    iterator(self)
+        Iterates through all nonempty (no-hole) elements in the Data array. Note: This method is not supported by Numba at the time.
+    insert(self, value)
+        Inserts a new item into an empty slot (a hole) of the array or appends it if no empty slots are available.
+    add_to_occupied(self, slot)
+        Adds a slot index to the occupied indices list.
+    _append(self, value)
+        Appends an item to the end of the array. If the capacity of the array is reached, the array is resized.
+    delete(self, i)
+        Deletes an item from the array. It does so by creating a hole in the array.
+    _resize(self, new_cap)
+        Resizes the Data array to capacity new_cap.
+    make_array(self, new_cap)
+        Returns a new array with new_cap capacity.
+
         
     Notes
     -----
@@ -281,7 +296,7 @@ class HolesArray(object):
     
     def len(self):
         """
-        Return number of elements sorted in array
+        Returns the length of the array. The length is defined by the number of elements in the array not counting the holes. The actual size of the array can be accessed by the capacity attribute.
         """
         return self.n
       
@@ -296,20 +311,14 @@ class HolesArray(object):
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        k : `int64`
+            Index
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
         
         Returns
         -------
-        dtype
-            Some information
+        array like
+            Value of the structured array at index k (actually k+1)
         
         """
         
@@ -327,25 +336,15 @@ class HolesArray(object):
     def __setitem__(self, k, value):
         
         """ 
-        The k+1 element is returned, because element 0 is reserved for the head of the free list 
-        which is used to find the holes in teh array.
+        Sets the value of the array at index k+1. Index 0 is reserved for the head of the free list 
+        which is used to find the holes in the array.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
+        k : `int64`
+            Index
+        value : self.item_t
+            value to insert at index k. The data type is whatever has been set for the np.dtype of the structured array that is the Data attribute. The data type is kept by the item_t attribute.
         
         """
         
@@ -353,6 +352,11 @@ class HolesArray(object):
         
     def iterator(self):
         
+        """ 
+        Iterates through all nonempty (no-hole) elements in the Data array. Note: This method is not supported by Numba at the time.
+        
+        """
+
         i = 1
         while i<self.n:
             while self.Data[i]['next'] != i:
@@ -363,71 +367,62 @@ class HolesArray(object):
                 
         
 
-    def insert(self, ele):
+    def insert(self, value):
         
         """ 
-        Add element into an empty slot or the end of the array, if no empty slot is available
+        Inserts a new item into an empty slot (a hole) of the array or appends it if no empty slots are available. 
+        The method does so by accessing the next pointer of the head element. If the next pointer is 0, i.e. it points to the head element itself, no empty slots are available and the 
+        new item is appended to the array by calling the _append method. If the next pointer is greater zero, the new item is added at the index the next pointer points to.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        value : self.item_t
+            value to insert at index k. The data type is whatever has been set for the np.dtype of the structured array that is the Data attribute. The data type is kept by the item_t attribute.
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
         
         """
         
         
-        # ele = np.zeros(1, dtype = self.item_t)[0]
+        # value = np.zeros(1, dtype = self.item_t)[0]
         
         self.slot = self.Data[0]['next']
         self.Data[0]['next'] = self.Data[self.slot]['next']
         # If the freelist is empty, slot will be 0, because the header
         # item will point to itself.
         if self.slot>0:
-            self.Data[self.slot] = ele # Set self.slot index to element
+            self.Data[self.slot] = value # Set self.slot index to element
             self.Data[self.slot]['next'] = self.slot
  
             self.occupied.add(nb.int64(self.slot-1))
 
         else:
-            self._append(ele)
+            self._append(value)
             
             
     def add_to_occupied(self, slot):
-        self.occupied.add(nb.int64(slot))
-        
-    def _append(self, ele):
-        
-        """
-        Add element to end of the array
+        """ 
+        Adds a slot index to the occupied indices list.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        slot : `int64`
+            Slot index.
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
         
-        Returns
-        -------
-        dtype
-            Some information
+        """
+
+        self.occupied.add(nb.int64(slot))
+        
+    def _append(self, value):
+        
+        """
+        Appends an item to the end of the array. If the capacity of the array is reached, the array is resized.
+        
+        Parameters
+        ----------
+        value : self.item_t
+            value to insert at index k. The data type is whatever has been set for the np.dtype of the structured array that is the Data attribute. The data type is kept by the item_t attribute.
+        
         
         """
         
@@ -438,7 +433,7 @@ class HolesArray(object):
             # Double capacity if not enough room
             self._resize(2 * self.capacity) 
           
-        self.Data[self.slot] = ele # Set self.slot index to element
+        self.Data[self.slot] = value # Set self.slot index to element
         self.Data[self.slot]['next'] = self.slot
         self.occupied.add(self.slot-1)
         self.n += 1
@@ -447,24 +442,16 @@ class HolesArray(object):
     def delete(self, i):
         
         """
-        A brief description of what the function (method in case of classes) is and what it’s used for
+        Deletes an item from the array. It does so by creating a hole in the array. The holes are kept track of by a free linked list. 
+        A hole is created by removing the item from the list of of occupied indices and updating the free linked list:
+        The head of the free linked list now points to the deleted item and the next pointer at the index of the deleted item points to the hole where the head originally pointed to.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
+        i : `int64`
+            Index
         parameter_2 : dtype
             Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
         
         """
 
@@ -486,24 +473,13 @@ class HolesArray(object):
     def _resize(self, new_cap):
         
         """
-        Resize internal array to capacity new_cap
+        Resizes the Data array to capacity new_cap.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        new_cap : `int64`
+            Array capacity.
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
         
         """
         
@@ -516,9 +492,16 @@ class HolesArray(object):
         self.Data = B # Call A the new bigger array
         self.capacity = new_cap # Reset the capacity
           
+
     def make_array(self, new_cap):
         """
         Returns a new array with new_cap capacity
+
+        Parameters
+        ----------
+        new_cap : `int64`
+            Array capacity.
+
         """
         return np.zeros(new_cap, dtype = self.item_t)
     
@@ -541,14 +524,23 @@ spec_holes_array = [
 class HolesArrayReact(object):
     
     """
-    DYNAMIC ARRAY CLASS WITH HOLES
+    Implementation of a dynamics array "with holes" that is used for the index attribute in PyRIDs Reaction class. 
+    In the Reaction class this array keeps track of the reaction indices :func:`pyrid.reactions.reactions_registry_util.Reaction`.
     
     Attributes
     ----------
-    attribute_1 : dtype
-        Some Information
-    attribute_2 : dtype
-        Some Information
+    n : `int`
+        Count actual elements in the array.
+    capacity : `int`
+        Total capacity of the array.
+    occupied : `obj`
+        Dense array that keeps track of the occupied slots.
+    Data : `array_like`
+        Structured numpy array containing a linked list, connecting the holes in the array, and containing the actual data.
+    slot : `int64`
+        saves the current slot when a new item is added. 
+    item_t : `np.dtype`
+        structured array data type that contains fields for the free linked list and the actual data.
     
     Methods
     -------
@@ -560,6 +552,9 @@ class HolesArrayReact(object):
         Returns a new array with new_cap capacity
     clear()
         clears the array by setting the number of currently inserted elements to 0.
+
+
+
     """
     
 
@@ -573,7 +568,15 @@ class HolesArrayReact(object):
     def __getitem__(self, k):
         
         """
-        Return element at index k+1.
+        Returns element at index k+1 (element 0 is reserved for the head of the free list).
+
+        k : `int64`
+            Index
+
+        Returns
+        -------
+        array like
+            Value of the structured array at index k (actually k+1)
         """
         
         return self.Data[k+1]
@@ -581,7 +584,16 @@ class HolesArrayReact(object):
     def __setitem__(self, k, value):
         
         """ 
-        Set value of item at index k+1.
+        Sets the value of the array at index k+1. Index 0 is reserved for the head of the free list 
+        which is used to find the holes in the array.
+        
+        Parameters
+        ----------
+        k : `int64`
+            Index
+        value : self.item_t
+            value to insert at index k. The data type is whatever has been set for the np.dtype of the structured array that is the Data attribute. The data type is kept by the item_t attribute.
+        
         """
         
         self.Data[k+1] = value
@@ -589,18 +601,24 @@ class HolesArrayReact(object):
 
     def allocate_slot(self):
         
-        """Allocates a new slot by finding the next hole in the array (appends an element to the end of tze array if no empty slot/hole is available).
+        """Allocates a new slot by finding the next hole in the array. If no empty slot/hole is available the array is resized.
+
+        Notes
+        -----
+        The allocate_slot method does only allocate a new slot but does not insert a new item / value at that slots´ location. It only returns the index of that allocated slot. 
+        However, allocate_slot automatically assumes that the slot will be filled with Data after it has been called and therefore already updates 
+        the free linked list and resizes the array (in case no holes are available and the array capacity has been reached).
         
         Returns
         -------
-        int
-            Index of the next hole in the array.
+        int64
+            Index of the next available slot in the array.
         
         """
         
         # First, we assume that there exist empty slots:
         self.slot = self.Data[0]['next_hole']
-        # Since this hole is now occupied, udate the head of the holes linked list,
+        # Since this hole is now occupied, update the head of the holes linked list,
         # i.e. take the next_hole that the current hole, which is no longer a hole
         # and therefore not part of the linked list anymore, points to and set it as the head (self.Data[0]).
         # Note: if self.slot = 0, the head points to itself, so the next step does basically nothing.
@@ -734,7 +752,7 @@ value_head = nb.int64[:]
 class DenseArrayReact(object):
     
     """
-    Dynamic array
+    Implementation of a dense dynamics array that is used as a parent class for PyRIDs Reaction class :func:`pyrid.reactions.reactions_registry_util.Reaction`.
     
     Attributes
     ----------

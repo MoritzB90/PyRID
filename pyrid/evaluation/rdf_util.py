@@ -11,24 +11,15 @@ import numba as nb
 @nb.njit
 def update_rb_level(RBs, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Updates the level h of rigid bead molecules in the hierarchical grid.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    RBs : `object`
+        Instance of RBs class
+    System : `object`
+        Instance of System class
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -43,24 +34,19 @@ def update_rb_level(RBs, System):
 @nb.njit
 def update_rb_hgrid(HGrid, box_lengths, N, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Updates the hierarchical grid for the rigid bead molecules.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    HGrid : `array like`
+        Hierarchical grid
+    box_lengths : `float64[3]`
+        Simulation box lengths
+    N : `int64`
+        Number of molecules
+    System : `object`
+        Instance of System class
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -96,24 +82,28 @@ def update_rb_hgrid(HGrid, box_lengths, N, System):
     
 def create_rb_hgrid(Simulation, RBs, RB_Types, box_lengths, N, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Creates the hierarchical grid for the rigid bead molecules.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Simulation : `object`
+        Instance of the Simulation class
+    RBs : `object`
+        Instance of the RBs class
+    RB_Types : `list of strings`
+        List of molecule types.
+    box_lengths : `float64[3]`
+        Simulation box lengths   
+    N : `int64`
+        Number of molecules
+    System : `object`
+        Instance of the System class
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    array like
+        Hierarchical grid
     
     """
     
@@ -216,8 +206,25 @@ def create_rb_hgrid(Simulation, RBs, RB_Types, box_lengths, N, System):
 @nb.njit(fastmath=True)
 def radial_distr_function(System, RDF_types, RBs, HGrid, RDF_cutoff, rdf_bins, rdf_hist):
     
+    """Samples the radial distribution function from the positions of a molecule population.
     
-    """
+    Parameters
+    ----------
+    System : `object`
+        Instance of the System class
+    RB_Types : `list of strings`
+        List of molecule types.
+    RBs : `object`
+        Instance of the RBs class
+    HGrid : `array like`
+        Hierarchical grid
+    RDF_cutoff : `float64`
+        Cutoff distance for the rdf sampling.
+    rdf_bins : `int64`
+        Number of bins (resolution).
+    rdf_hist : `float64[:]`
+        Empty array of length rdf_bins.
+
     
     """
     

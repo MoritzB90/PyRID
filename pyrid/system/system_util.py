@@ -493,6 +493,8 @@ class MoleculeType(object):
         concentration of molecule on surface of each compartment outside simulation box (Needed for simulation with fixed concentration boundary)
     l_perp : `float64`
         Mean diffusive displacement of molecule perpendicular to a plane.
+    h_membrane : `float64`
+        Distance of the molecules´ center of diffusion from the membrane surface.
     
     
     
@@ -904,6 +906,8 @@ class System(object):
         Calculates properties of the system cell grid.
     add_barostat_berendsen(Tau_P, P0, start)
         Adds a berendsen barostat to the system.
+    update_rb_barostat(self, RBs, Particles)
+        Updates the rigid bead molecule positions according to the scaling factor :math:`\\mu` of the Berendsen barostat.
     register_molecule_type(molecule_name, particle_pos, particle_types, collision_type = 0)
         Regsiters a molecule type.
     set_diffusion_tensor(molecule_name, D_tt, D_rr, mu_tb, mu_rb, mu_tb_sqrt, mu_rb_sqrt)
@@ -1173,24 +1177,15 @@ class System(object):
         
     def update_rb_barostat(self, RBs, Particles):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Updates the rigid bead molecule positions according to the scaling factor :math:`\\mu` of the Berendsen barostat.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        RBs : `object`
+            Instance of the RBs class.
+        Particles : `object`
+            Instance of the Particles class.
         
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
         
         """
         
@@ -1215,7 +1210,9 @@ class System(object):
             Array of names for each of the molecule's particles.
         collision_type : `int {0,1}`
             Collision type of the molecule (Default = 0). 0: Collisions with compartments are handled via interaction force. 1: Collisions with compartments are handled by raytracing algorithm (recommended for molcules whose diffusion speed and/or interaction radius is small compared to the chosen integration time step).
-        
+        h_membrane : `float64`
+            Distance of the molecules´ center of diffusion from the membrane surface. Default = None
+
         """
         
         if collision_type == 0 and (self.mesh == True or self.boundary_condition == 'repulsive'):
@@ -1255,7 +1252,7 @@ class System(object):
         
     def set_diffusion_tensor(self, molecule_name, D_tt, D_rr, mu_tb, mu_rb, mu_tb_sqrt, mu_rb_sqrt):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Sets the diffusion tensor for a given molecule type.
         
         Parameters
         ----------
@@ -1495,6 +1492,8 @@ class System(object):
             Triangle ids of the faces that make up the simulation box border (To be excluded from self.triangle_ids)
         triangle_ids_transparent : `int64[:]`
             Triangle ids of any transparent faces (To be excluded from self.triangle_ids)
+        adapt_box : `boolean`
+            If true, the simulation box size is adapted such that the mesh fits exactly in the simulation box. Default = False
         
         Notes
         -----
@@ -2299,6 +2298,11 @@ class System(object):
             List of reaction rates for each particle pair
         pair_Radii : `array_like`
             List of reaction radii for each particle pair
+        placement_factor : `float64` [0,1]
+            Only for fusion reactions: Affects where between the educt molecules the product molecule is placed. A factor of 0.5 means in the middle. 
+            A smaller factor will shift the product towards the first educt, a larger value towards the second educt molecule. 
+            A value different from 0.5 may increase accuracy in the case of a strong size difference between the two educts (a strong difference in the diffusion tensors). 
+            Default = 0.5
         
         Notes
         -----

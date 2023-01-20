@@ -13,24 +13,22 @@ from ..molecules import particles_util as pu
 
 def load_checkpoint(System, directory = 'checkpoints/', file = None):
 
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Loads a system state from a checkpoint file.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    System : `object`
+        Instance of the System class.
+    directory : `string`
+        Directory of the checkpoint files. Default = 'checkpoints/'.
+    file : `string`
+        Name of the checkpoint file.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(object, object, array like)
+        RBs, Particles, HGrid
     
     """
     
@@ -121,24 +119,23 @@ def load_checkpoint(System, directory = 'checkpoints/', file = None):
 
 def save(Simulation, System, RBs, Particles, HGrid, checkpoint_counter):
 
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Save the system state to a npz file.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Simulation : `object`
+        Instance of the Simulation class.
+    System : `object`
+        Instance of the System class.
+    RBs : `object`
+        Instance of the RBs class.
+    Particles : `object`
+        Instance of the Particles class
+    HGrid : `array like`
+        Structured array representing a hierarchical grid.
+    checkpoint_counter : `int64`
+        checkpoint index (index goes from 0 to the maximum number of files that has been set by the user).
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     

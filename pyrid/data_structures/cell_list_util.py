@@ -37,14 +37,27 @@ class CellListMesh(object):
         Number of elements in the dynamic array
     capacity : `int64`
         Capacity of the dynamic array
+    item_t : `np.dtype`
+        dtype of the structured array that is the cell list.
     Data : `array_like`
         Structured array with fields conatining a free linked list and the triangle ids.
         dtype: np.dtype([('next', np.int64), ('id', np.int64)],  align=True)
+    head : `int64[:]`
+        Head vector of the cell list.
     
     Methods
     -------
-    method_1(arguments)
-        Some general information about this method
+    allocate_slot(self)
+        Allocates a new slot.
+    _resize(self, new_cap)
+        Resize internal array to new capacity.
+    make_head(self, Ncell)
+        Creates the head vector.
+    make_array(self, new_cap)
+        Returns a new array with new capacity
+    get_triangles(self, cell)
+        Returns a list of triangles intersecting a cell.
+
     
     """
 
@@ -60,6 +73,17 @@ class CellListMesh(object):
         
         """
         Return element at index k.
+
+        Parameters
+        ----------
+        k : `int64`
+            Index
+        
+        
+        Returns
+        -------
+        array like
+            Data at index k
         """
         
         return self.Data[k]
@@ -68,22 +92,45 @@ class CellListMesh(object):
         
         """ 
         Set value of item at index k.
+
+        Parameters
+        ----------
+        k : `int64`
+            Index
+        value : `array like`
+            Value to which the element at index k is set to.
+        
         """
         
         self.Data[k] = value
 
     def allocate_slot(self):
 
-            if self.n == self.capacity:
-                self._resize(2 * self.capacity)      
-            
-            self.n += 1
-            return nb.int64(self.n-1)
+        """ 
+        Allocates a new slot.
+        
+        Returns
+        -------
+        int64
+            slot index
+        """
+
+        if self.n == self.capacity:
+            self._resize(2 * self.capacity)      
+        
+        self.n += 1
+        return nb.int64(self.n-1)
         
 
     def _resize(self, new_cap):
         """
-        Resize internal array to capacity new_cap
+        Resize internal array to a new capacity (new_cap).
+
+        Parameters
+        ----------
+        new_cap : `int64`
+            New array capacity.
+        
         """
           
         Data_resized = self.make_array(new_cap) # New bigger array
@@ -95,16 +142,53 @@ class CellListMesh(object):
         self.capacity = new_cap # Reset the capacity
         
     def make_head(self, Ncell):
+
+        """ 
+        Creates the head vector.
+
+        Parameters
+        ----------
+        NCell : `int64`
+            Number of cells.
+        
+        """
+
         self.head = - np.ones(Ncell, dtype = np.int64)
           
     def make_array(self, new_cap):
         """
         Returns a new array with new_cap capacity
+
+        Parameters
+        ----------
+        new_cap : `int64`
+            New array capacity.
+        
+        Returns
+        -------
+        array like
+            cell list array of dtype self.item_t.
         """
+
         return np.zeros(new_cap, dtype = self.item_t)
     
     def get_triangles(self, cell):
         
+        """ 
+        Returns a list of triangles intersecting a cell.
+
+        Parameters
+        ----------
+        cell : `int64`
+            Cell index at which to look for any intersecting triangles.
+        
+        
+        Returns
+        -------
+        list
+            List of triangles intersecting the cell.
+        """
+
         triangles_list = nb.typed.List()
         head = self.head[cell]
         if head != -1:
@@ -125,24 +209,20 @@ class CellListMesh(object):
 @nb.njit
 def reverse_cell_mapping(cell, cells_per_dim):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Calculates the indices of a cell  in 3 dimensions given the flattened 1D cell index and the total number of cells per dimension.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    cell : `int64`
+        Cell index of the flattened array (1D).
+    cells_per_dim : `int64[3]`
+        Number of cells in each dimension.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(int64, int64, int64)
+        Indices of the cell in 3 dimensions cx, cy, cz
     
     """
     
@@ -157,24 +237,22 @@ def reverse_cell_mapping(cell, cells_per_dim):
 @nb.njit
 def create_cell_list_points(rc, sample_points, Compartment):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Creates a cell list for a set of points.
     
     Parameters
     ----------
-    parameter_1 : dtype
+    rc : `float64`
+        cutoff radius
+    sample points : `float64[:,3]`
         Some Information
-    parameter_2 : dtype
-        Some Information
+    Compartment : `object`
+        Instance of the Compartment class
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(list, int64[:], list, int64, int64[3])
+        cell list, array with the number of samples in each cell, list with all indices of nonempty cells, Total number of cells, cells per dimension
     
     """
     
@@ -218,24 +296,30 @@ def create_cell_list_points(rc, sample_points, Compartment):
 @nb.njit##(cache=True)
 def create_cell_list_mesh(System, Compartment, cells_per_dim, cell_length_per_dim, triangle_ids, centroid_in_box = False, loose_grid = False):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Creates a cell list for a triangulated 3D mesh.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    System : `object`
+        Instance of the System class.
+    Compartment : `object`
+        Instance of the Compartment class.
+    cells_per_dim : `int64[3]`
+        Cells per dimension.
+    cell_length_per_dim : `float64[3]`
+        Length of a cell in each dimension.
+    triangle_ids : `int64[:]`
+        List of triangle indices.
+    centroid_in_box : `boolean`
+        If True, a test is run of whether a triangle's centroid is inside the Compartment AABB. Default = False
+    loose_grid : `boolean`
+        If True, a loose grid approach is used. Default = False
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(object, float64[:,3])
+        An instance of the CellList class keeping the cell list of the 3D mesh, a list of each cell's center coordinates.
     
     """
     
@@ -311,7 +395,7 @@ def create_cell_list_mesh(System, Compartment, cells_per_dim, cell_length_per_di
                     c = cx + cy * cells_per_dim[0] + cz * cells_per_dim[0] * cells_per_dim[1]
                     
                     
-                    # Currently, a fine grid is used. Here, we iterate over many cells for larger molecules. The fine grid is more performand for the fast voxel traversal algorithm. 
+                    # Currently, a fine grid is used. Here, we iterate over many cells for larger molecules. The fine grid is more performant for the fast voxel traversal algorithm. 
                     #TODO: However, a loose grid would still make sense for particle - Triangle interactions via an energy potential function!
                     if loose_grid:
                         mult = 2 # We take 2*AABB_extents because we want to have a loose grid, such that cells overlap.

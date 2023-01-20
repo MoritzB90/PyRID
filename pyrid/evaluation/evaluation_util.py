@@ -39,20 +39,88 @@ from ..math.transform_util import unique_pairing
 class Evaluation(object):
     
     """
-    A brief summary of the classes purpose and behavior
+    The Evaluation class has several methods that are useful for evaluating simulation results such as reading observables from hdf5 files, calculating MSDs 
+    and plotting observables and reactions graphs.
     
     Attributes
     ----------
-    attribute_1 : dtype
-        Some Information
-    attribute_2 : dtype
-        Some Information
-    
+    file_name : `string`
+        file name
+    self.path : `string`
+        file directory
+    self.fig_path : `string`
+        Figures directory
+    self.Observables : `dictionary`
+        Dictionary keeping the observables / system measures (except rdf).
+    self.rdf : `dictionary`
+        Dictionary keeping the rdf data.
+    self.Measures : `list`
+        List of all available observables / measures
+    self.time_MSD : `dictionary`
+        Dictionary keeping the time vectors for the MSD data.
+    self.MSD_data : `dictionary`
+        Dictionary keeping the MSD data for each molecule type.
+    self.time_P2 : `dictionary`
+        Dictionary keeping the time vectors for the P2 data.
+    self.P2_data : `dictionary`
+        Dictionary keeping the P2 data for each molecule type.
+    self.P2_t : `dictionary`
+        Dictionary keeping the theoretical P2 data for each molecule type.
+    self.molecules_colors : `float64[:,4]`
+        Molecule colors rgba [0,1].
+    self.molecules_colors_rgb : `float64[:,3]`
+        Molecule colors rgb [0,255].
+    self.molecules_colors_hex : `list`
+        Molecule colors hex.
+    self.reactions_color : `dictionary`
+        Reactions colors used in reaction graph plots.
+    self.color_pallete : `dictionary`
+        Color palettes used for the different observable plots (Energy, Pressure, ...)
+    self.units : `dictionary`
+        Unit system
+    self.Temp : `float64`
+        Temperature
+    self.box_lengths : `float64[3]`
+        Simulation box lengths
+    self.dt : `float64`
+        Integration time step
+    self.eta : `float64`
+        Viscosity
+    self.kbt : `float64`
+        Boltzmann constant times Temperature.
+    self.nsteps : `int64`
+        Number of simulation steps.
+    self.Molecules : `dictionary`
+        Molecule data per molecule type (bead position, bead radii, molecule volume, mobility tensors).
+    self.hdf : `object`
+        hdf5 file loaded using the h5py library.
+
     Methods
     -------
-    method_1(arguments)
-        Some general information about this method
-    
+    load_file(self, file_name, path = None)
+        Loads an hdf5 file and extracts simulation properties such as temperature and simulation box size.
+    read_molecule_data(self)
+        Reads molecule data from the hdf5 file (mobility tensor, bead position and radii, etc.)
+    load_hdf(self)
+        Loads any hdf5 file from self.path directory.
+    close_hdf(self)
+        Closes the hdf5 file.
+    MSD(self, time_interval, stride, Simulation, molecule)
+        Calculates the Mean Squared Distance (MSD) from the molecule positions and from theory.
+    plot_MSD(self, Simulation, molecule, save_fig = False, fig_name = None, fig_path=None)
+        Plots the molecules' Mean Squared Distance (MSD).
+    P2(self, time_interval, stride, Simulation, molecule, theory_only = False, Delta_t = None)
+        Calculates the rotational time correlation function P2 from the molecule orientations and from theory.
+    plot_P2(self, Simulation, molecule, theory_only = False, save_fig = False, fig_name = None, fig_path=None, limits = None)
+        Plots the rotational time correlation function P2.
+    plot_rdf(self, mol_pairs, steps = [0], save_fig = False, fig_name = None , fig_path = None, average = False)
+        Plots the radial distribution function (RDF) from the hdf5 file.
+    read_observable(self, measure, sampling = None, molecules = 'All', educts = 'All', Reaction_Type = None, steps = 'All', file_path = None)
+        Reads an observable / measure from the hdf5 file.
+    plot_observable(self, measure, molecules = 'All', Reaction_Type = None, educt = None, bond_pairs = 'All', particle_educt = None, step = 0, save_fig = False, fig_name = None , fig_path = None, sampling = None, formats = ['png'], show = True)
+        Plots an observable / measure found in the hdf5 file.
+    plot_reactions_graph(self, Simulation, graph_type = 'Bimolecular', graph_subtype = '')
+        Plots a reactions graph using the pyvis library.
     """
     
     def __init__(self, file_name = 'PyRID', path = None) :
@@ -145,7 +213,18 @@ class Evaluation(object):
         
         
     def load_file(self, file_name, path = None):
+
+        """Loads an hdf5 file and extracts simulation properties such as temperature and simulation box size.
         
+        Parameters
+        ----------
+        file_name : `string`
+            Name of the hdf5 file.
+        path : `string`
+            self.path is set to this directory. By default, self.path = Path(os.getcwd()) / 'Files'. Default = None.
+        
+        """
+
         if '.h5' in file_name:
             self.file_name = file_name[0:-3]
         else:
@@ -184,6 +263,10 @@ class Evaluation(object):
         
     def read_molecule_data(self):
         
+        """Reads molecule data from the hdf5 file (mobility tensor, bead position and radii, etc.)
+        
+        """
+
         hdf = h5py.File(self.path, 'r', track_order=True)
         
         self.Molecules = dict()
@@ -203,10 +286,18 @@ class Evaluation(object):
     
     def load_hdf(self):
         
+        """Loads any hdf5 file from self.path directory.
+        
+        """
+
         self.hdf = h5py.File(self.path, 'r', track_order=True)
     
     def close_hdf(self):
         
+        """Closes the hdf5 file.
+        
+        """
+
         self.hdf.close()
         
         
@@ -214,6 +305,21 @@ class Evaluation(object):
     
     def MSD(self, time_interval, stride, Simulation, molecule):
         
+        """Calculates the Mean Squared Distance (MSD) from the molecule positions and from theory.
+        
+        Parameters
+        ----------
+        time_interval : `int64`
+            The time step until which the molecule positions are sampled for the MSD calculation. Note: Currently sampling always starts at time step 0.
+        stride : `int64`
+            Stride with which the molecule positions are sampled.
+        Simulation : `object`
+            Instance of the Simulation class.
+        molecule : `string`
+            Name of the molecule type.
+        
+        """
+
         self.read_observable('Position', sampling = 'stepwise', molecules = [molecule], steps = 'All')
         
         position_trace = []
@@ -230,6 +336,23 @@ class Evaluation(object):
 
     def plot_MSD(self, Simulation, molecule, save_fig = False, fig_name = None, fig_path=None):
         
+        """Plots the molecules' Mean Squared Distance (MSD).
+        
+        Parameters
+        ----------
+        Simulation : `object`
+            Instance of the Simulation class.
+        molecule : `string`
+            Name of the molecule type.
+        save_fig : `boolean`
+            Default = False
+        fig_name : `string`
+            Default = None
+        fig_path : `string`
+             Default = None
+        
+        """
+
         sns.set_style("whitegrid")
         
         MSD_x, MSD_y, MSD_z = self.MSD_data[molecule]
@@ -261,6 +384,25 @@ class Evaluation(object):
 
     def P2(self, time_interval, stride, Simulation, molecule, theory_only = False, Delta_t = None):
         
+        """Calculates the rotational time correlation function P2 from the molecule orientations and from theory.
+        
+        Parameters
+        ----------
+        time_interval : `int64`
+            The time step until which the molecule positions are sampled for the MSD calculation. Note: Currently sampling always starts at time step 0.
+        stride : `int64`
+            Stride with which the molecule positions are sampled.
+        Simulation : `object`
+            Instance of the Simulation class.
+        molecule : `string`
+            Name of the molecule type.
+        theory_only : `boolean`
+            If set to True, only the theoretical values for P2 are calculated. Default = False.
+        Delta_t : `float64`
+            Time step.
+        
+        """
+
         self.read_observable('Orientation', sampling = 'stepwise', molecules = [molecule], steps = 'All')
         
         D_rr = Simulation.System.molecule_types[molecule].D_rr
@@ -286,6 +428,27 @@ class Evaluation(object):
     
     def plot_P2(self, Simulation, molecule, theory_only = False, save_fig = False, fig_name = None, fig_path=None, limits = None):
         
+        """Plots the rotational time correlation function P2.
+        
+        Parameters
+        ----------
+        Simulation : `object`
+            Instance of the Simulation class.
+        molecule : `string`
+            Name of the molecule type.
+        theory_only : `boolean`
+            If set to True, only the theoretical values for P2 are calculated. Default = False.
+        save_fig : `boolean`
+            Default = False
+        fig_name : `string`
+            Default = None
+        fig_path : `string`
+             Default = None
+        limits : `float64[2,2]`
+            x- and y-axis limits. Default = None.
+        
+        """
+
         sns.set_style("whitegrid")
         
         P2_1_t, P2_2_t, P2_3_t = self.P2_t[molecule]
@@ -332,6 +495,33 @@ class Evaluation(object):
         
     def plot_rdf(self, mol_pairs, steps = [0], save_fig = False, fig_name = None , fig_path = None, average = False):
         
+        """Plots the radial distribution function (RDF) from the hdf5 file.
+        
+        Parameters
+        ----------
+        mol_pairs : `nested list of strings`
+            Molecule pairs for which the rdf is plotted.
+        steps : `int64[1]`
+            Time steps. Default = [0]
+        theory_only : `boolean`
+            If set to True, only the theoretical values for P2 are calculated. Default = False.
+        save_fig : `boolean`
+            Default = False
+        fig_name : `string`
+            Default = None
+        fig_path : `string`
+             Default = None
+        average : `boolean`
+            Average over rdfs at different points in time if more than one time step is given in parameter "steps". Default = False
+        
+        
+        Returns
+        -------
+        tuple(fig, ax)
+            figure and corresponding axes object.
+        
+        """
+
         sns.set_style("whitegrid")
         
         hdf = h5py.File(self.path, 'r', track_order=True)
@@ -405,24 +595,24 @@ class Evaluation(object):
     
     def read_observable(self, measure, sampling = None, molecules = 'All', educts = 'All', Reaction_Type = None, steps = 'All', file_path = None):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Reads an observable / measure from the hdf5 file.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
+        measure : `string`
+            observable / measure which to read from the hdf5 file.
+        sampling : stepwise' or 'binned' or None
+            Sampling method used. If None, the sampling method is chosen automatically based on the measure type. Default = None.
+        molecules : `list of strings`
+            List of molecule types for which to read the observable data. If set to 'All', all molecules found in the hdf5 file are loaded. Default = 'All'.
+        educts : `list of strings`
+            List of reaction educts for which to read the reactions data. If set to 'All', all reactions found in the hdf5 file are loaded. Default = 'All'.
+        Reaction_Type : 'bind', 'enzymatic', 'conversion', 'conversion_rb', 'decay_rb', 'production_rb', 'release', 'fusion', 'enzymatic_rb'
+            Type of the reaction whose data is read from the hdf5 file.
+        steps : `int64[:]` or `All`
+            Time steps at which to read the observable data. Default = `All`
+        file_path : `string`
+            File path. Default = None
         
         """
         
@@ -556,6 +746,47 @@ class Evaluation(object):
     
     def plot_observable(self, measure, molecules = 'All', Reaction_Type = None, educt = None, bond_pairs = 'All', particle_educt = None, step = 0, save_fig = False, fig_name = None , fig_path = None, sampling = None, formats = ['png'], show = True):
         
+        """Plots an observable / measure found in the hdf5 file.
+        
+        Parameters
+        ----------
+        measure : `string`
+            observable / measure which to read from the hdf5 file.
+        sampling : stepwise' or 'binned' or None
+            Sampling method used. If None, the sampling method is chosen automatically based on the measure type. Default = None.
+        molecules : `list of strings`
+            List of molecule types for which to read the observable data. If set to 'All', all molecules found in the hdf5 file are loaded. Default = 'All'.
+        educt : `list of strings`
+            List of reaction educts for which to read the reactions data. If set to 'All', all reactions found in the hdf5 file are loaded. Default = 'All'.
+        bond_pairs : `list of strings`
+            List of bond pair types for which to read particle bond data. If set to 'All', all bonds found in the hdf5 file are loaded. Default = 'All'.
+        particle_educts : `list of strings`
+            List of particle reaction educts for which to read the reactions data. If set to 'All', all particle reactions found in the hdf5 file are loaded. Default = 'All'.
+        Reaction_Type : 'bind', 'enzymatic', 'conversion', 'conversion_rb', 'decay_rb', 'production_rb', 'release', 'fusion', 'enzymatic_rb'
+            Type of the reaction whose data is read from the hdf5 file.
+        step : `int64`
+            Time step at which to read the observable data. Default = 0
+        save_fig : `boolean`
+            Default = False
+        fig_name : `string`
+            Default = None
+        fig_path : `string`
+             Default = None
+        sampling : stepwise' or 'binned' or None
+            Sampling method used. If None, the sampling method is chosen automatically based on the measure type. Default = None.
+        formats : `list of strings`
+            File formats in which figures are saved. Default = ['png']
+        show : `boolean`
+            If True, figures are shown directly after they have been plotted. Otherwise figures are not shown (make sure to set save_fig = True). Default = True.
+        
+        
+        Returns
+        -------
+        tuple(fig, ax)
+            figure and corresponding axes object.
+        
+        """
+
         # Measures = ['Position', 'Energy', 'Pressure', 'Volume', 'Virial', 'Virial Tensor', 'Number', 'Orientation', 'Bonds', 'Reactions', 'Force', 'Torque', 'RDF']
         
         sns.set_style("whitegrid")
@@ -682,6 +913,18 @@ class Evaluation(object):
             
     def plot_reactions_graph(self, Simulation, graph_type = 'Bimolecular', graph_subtype = ''):
         
+        """Plots a reactions graph using the pyvis library.
+        
+        Parameters
+        ----------
+        Simulation : `object`
+            Instance of Simulation class
+        graph_type : 'Bimolecular', 'Biparticle', 'Unimolecular', 'Interactions'
+            Reaction graph type. Default = 'Bimolecular'
+        graph_subtype : 'pair relations', 'product relations'
+            Reaction graph subtype. Default = 'product_relations'.
+        
+        """
         
         # np.dtype([('defined', bool), ('bond', bool), ('id', np.int64), ('enzyme', np.int64), ('rate', np.float64), ('radius', np.float64), ('cutoff', np.float64), ('type', 'U20'), ('type_id', np.int64), ('type_BP_BM', 'U2'),],  align=True)
         

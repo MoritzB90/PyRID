@@ -140,7 +140,7 @@ large supermatrices.
 
    **The diffusion tensor of igG3 calculated with PyRID.** **(A)** Rigid
    bead molecule representation of igG3 as found in
-   :cite:p:`Torre2013`. The black cross marks the center of
+   :cite:t:`Torre2013`. The black cross marks the center of
    diffusion. **(B)** Translational and rotational diffusion tensor of
    igG3. A comparison of the result from PyRID with those of the Hydro++
    suite can be found in table `1.4 <#tab:igG3>`__.
@@ -210,7 +210,7 @@ As described in :cite:p:`Schoeneberg2013`, the reaction
 radius :math:`R_{react}` may be interpreted as the distance at which two
 particles can no longer be treated as moving independently, because
 there interactions becomes significant. Furthermore,
-:cite:p:`Schoeneberg2013` suggest that the length scale of
+:cite:t:`Schoeneberg2013` suggest that the length scale of
 electrostatic interactions can be used to define :math:`R_{react}`. In
 general, the reaction radius should not be so large that in dense
 settings molecules would react with a partner that is not among the
@@ -244,7 +244,7 @@ globaly decrease in time, lowering the probability of educt encounters.
 Therefore, the reaction kinetics are sped up in the stochastic
 simulation compared to the ode approach (Fig.
 `1.4 <#fig:ReactionKinetics_RateVal>`__). Interestingly,
-:cite:p:`Schoeneberg2013` found exactly the opposite effect,
+:cite:t:`Schoeneberg2013` found exactly the opposite effect,
 as the reaction kinetics where slowed down in the stochastic simulation.
 The reason for this discrepancy in the results is unclear. However, I
 simulated the very same system in ReaDDy and got the same result as with
@@ -642,11 +642,11 @@ copy numbers are already feasible
 approach represents proteins by patchy particles where the multivalent
 interaction sites of the proteins are modeled by attractive patches
 whereas the excluded volume is represented by a core particle with
-repulsive interactions. :cite:p:`Espinosa2020` have used such
+repulsive interactions. :cite:t:`Espinosa2020` have used such
 a model to investigate the stability and composition of biomolecular
 condensates. PyRID is well suited for simulations of patchy particles.
 For validation I here reproduce one of the results from
-:cite:p:`Espinosa2020`. In their work, patches interact via
+:cite:t:`Espinosa2020`. In their work, patches interact via
 an attractive square well interaction potential
 :cite:p:`Espinosa2014`:
 
@@ -716,14 +716,14 @@ sampled, from which the volume fraction of the dense and dilute phase
 are estimated :cite:p:`Espinosa2019`. I found that the
 coexistence curves acquired with PyRID were in good agreement with
 :cite:p:`Espinosa2020` (Fig. `1.8 <#fig:LLPS>`__). However,
-for the 5-valency case, :cite:p:`Espinosa2020` found a
+for the 5-valency case, :cite:t:`Espinosa2020` found a
 slightly higher volume fraction in the dense phase close to the critical
-point. Also, :cite:p:`Espinosa2020` found that the
+point. Also, :cite:t:`Espinosa2020` found that the
 coexistence curve shows minimum below the critical for the 4-valence
 case, which I did not observe. The reason could lie in inaccuracies that
 are a result of to the Brownian approximation. More probable is,
 however, that the choice of the thermostat is responsible for the
-discrepancy as :cite:p:`Espinosa2020` used a Nosé-Hoover
+discrepancy as :cite:t:`Espinosa2020` used a Nosé-Hoover
 thermostat instead of a Langevin thermostat. However, I would argue that
 a Langevin thermostat, or in this case overdamped langevin
 dynamics/Brownian dynamics, represent the dilute phase more accurately
@@ -752,7 +752,7 @@ as it accounts for the interaction with the solvent molecules.
    the attractive patches and the pseudo hard sphere potential (PHS)
    used for the core particle. **(C)** Coexistence curves for the 3, 4
    and 5 sided patchy particle systems and comparison with the results
-   from :cite:p:`Espinosa2020`. **(D)** Side view showing the
+   from :cite:t:`Espinosa2020`. **(D)** Side view showing the
    dilute and dense phase for the 4-sided patchy particle system.
 
 Benchmarks
@@ -855,7 +855,7 @@ similar independent of whether the system is mono- or polydisperse.
    Performance hierarchical grid. **(B)** Performance comparison between
    PyRID and ReaDDy. On a benchmark system with an Intel Core i5-9300H
    with 2.4 GHz and 24 GB DDR4 RAM, PyRID (blue line) outperforms ReaDDy
-   (yellow). However, :cite:p:`Hoffmann2019` obtained a
+   (yellow). However, :cite:t:`Hoffmann2019` obtained a
    better performance and especially scaling for ReaDDy on a different
    machine with an Intel Core i7 6850K processor at 3.8GHz and 32GB DDR4
    RAM (green line).
