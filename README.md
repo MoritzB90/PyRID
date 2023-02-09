@@ -1,6 +1,6 @@
 <img src="PyRID_Logo_cropped.png" alt="PyRID" height=150px>
 
-PyRID: A Brownian dynamics simulator for reacting and interacting particles written in python.
+PyRID: A Brownian dynamics simulator for reacting and interacting particles written in Python.
 
 Disclaimer: PyRID is currently in early state development (version 0.1). As such, there is no guaranty that any of the functions are bug free. Careful validation of any results is recommended.
 
@@ -25,7 +25,7 @@ Go to the PyRID documentation -> https://moritzb90.github.io/PyRID_doc/
 Installation
 ============
 
-1. Install Anaconda python distribution (recommended):
+1. Install Anaconda Python distribution (recommended):
 
    [Anaconda](https://www.anaconda.com/products/distribution)
 
@@ -58,4 +58,4 @@ Installation
    conda install h5py
    ```
 
-To run your PyRID python scripts you can use, e.g., Spyder or Jupyter Lab, which both come with the Anaconda distribution.
+To run your PyRID Python scripts you can use, e.g., Spyder or Jupyter Lab, which both come with the Anaconda distribution.

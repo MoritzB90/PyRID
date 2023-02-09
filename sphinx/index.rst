@@ -7,7 +7,7 @@
 .. sphinx-build -b html D:\Repositories\PyRID\sphinx D:\Repositories\PyRID_doc\docs
 
 ==============================================================================================
-PyRID: A Brownian dynamics simulator for reacting and interacting particles written in python.
+PyRID: A Brownian dynamics simulator for reacting and interacting particles written in Python.
 ==============================================================================================
 
 
@@ -190,7 +190,7 @@ Please note that this feature comparison is not complete and biased towards PyRI
      - |Gdot| Blender GUI, Python
      - |Gdot| Python, Text based
    * - **Modifiability**
-     - |Gdot| Excellent (All source code in python, |br|
+     - |Gdot| Excellent (All source code in Python, |br|
        little dependencies)
      - |Ydot| Ok (Requires changing C++ source code)
      - |Ydot| Ok (Requires changing C++ source code)
