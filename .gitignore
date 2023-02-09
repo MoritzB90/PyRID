@@ -1,6 +1,7 @@
 # PyPatch output formats that are potentially very large
 *.xyz
 *.MKV
+*.mp4
 *.png
 *.npz
 *.pid

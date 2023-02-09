@@ -208,6 +208,7 @@ Contents
       Users/Installation
       Users/User_Guide/Contents
       Users/Examples/Contents
+      Users/Advanced/Contents
 
    .. toctree::
       :maxdepth: 3

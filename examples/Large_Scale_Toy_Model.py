@@ -308,7 +308,7 @@ else:
 
 #%%
 
-prd.plot.plot_scene(Simulation, save_fig = True, show = False)
+prd.plot.plot_scene(Simulation, save_fig = True, show = True)
 
 
 #%%

@@ -338,6 +338,11 @@ Large scale toy-model
 	Evaluation.plot_observable('Torque', molecules = ['B'], step = 10, save_fig = True)
 
 
+.. raw:: html
+	
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/vGhUpZR2798" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	
+
 .. figure:: Figures/Large_Toy_Model_render.jpg
     :width: 50%
     :name: fig:Large_Toy_Model_render
