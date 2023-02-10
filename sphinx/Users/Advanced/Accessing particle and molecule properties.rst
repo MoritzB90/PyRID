@@ -26,10 +26,10 @@ To get the properties of the particle with index 0, write
 	In[1]: Simulation.Particles[0]
 	
 	Out[1]: (1, [ -8.01000665242636,  49.9969587092104 , -10.31255250585599], 
-				[-2.0197198684247195,  0.2506851204932846, -1.4518569569533009], 
-				[-1.1785113019775793, -2.041241452319315 , -0.8333333333333333], 
-				[ 40.96887479809036   , -27.908936738251054  ,  -0.14310326836228807], 
-				12876, 'Patch_3', 10, 0., 0, [0, 0], True, 9745, 0., 0, 1.e+10)
+		[-2.0197198684247195,  0.2506851204932846, -1.4518569569533009], 
+		[-1.1785113019775793, -2.041241452319315 , -0.8333333333333333], 
+		[ 40.96887479809036   , -27.908936738251054  ,  -0.14310326836228807], 
+		12876, 'Patch_3', 10, 0., 0, [0, 0], True, 9745, 0., 0, 1.e+10)
 
 What is returned is a numpy structured array. The datatype of a structured array is a composition of simpler datatypes (float, int, string ,...) organized as a sequence of named fields. 
 Structured arrays are designed to be able to mimic ‘structs’ in the C language. The problem with what is returned above is that we currently don't know how to interpret the data.
@@ -40,21 +40,21 @@ Therefore, we first need to take a look at the field names of the structured arr
 	In[2]: Simulation.Particles[0].dtype.names
 
 	Out[2]: ('next',
- 			'pos',
- 			'pos_local',
- 			'coord_local',
- 			'force',
- 			'rb_id',
- 			'type',
- 			'type_id',
- 			'radius',
- 			'number_reactions',
- 			'reactions_head',
- 			'bound',
- 			'bound_with',
- 			'cutoff',
- 			'h',
- 			'next_transition')
+ 		'pos',
+ 		'pos_local',
+ 		'coord_local',
+ 		'force',
+ 		'rb_id',
+ 		'type',
+ 		'type_id',
+ 		'radius',
+ 		'number_reactions',
+ 		'reactions_head',
+ 		'bound',
+ 		'bound_with',
+ 		'cutoff',
+ 		'h',
+ 		'next_transition')
 
 The first field is just a 'next' pointer, which is not of any interest for the user. Its value is 1. 
 The second field is 'pos'. As such, [ -8.01000665242636,  49.9969587092104 , -10.31255250585599] are the coordinates (x,y,z) of particle 1 at the current point in time.
@@ -66,13 +66,11 @@ We can access individual fields via their name or index:
 	
 	In[3]: Simulation.Particles[0]['force']
 
-	Out[3]: array([ 40.96887479809036   , -27.908936738251054  ,
-        -0.14310326836228807])
+	Out[3]: array([ 40.96887479809036   , -27.908936738251054  , -0.14310326836228807])
 
 	In[4]: Simulation.Particles[0][4]
 
-	Out[4]: array([ 40.96887479809036   , -27.908936738251054  ,
-        -0.14310326836228807])
+	Out[4]: array([ 40.96887479809036   , -27.908936738251054  , -0.14310326836228807])
 
 
 **Molecules**
@@ -92,36 +90,36 @@ As for the particles dta structure, a numpy structured array is returned. Its fi
 	In[1]: Simulation.Particles[0].dtype.names
 
 	Out[1]: ('next',
-			 'name',
- 			'id',
- 			'type_id',
- 			'pos',
- 			'dX',
- 			'force',
- 			'torque',
- 			'topology',
- 			'topology_N',
- 			'q',
- 			'dq',
- 			'B',
- 			'orientation_quat',
-			'mu_tb',
- 			'mu_rb',
- 			'mu_tb_sqrt',
-			'mu_rb_sqrt',
-			'Dtrans',
- 			'Drot',
-			'radius',
- 			'loc_id',
-			'compartment',
-			'triangle_id',
- 			'pos_last',
- 			'Theta_t',
- 			'Theta_r',
- 			'posL',
- 			'collision_type',
- 			'next_transition',
- 			'h')
+		'name',
+ 		'id',
+ 		'type_id',
+ 		'pos',
+ 		'dX',
+ 		'force',
+ 		'torque',
+ 		'topology',
+ 		'topology_N',
+ 		'q',
+ 		'dq',
+ 		'B',
+ 		'orientation_quat',
+		'mu_tb',
+ 		'mu_rb',
+ 		'mu_tb_sqrt',
+		'mu_rb_sqrt',
+		'Dtrans',
+ 		'Drot',
+		'radius',
+ 		'loc_id',
+		'compartment',
+		'triangle_id',
+ 		'pos_last',
+ 		'Theta_t',
+ 		'Theta_r',
+ 		'posL',
+ 		'collision_type',
+ 		'next_transition',
+ 		'h')
 
 
 As you can see, the RBs data structure is a bit more complex. We can again access the value of the different properties via the field name.

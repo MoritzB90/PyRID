@@ -17,19 +17,63 @@ from ..evaluation.rdf_util import create_rb_hgrid, radial_distr_function
 class Observables(object):
     
     """
-    The Observables class keeps track of all the observables and writes these to an hdf5 file.
+    The Observables class keeps track of all the observables. It contains methods to sample specific quantities, e.g. pressure, and to write these to an hdf5 file.
+    Sampling can be done in what is here called a stepwise manner. Thereby, the value that the quantity/property has at the current simulation step (current point in time) is saved.
+    However, sometimes it is more convenient to save not the current value but the average over some time window/bin. 
+    This is true in particular for event based properties like the number of reactions. 
+    Therefore, in PyRID, observables can also be binned and only then their value will be saved/written to the file. 
+
     
     Attributes
     ----------
     binned : `dict`
-        Some Information
-    attribute_2 : dtype
-        Some Information
+        Dictionary containing for each quantity the binned values.
+    Observing : `array like`
+        Structured array with boolean fields for each observable. If a field's value is True, the corresponding quantity is observed.
+    observables_setup : `dict`
+        Dictionary containing for each observed quantity the information needed for the sampling process. 
+        This information includes the stride, the items (molecules, particles, reaction type, ...) to be included, the total number of sampling steps (int((Simulation.nsteps)/stride)),
+        whether the quantity is sampled in a stepwise manner or by binning or both, the current sampling step.
+    bond_pairs: `list`
+        List of particle type pairs for which the number of bonds is observed.
+    observing_rdf: `boolean`
+        If True, the radial distribution function is observed.
+    rdf_nsteps: `int`
+        The total number of sampling steps (int((Simulation.nsteps)/stride)) for the RDF.
+    rdf_current_step: `int`
+        Current sampling step of the RDF.
+    rdf_cutoff: `float64[N]`
+        The cutoff distances for each of the N molecule pairs for which the RDF is calculated.
+    rdf_bins: `int64[N]`
+        The number of bins (spatial resolution of the RDF) for each of the N molecule pairs for which the RDF is calculated.
+    rdf_stride : `int`
+        Stride with which the RDF is sampled.
+    rdf_pairs: `list`
+        List of molecule type pairs for which the RDF is calculated.
+    rdf_molecules: `set`
+        Set of molecules types for which the RDF is calculated.
+    rdf_hgrid: `array like`
+        Hierarchical grid data structure for the different molecule types. 
+        The hierarchical grid allows for an efficient calculation of the pairwise distances between the molecules.
+    rdf_measure_pair: `int64[N,N]`
+        Matrix of molecule type indices indicating which molecule pairs are observed.
+    rdf_hist: `dict`
+        Dictionary containing for each observed molecule pair the rdf histogram.
+
+
     
     Methods
     -------
-    method_1(arguments)
-        Some general information about this method
+    update_bins(self, Simulation)
+        Updates the values of all quantities which are sampled using data binning.
+    observe(self, Property, stride, Simulation, types = None, reactions = None, stepwise = True, binned= False)
+        Registers a quantity/property for observation.
+    observe_rdf(self, rdf_pairs, rdf_bins, rdf_cutoff, stride, Simulation)
+        Registers a molecule pair for observation of the corresponding radial distribution function.
+    update(self, Simulation, hdf, RBs)
+        Updates the values of all observed quantities by writing these to an hdf5 file.
+    update_rdf(self, Simulation, hdf):
+        Calculates the radial distribution function (rdf histogram) for a range of molecule pairs and writes these to the hdf5 file.
     
     """
     
@@ -125,24 +169,12 @@ class Observables(object):
 
     def update_bins(self, Simulation):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Updates the values of all quantities which are sampled using data binning.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
+        Simulation : `object`
+            Instance of the SImulation class.
         
         """
         
@@ -187,7 +219,35 @@ class Observables(object):
     
     def observe(self, Property, stride, Simulation, types = None, reactions = None, stepwise = True, binned= False):#, save = True, keep_list = False):
         
+        """Registers a quantity/property for observation.
         
+        Parameters
+        ----------
+        Property : `string`
+            Name of the quantity/property to observe. 
+            Supported are 'Force', 'Torque', 'Orientation', 'Position', 'Volume', 
+            'Energy','Pressure', 'Virial', 'Number', 'Virial Tensor', 'Reactions', 'Bonds'.
+        stride : `ìnt`
+            Stride with which the selected quantity is sampled.
+        Simulation : `object`
+            Instance of the SImulation class.
+        types : `list[string]`
+            Names of the particle or molecule types for which to observe a certain property/quantity. Default = None
+        reactions : `int64[:]`
+            List of reaction type indices. Default = None
+        stepwise : `boolean`
+            Indicates whether the selected quantity is sampled in a stepwise manner. Default = True
+        binned : `boolean`
+            Indicates whether the selected quantity is sampled using data binning. Default = False
+
+        Raises
+        ------
+        KeyError ('Molecule type not found')
+            A molecule type name has been passed that has not yet been defined.
+
+        """
+
+
         self.Observing[0][Property] = True
         if binned:
             self.Observing[1][Property] = True
@@ -363,24 +423,26 @@ class Observables(object):
             
     def observe_rdf(self, rdf_pairs, rdf_bins, rdf_cutoff, stride, Simulation): #, save = True, keep_list = False):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Registers a molecule pair for observation of the corresponding radial distribution function.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
+        rdf_pairs : `list`
+            List of molecule type pairs for which the RDF is calculated.
+        rdf_bins: `int64[N]`
+            The number of bins (spatial resolution of the RDF) for each of the N molecule pairs for which the RDF is calculated.
+        rdf_cutoff: `float64[N]`
+            The cutoff distances for each of the N molecule pairs for which the RDF is calculated.
+        stride : `int`
+            Stride with which the RDF is sampled.
+        Simulation : `object`
+            Instance of the SImulation class.
         
         Raises
         ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
+        KeyError ('Molecule type not found')
+            A molecule type name has been passed that has not yet been defined.
         
-        Returns
-        -------
-        dtype
-            Some information
         
         """
         
@@ -425,24 +487,16 @@ class Observables(object):
     
     def update(self, Simulation, hdf, RBs):
         
-        """A brief description of what the function (method in case of classes) is and what it’s used for
+        """Updates the values of all observed quantities by writing these to an hdf5 file.
         
         Parameters
         ----------
-        parameter_1 : dtype
-            Some Information
-        parameter_2 : dtype
-            Some Information
-        
-        Raises
-        ------
-        NotImplementedError (just an example)
-            Brief explanation of why/when this exception is raised
-        
-        Returns
-        -------
-        dtype
-            Some information
+        Simulation : `object`
+            Instance of the SImulation class.
+        hdf : `object`
+            hdf5 file.
+        RBs : `object`
+            Instance of the RBs class.
         
         """
         
@@ -625,7 +679,18 @@ class Observables(object):
     
     def update_rdf(self, Simulation, hdf):
         
+        """Calculates the radial distribution function (rdf histogram) for a range of molecule pairs and writes these to the hdf5 file.
         
+        Parameters
+        ----------
+        Simulation : `object`
+            Instance of the SImulation class.
+        hdf : `object`
+            hdf5 file.
+        
+        """
+
+
         if Simulation.current_step % self.rdf_stride == 0:
             
             for i in range(len(self.rdf_pairs)):

@@ -11,24 +11,21 @@ import os
 
 def read_xyz(file_path_pos, file_path_id = None):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Reads an .xyz file and returns a structured array containing molecule ids, molecule type ids and the corresponding molecule trajectories/coordinates. 
+    In addition a set of the different molecule types is returned.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    file_path_pos : `string`
+        Directory of the .xyz file
+    file_path_id : `int`
+        file index. Default = None
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    tuple(array_like, set)
+        Structured array containing molecule ids, molecule type ids and the corresponding molecule trajectories/coordinates. Set of the different molecule types.
     
     """
     
@@ -107,24 +104,21 @@ item_t_pos = np.dtype([('type', 'U20'),('x', np.float64),('y', np.float64),('z',
 @nb.njit
 def pos_data(Particles, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Extracts (for each particle in the simulation) the particle type name and coordinates from an instance of the Particles class.
+    If a Particle is bound to another particle, the particle's type name is extended by '_True', otherwise by '_False'.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Particles : `object`
+        Instance of the Particles class.
+    System : `object`
+        Instance of the System class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    array_like
+        Structured array containing fields for the name, x-, y-, and z-coordinates of each particle.
     
     """
     
@@ -153,24 +147,20 @@ item_t_ID = np.dtype([('id', np.int64), ('rb_id', np.int64)],  align=True)
 @nb.njit
 def data_id(Particles, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Extracts (for each particle in the simulation) the particle index and the index of the corresponding parent molecule from an instance of the Particles class.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Particles : `object`
+        Instance of the Particles class.
+    System : `object`
+        Instance of the System class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
     
     Returns
     -------
-    dtype
-        Some information
+    array_like
+        Structured array containing, for each particle, fields for the index and the index of the parent molecule.
     
     """
     
@@ -192,24 +182,20 @@ def data_id(Particles, System):
 
 def write(j, Simulation, System, Particles):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Writes the trajectories/coordinates of the particles in the simulation to an .xyz file. 
+    This .xyz file can then be read by the PyRID Blender-addon.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    j : `int`
+        current simulation time step.
+    Simulation : `object`
+        Instance of the Simulation class.
+    System : `object`
+        Instance of the System class.
+    Particles : `object`
+        Instance of the Particles class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -234,24 +220,20 @@ def write(j, Simulation, System, Particles):
 
 def write_init(Simulation, System):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Initializes the write to file process by creating the .xyz, .prop, .pid and .box files.
+    The .xyz file contains teh particle trajectories. 
+    The .prop file contains information about system properties such as the simulation box size, particle radii, interaction radii, Boltzmann constant, Temperature, 
+    viscosity, integration step size dt, and 3D mesh scale.
+    The .box file contains the size of the simulation box at each time step. The .box file is only of interest in case the Berendsen barostat is used.
+    The .pid file contains for each particle index the corresponding index of the parent molecule.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Simulation : `object`
+        Instance of the Simulation class.
+    System : `object`
+        Instance of the System class.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     

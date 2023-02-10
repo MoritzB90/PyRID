@@ -114,13 +114,13 @@ def plot_compartments(Simulation, save_fig = False, fig_name = None, fig_path = 
     projection : `string`
         Projection type. Default = `orthographic`
     plot_cube = `boolean`
-        If True, the simualtion box is visualized in addition to the selected compartment
+        If True, the simulation box is visualized in addition to the selected compartment
     plane : `string` ('-xy', 'xy', '-yz', 'yz', '-xz', 'xz')
         Defines the plane to which the camera is oriented. Default = `-xz`
     alpha : `float64` in [0,1]
         Sets the opacity of the mesh faces.
     show : `boolean`
-        If True, the plot is shown directly, otherwise only after the simualtion has ended.
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
     
     """
     
@@ -137,30 +137,52 @@ def plot_compartments(Simulation, save_fig = False, fig_name = None, fig_path = 
 
 def plot_compartment_0(Simulation, System, vertices, triangles, Compartments, comp_name, save_fig = False, fig_name = None, fig_path = None, face_groups = True, show_normals = True, mol_traj = None, indices = None, projection = 'orthographic', plot_cube = True, plane = '-xz', alpha = None, show = True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots a compartment mesh and highlights any face groups and borders/edges using the plotly library. Also plots the triangle normal vectors.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
+    Simulation : `object`
+        Instance of the Simulation class
+    System : `object`
+        Instance of the System class
+    vertices : `float64[N,3]`
+        Coordinates of the N vertices in each dimension.
+    triangles : `int64[N,3]`
+        Indices of the vertices that make up each triangle (3 vertices per triangle).
+    Compartments : `nb.types.DictType(nb.int64, Compartment.class_type.instance_type)`
+        Dictionary keeping the index of each compartment in the simulation and the corresponding instances of the Compartment class.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
+    fig_name : `string`
+        Name of the figure
+    fig_path : `string`
+        Path to which the figure is exported
+    comp_name : `string`
+        Name of the compartment which to plot
+    face_groups : `boolean`
+        If True, the face groups of the compartment are highlighted
+    show_normals : `boolean`
+        If True, the triangle normal vectors are plotted
+    mol_traj : `float64[T,N,3]`
+        Molecule trajectories can be passed which are then plotted as lines in 3D. T is the number of time steps, N the number of molecules. Molecules whose trajectory to plot can also be selected in addition by the parameter indces.
+    indices : `int64[:]`
+        Indices of the molecules whose trajectory to plot
+    projection : `string`
+        Projection type. Default = `orthographic`
+    plot_cube = `boolean`
+        If True, the simulation box is visualized in addition to the selected compartment
+    plane : `string` ('-xy', 'xy', '-yz', 'yz', '-xz', 'xz')
+        Defines the plane to which the camera is oriented. Default = `-xz`
+    alpha : `float64` in [0,1]
+        Sets the opacity of the mesh faces.
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simualtion has ended.
     
     """
 
-    """
-    https://chart-studio.plotly.com/~empet/14749/mesh3d-with-intensities-and-flatshading/#/
-    """
+    
+    # https://chart-studio.plotly.com/~empet/14749/mesh3d-with-intensities-and-flatshading/#/
+    
     
     scale = np.min(System.box_lengths)
     
@@ -632,7 +654,7 @@ def plot_compartment_0(Simulation, System, vertices, triangles, Compartments, co
 
 def plot_scene(Simulation, save_fig = False, fig_name = None, fig_path = None, projection = 'orthographic', plane = '-xz', show = True):
     
-    """Plots the simulation scence with all its compartments and molecule positions. Molecule positions are represented by a scatter plot.
+    """Plots the simulation scene with all its compartments and molecule positions. Molecule positions are represented by a scatter plot.
     
     Parameters
     ----------
@@ -1076,6 +1098,18 @@ def plot_triangle(p0,p1,p2, ax, show=True):
 
 def plot_triangles(Simulation, triangle_ids, points = None):
     
+    """Plots a range of triangles in 3D.
+    
+    Parameters
+    ----------
+    Simulation : `object`
+        Instance of the Simulation class
+    triangles_ids : `int64[N]`
+        Triangle indices.
+    
+    
+    """
+
     vertices = Simulation.System.vertices
     triangle_ids
     triangles = Simulation.System.Mesh[triangle_ids]['triangles']
@@ -1200,24 +1234,19 @@ def plot_triangles(Simulation, triangle_ids, points = None):
 
 def plot_path(file_path, molecule, indices, show=True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots the trajectory of one or several molecules of a specific type in 3D.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    file_path : `string`
+        Directory of the hdf5 file that contains the molecule trajectory data.
+    molecule : `string`
+        Name of the molecule type.
+    indices : `int64[:]`
+        List of molecule indices for which to plot the molecule trajectory
+    show : `boolean`
+        If False, the plot is not shown. Default = True
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -1250,24 +1279,18 @@ def plot_path(file_path, molecule, indices, show=True):
 
 def plot_path_mesh(file_path, molecule, indices, show=True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots the trajectory of one or several molecules of a specific type in 3D and includes a 3d mesh compartment.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
+    file_path : `string`
+        Directory of the hdf5 file that contains the molecule trajectory data.
+    molecule : `string`
+        Name of the molecule type.
+    indices : `int64[:]`
+        List of molecule indices for which to plot the molecule trajectory
+    show : `boolean`
+        If False, the plot is not shown. Default = True
     
     """
     
@@ -1300,24 +1323,22 @@ def plot_path_mesh(file_path, molecule, indices, show=True):
 
 def plot_cell_grid(Simulation, save_fig = False, fig_name = None, fig_path = None, Compartments = None, show=True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Visualization of the cell grid that divides the simulation box into different cells/voxels.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
+    Simulation : `object`
+        Instance of the Simulation class.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
+    fig_name : `string`
+        Name of the figure
+    fig_path : `string`
+        Path to which the figure is exported
+    Compartments : `nb.types.DictType(nb.int64, Compartment.class_type.instance_type)`
+        Dictionary keeping the index of each compartment in the simulation and the corresponding instances of the Compartment class.
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
     
     """
     
@@ -1407,24 +1428,26 @@ def plot_cell_grid(Simulation, save_fig = False, fig_name = None, fig_path = Non
 
 def plot_sphere_packing(Compartment_Number, Simulation, points, ptype, save_fig = False, fig_name = None , fig_path = None, show=True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Visualization of the molecule distribution where molecules are represented as spheres.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
-    
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
+    Compartments : `int64`
+        Index of the compartment which to include in the plot.
+    Simulation : `object`
+        Instance of the Simulation class.
+    points : `float64[:,3]`
+        Coordinates of the molecules.
+    ptype : `int64[:]`
+        List of molecule type indices corresponding to the molecule coordinates given by the parameter points.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
+    fig_name : `string`
+        Name of the figure
+    fig_path : `string`
+        Path to which the figure is exported
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
     
     """
     
@@ -1559,24 +1582,25 @@ def plot_sphere_packing(Compartment_Number, Simulation, points, ptype, save_fig 
 
 def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None , fig_path = None, color_scheme = 'colored', show = True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots the mobility tensor (also see diffusion tensor) of a molecule type.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    molecule : `string`
+        Name of the molecule type
+    Simulation : `object`
+        Instance of the Simulation class.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
+    fig_name : `string`
+        Name of the figure
+    fig_path : `string`
+        Path to which the figure is exported
+    color_scheme : `string`
+        Available color schemes: 'colored', 'flat'. Default = 'colored'
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
@@ -1704,25 +1728,26 @@ def plot_mobility_matrix(molecule, Simulation, save_fig = False, fig_name = None
 
 def plot_potential(Simulation, Potentials, yU_limits = None, yF_limits = None, r_limits = None, show = True, save_fig = False):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots a range of given energy potential functions and the corresponding force functions.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Simulation : `object`
+        Instance of the Simulation class.
+    Potentials : `list`
+        List of functions which to plot.
+    yU_limits : `float64[2]`
+        Lower and upper limits for the y axes of the potential energy plot. Default = None
+    yF_limits : `float64[2]`
+        Lower and upper limits for the y axes of the force plot. Default = None
+    r_limits : `float64[2]`
+        Lower and upper limits for the inter-particle distance. Default = None
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
-    
+
     """
     
     sns.set_style("whitegrid")
@@ -1791,24 +1816,23 @@ def plot_potential(Simulation, Potentials, yU_limits = None, yF_limits = None, r
 
 def plot_concentration_profile(Simulation, axis = 0, save_fig = False, fig_name = None , fig_path = None, show=True):
     
-    """A brief description of what the function (method in case of classes) is and what it’s used for
+    """Plots the concentration/density profile of molecules along a given axes.
     
     Parameters
     ----------
-    parameter_1 : dtype
-        Some Information
-    parameter_2 : dtype
-        Some Information
+    Simulation : `object`
+        Instance of the Simulation class.
+    axis : 0, 1 or 2
+        Axes along which to plot the concentration profile.
+    save_fig : `boolean`
+        If True, the plot is exported to a .png file.
+    fig_name : `string`
+        Name of the figure
+    fig_path : `string`
+        Path to which the figure is exported
+    show : `boolean`
+        If True, the plot is shown directly, otherwise only after the simulation has ended.
     
-    Raises
-    ------
-    NotImplementedError (just an example)
-        Brief explanation of why/when this exception is raised
-    
-    Returns
-    -------
-    dtype
-        Some information
     
     """
     
