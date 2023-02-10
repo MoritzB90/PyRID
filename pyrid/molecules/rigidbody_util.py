@@ -214,8 +214,8 @@ class RBs(HolesArray):
         
         i += 1
         
-        if self.Data[i]['topology_N'] == 19:
-            raise IndexError('Maximum number of particles per molecule (20) reached! To change this, currently you have to manualy set the maximum size in rigidbody_util.py')
+        if self.Data[i]['topology_N'] >= self.Data[i]['topology'].shape[0]:
+            raise IndexError("Maximum number of particles per molecule reached (Default=20)! To increase the maximum number of particles per molecule, go to rigidbody_util.py and change the size of the field named 'topology' in the structured array data type item_t_RB -> ('topology', np.int64, (20,)). See documentation for more details.")
             
         n = self.Data[i]['topology_N']
         self.Data[i]['topology'][n] = pi
