@@ -1,4 +1,4 @@
-# PyPatch output formats that are potentially very large
+# PyRID output formats that are potentially very large
 *.xyz
 *.MKV
 *.mp4
@@ -19,6 +19,8 @@
 *.out
 *.dat
 *.html
+*.bib.bak
+*.bib.sav.tmp
 
 /HPC
 /examples/CellBlender_Example_files
