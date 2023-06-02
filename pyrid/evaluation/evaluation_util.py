@@ -231,11 +231,11 @@ class Evaluation(object):
             self.file_name = file_name
             
         if path is None:
-            self.path = Path(os.getcwd()) / 'Files/hdf5' / (self.file_name+'.h5')
+            self.path = Path(os.getcwd()) / (self.file_name+'.h5')
             self.fig_path = Path(os.getcwd()) / 'Figures'
         else:
             self.path = Path(path) / (self.file_name+'.h5')
-            self.fig_path = Path(path) / 'Figures'
+            self.fig_path = Path(path)
             
             try:
                 os.makedirs(self.fig_path) 
