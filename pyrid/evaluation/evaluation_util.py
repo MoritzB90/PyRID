@@ -1212,13 +1212,13 @@ class Evaluation(object):
         overlap=0)
         
         try:
-            os.makedirs(self.fig_path / 'Graphs') 
+            os.makedirs(self.fig_path) 
         except FileExistsError:
             # directory already exists
             pass
             
         # g.set_options('{"layout": {"randomSeed":0}}')
-        g.show(str(self.fig_path / 'Graphs' / (self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')))
+        g.show(str(self.fig_path / (self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')))
         
 #%%
 
