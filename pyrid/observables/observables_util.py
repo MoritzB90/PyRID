@@ -115,7 +115,7 @@ class Observables(object):
         self.observables_setup = dict()
         self.observing_rdf = False
 
-        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'w')
+        hdf = h5py.File(Simulation.file_path / (Simulation.file_name+'.h5'), 'w')
         
         #------------------
         # System Setup
@@ -265,7 +265,7 @@ class Observables(object):
         self.observables_setup[Property]['current_step'] = 0
         
         # if save==True:
-        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'a')
+        hdf = h5py.File(Simulation.file_path / (Simulation.file_name+'.h5'), 'a')
             
         if stepwise == True:
             group = hdf.create_group('stepwise/'+Property, track_order=False)
@@ -446,7 +446,7 @@ class Observables(object):
         
         """
         
-        hdf = h5py.File(Simulation.file_path / 'hdf5' / (Simulation.file_name+'.h5'), 'a')
+        hdf = h5py.File(Simulation.file_path / (Simulation.file_name+'.h5'), 'a')
         
         self.observing_rdf =True
         self.rdf_nsteps = int((Simulation.nsteps)/stride)
