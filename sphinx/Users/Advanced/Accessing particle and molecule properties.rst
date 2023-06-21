@@ -11,7 +11,8 @@ However, sometimes you may want to access some system properties directly and wr
 You can do so via the Simulation class and its attributes. Tip: If you want to have a look at all the different attributes of the Simulation class, use :python:`dir(Simulation)`. 
 
 
-**Particles**
+Particles
+---------
 
 All particle properties, are kept in a data structure that can be accessed by the Particles attribute
 
@@ -73,7 +74,11 @@ We can access individual fields via their name or index:
 
 	Out[4]: array([ 40.96887479809036   , -27.908936738251054  , -0.14310326836228807])
 
-Each particle has assigned a unique id by which they can by identified unambiguously:
+
+Particle ID
+^^^^^^^^^^^
+
+Each particle has assigned a unique id by which it can be identified unambiguously:
 
 .. code-block:: python
 	
@@ -82,7 +87,8 @@ Each particle has assigned a unique id by which they can by identified unambiguo
 	Out[3]: 10352
 
 
-**Molecules**
+Molecules
+---------
 
 Similarly, the properties of all the molecules (Rigid Bead molecules: RBs) in the simulation can be accessed by
 
@@ -176,6 +182,9 @@ Therefore, the proper way to get the particle indices of the molecule is:
 
 	Out[6]: array([25, 26, 27, 28, 29], dtype=int64)
 
+
+Molecule ID
+^^^^^^^^^^^
 
 Each molecule has assigned a unique id that can be accessed via the 'unique_id' field. This is not to be confused with the 'id' field, which is not an unambigous identifier!
 
