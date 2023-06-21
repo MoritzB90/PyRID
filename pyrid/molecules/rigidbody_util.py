@@ -15,7 +15,7 @@ from ..reactions.update_reactions import delete_molecule
 #%%
 
     
-item_t_RB = np.dtype([('next', np.int64),('name', 'U20'),('id', np.int64),('type_id', np.int64), ('pos', np.float64, (3,)), ('dX', np.float64, (3,)), ('force', np.float64, (3,)), ('torque', np.float64, (3,)), ('topology', np.int64, (20,)),('topology_N', np.int64),('q', np.float64, (4,)), ('dq', np.float64, (4,)),('B', np.float64, (4,4)),('orientation_quat', np.float64, (3,3)),('mu_tb', np.float64, (3,3)),('mu_rb', np.float64, (3,3)),('mu_tb_sqrt', np.float64, (3,3)),('mu_rb_sqrt', np.float64, (3,3)),('Dtrans', np.float64),('Drot', np.float64),('radius', np.float64), ('loc_id', np.int64), ('compartment', np.int64), ('triangle_id', np.int64), ('pos_last', np.float64, (3,)), ('Theta_t', np.float64, (3,)), ('Theta_r', np.float64, (3,)), ('posL', np.float64, (3,)), ('collision_type', np.int64), ('next_transition', np.float64), ('h', np.int64), ],  align=True)
+item_t_RB = np.dtype([('next', np.int64),('name', 'U20'),('id', np.int64),('unique_id', np.int64),('type_id', np.int64), ('pos', np.float64, (3,)), ('dX', np.float64, (3,)), ('force', np.float64, (3,)), ('torque', np.float64, (3,)), ('topology', np.int64, (20,)),('topology_N', np.int64),('q', np.float64, (4,)), ('dq', np.float64, (4,)),('B', np.float64, (4,4)),('orientation_quat', np.float64, (3,3)),('mu_tb', np.float64, (3,3)),('mu_rb', np.float64, (3,3)),('mu_tb_sqrt', np.float64, (3,3)),('mu_rb_sqrt', np.float64, (3,3)),('Dtrans', np.float64),('Drot', np.float64),('radius', np.float64), ('loc_id', np.int64), ('compartment', np.int64), ('triangle_id', np.int64), ('pos_last', np.float64, (3,)), ('Theta_t', np.float64, (3,)), ('Theta_r', np.float64, (3,)), ('posL', np.float64, (3,)), ('collision_type', np.int64), ('next_transition', np.float64), ('h', np.int64), ],  align=True)
 
 spec_holes_array = [
     ('n', nb.int64),
@@ -29,7 +29,7 @@ spec_holes_array = [
 ]
 
 spec_RBs = [
-    ('a', nb.int64),
+    ('current_unique_id', nb.int64),
 ]
 
 @jitclass(spec_holes_array+spec_RBs)
@@ -94,6 +94,7 @@ class RBs(HolesArray):
     def __init__(self):
         self.__init__HolesArray(item_t_RB)
         
+        self.current_unique_id = 0
         
     def add_RB(self, name, compartment, System, Particles, vol_surf_id):
         
@@ -114,6 +115,9 @@ class RBs(HolesArray):
         """
         
         self.insert(np.zeros(1, dtype = item_t_RB)[0])
+        
+        self.Data[self.slot]['unique_id'] = self.current_unique_id
+        self.current_unique_id += 1
         
         self.Data[self.slot]['name'] = name
         self.Data[self.slot]['compartment'] = compartment

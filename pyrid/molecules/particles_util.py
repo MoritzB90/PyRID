@@ -14,7 +14,7 @@ from ..data_structures.dynamic_array_util import DenseArray, HolesArray
 #%%
 
     
-item_t = np.dtype([('next', np.int64), ('pos', (np.float64, (3,))), ('pos_local', (np.float64, (3,))), ('coord_local', (np.float64, (3,))), ('force', (np.float64, (3,))), ('rb_id', np.int64), ('type', 'U20'), ('type_id', np.int64), ('radius', np.float64), ('number_reactions', np.int64), ('reactions_head', np.int64 , (2,)), ('bound', bool), ('bound_with', np.int64), ('cutoff', np.float64), ('h', np.int64), ('next_transition', np.float64),],  align=True)
+item_t = np.dtype([('next', np.int64),('unique_id', np.int64), ('pos', (np.float64, (3,))), ('pos_local', (np.float64, (3,))), ('coord_local', (np.float64, (3,))), ('force', (np.float64, (3,))), ('rb_id', np.int64), ('type', 'U20'), ('type_id', np.int64), ('radius', np.float64), ('number_reactions', np.int64), ('reactions_head', np.int64 , (2,)), ('bound', bool), ('bound_with', np.int64), ('cutoff', np.float64), ('h', np.int64), ('next_transition', np.float64),],  align=True)
 
 
 spec_holes_array = [
@@ -28,7 +28,7 @@ spec_holes_array = [
 ]
 
 spec_particles = [
-    ('a', nb.int64),
+    ('current_unique_id', nb.int64),
 ]
 
 @jitclass(spec_holes_array+spec_particles)
@@ -86,6 +86,8 @@ class Particles(HolesArray):
     def __init__(self):
         self.__init__HolesArray(item_t)
         
+        self.current_unique_id = 0
+        
     def add_particle(self, System, type_name):
         
         """Adds a new particle to the array
@@ -98,7 +100,10 @@ class Particles(HolesArray):
             Name of particle type
         
         """
-    
+        
+        self.Data[self.slot]['unique_id'] = self.current_unique_id
+        self.current_unique_id += 1
+        
         self.insert(np.zeros(1, dtype = item_t)[0])
         self.Data[self.slot]['bound_with'] = -1
         

@@ -40,6 +40,7 @@ Therefore, we first need to take a look at the field names of the structured arr
 	In[2]: Simulation.Particles[0].dtype.names
 
 	Out[2]: ('next',
+		'unique_id',
  		'pos',
  		'pos_local',
  		'coord_local',
@@ -72,6 +73,14 @@ We can access individual fields via their name or index:
 
 	Out[4]: array([ 40.96887479809036   , -27.908936738251054  , -0.14310326836228807])
 
+Each particle has assigned a unique id by which they can by identified unambiguously:
+
+.. code-block:: python
+	
+	In[3]: Simulation.Particles[0]['unique_id']
+
+	Out[3]: 10352
+
 
 **Molecules**
 
@@ -87,11 +96,12 @@ As for the particles dta structure, a numpy structured array is returned. Its fi
 
 .. code-block:: python
 	
-	In[1]: Simulation.Particles[0].dtype.names
+	In[1]: Simulation.RBs[0].dtype.names
 
 	Out[1]: ('next',
 		'name',
  		'id',
+ 		'unique_id',
  		'type_id',
  		'pos',
  		'dX',
@@ -167,5 +177,14 @@ Therefore, the proper way to get the particle indices of the molecule is:
 	Out[6]: array([25, 26, 27, 28, 29], dtype=int64)
 
 
+Each molecule has assigned a unique id that can be accessed via the 'unique_id' field. This is not to be confused with the 'id' field, which is not an unambigous identifier!
 
+.. code-block:: python
+	
+	In[3]: Simulation.RBs[0]['unique_id']
+
+	Out[3]: 548
+
+.. warning::
+   The value of the 'id' field is not an unambigous identifier of a molecule and may be reassigned to other molecules during simulation. Use the 'unique_id' field to unambigously identify a molecule!
 

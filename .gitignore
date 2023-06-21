@@ -27,6 +27,7 @@
 /docs
 /Not_Published
 /Videos
+/debugging
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
