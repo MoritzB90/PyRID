@@ -14,6 +14,10 @@ from ..evaluation.rdf_util import create_rb_hgrid, radial_distr_function
 #%%
 
 
+def rec_from_arrays(array_list, names, formats):
+    dtype = np.dtype({'names':names,'formats':formats})
+    return np.rec.fromarrays(array_list, dtype=dtype)
+
 class Observables(object):
     
     """
@@ -519,16 +523,25 @@ class Observables(object):
                         mol_id = Simulation.System.molecule_types[mol_name].type_id
                         
                         Mask = RBs[RBs.occupied[0:RBs.occupied.n]]['type_id']==mol_id
+                        unique_ids = RBs[RBs.occupied[0:RBs.occupied.n]]['unique_id'][Mask]
                         
                         # if observable['stepwise'] == True:
                         if Property == 'Force':
-                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=RBs[RBs.occupied[0:RBs.occupied.n]]['force'][Mask])
+                            force = RBs[RBs.occupied[0:RBs.occupied.n]]['force'][Mask]
+                            data = rec_from_arrays([force[:,0], force[:,1], force[:,2], unique_ids], ['x','y','z','ID'], [(np.float64)]*3+[np.int64])
+                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=data)
                         elif Property == 'Torque':
-                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=RBs[RBs.occupied[0:RBs.occupied.n]]['torque'][Mask])
+                            torque = RBs[RBs.occupied[0:RBs.occupied.n]]['torque'][Mask]
+                            data = rec_from_arrays([torque[:,0], torque[:,1], torque[:,2], unique_ids], ['x','y','z','ID'], [(np.float64)]*3+[np.int64])
+                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=data)
                         elif Property == 'Orientation':
-                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=RBs[RBs.occupied[0:RBs.occupied.n]]['q'][Mask])
+                            qrot = RBs[RBs.occupied[0:RBs.occupied.n]]['q'][Mask]
+                            data = rec_from_arrays([qrot[:,0], qrot[:,1], qrot[:,2], qrot[:,3], unique_ids], ['q0','q1','q2','q3','ID'], [(np.float64)]*4+[np.int64])
+                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=data)
                         elif Property == 'Position':
-                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=RBs[RBs.occupied[0:RBs.occupied.n]]['pos'][Mask])
+                            pos = RBs[RBs.occupied[0:RBs.occupied.n]]['pos'][Mask]
+                            data = rec_from_arrays([pos[:,0], pos[:,1], pos[:,2], unique_ids], ['x','y','z','ID'], [(np.float64)]*3+[np.int64])
+                            dataset = hdf.create_dataset('stepwise/'+Property+'/'+str(mol_name)+'/'+step_id, data=data)
                             
                         dataset.attrs['time step'] = Simulation.current_step
                     

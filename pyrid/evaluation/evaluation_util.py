@@ -828,8 +828,11 @@ class Evaluation(object):
             df = pd.DataFrame(self.Observables[sampling][measure][molecules[0]][step])
             # df.columns = ['x', 'y', 'z']
             
-            g = sns.lineplot(data = df, palette = self.color_pallete[measure])
-            
+            if measure == 'Orientation':
+                g = sns.lineplot(data = df[['q0','q1','q2','q3']], palette = self.color_pallete[measure])
+            else:
+                g = sns.lineplot(data = df[['x','y','z']], palette = self.color_pallete[measure])
+                
             plt.title('Molecule: {}'.format(molecules[0]))
             plt.xlabel('Molecules')
                 
