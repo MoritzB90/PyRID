@@ -1746,9 +1746,30 @@ class System(object):
                 
                 a = set(Vertex[k1])-set([tri_id])
                 b = set(Vertex[k2])-set([tri_id])
-                neighb = list(a-(a-b))[0]
                 
-                self.Mesh[tri_id]['neighbours'][j] = neighb
+                neighb = (a-(a-b))
+                
+                if not neighb: # len(neighb) == 0
+                    print('triangle vertex positions:')
+                    print(self.vertices[triangle[0]])
+                    print(self.vertices[triangle[1]]) 
+                    print(self.vertices[triangle[2]])
+                    raise Exception('The mesh provided is not a manifold mesh! There exists a triangle with at least 1 edge that lacks a neighbouring triangle.')
+                    
+                elif len(neighb)>1:
+                    print('set of triangle neighbours: ', neighb)
+                    print('Vertex positions:')
+                    for triid in neighb:
+                        tr = self.Mesh[triid]['triangles']
+                        print(self.vertices[tr[0]])
+                        print(self.vertices[tr[1]]) 
+                        print(self.vertices[tr[2]])
+                        print('------------------')
+                    raise Exception('The mesh provided is not a true manifold mesh! There exists a triangle with at least 1 edge that has more than 1 neighbouring triangle.')
+                    
+                # neighb = list(a-(a-b))[0]
+                
+                self.Mesh[tri_id]['neighbours'][j] = neighb.pop()
                 
     
     #%%
