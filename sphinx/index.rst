@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. sphinx-build -E -a -b html D:\GitHub\PyRID\sphinx D:\GitHub\PyRID_doc_revised\docs
-.. sphinx-build -b html D:\GitHub\PyRID\sphinx D:\GitHub\PyRID_doc_revised\docs
+.. sphinx-build -E -a -b html D:\GitHub\PyRID\sphinx D:\GitHub\PyRID_doc\docs
+.. sphinx-build -b html D:\GitHub\PyRID\sphinx D:\GitHub\PyRID_doc\docs
 
 ==============================================================================================
 PyRID: A Brownian dynamics simulator for reacting and interacting particles written in Python.

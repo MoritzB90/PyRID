@@ -24,8 +24,59 @@ def string_in_array(string, strings_array):
             in_array = True
             
     return in_array
-        
+
+
+@nb.njit
+def stack_dim1(x, n):
     
+    y = np.zeros(n, dtype = x.dtype) 
+            
+    y[0:n-1] = x
+    
+    return y
+
+@nb.njit
+def stack_dim2(x, n):
+    
+    y = np.zeros((n,n), dtype = x.dtype) 
+        
+    y[0:n-1,0:n-1] = x
+    
+    return y
+    
+@nb.njit
+def stack_dim1_setval(x, n, value):
+    
+    y = np.zeros(n, dtype = x.dtype)
+    
+    y[:] = value
+            
+    y[0:n-1] = x
+    
+    return y
+
+@nb.njit
+def stack_dim2_setval(x, n, value):
+    
+    y = np.zeros((n,n), dtype = x.dtype) 
+    
+    y[:,:] = value
+    
+    y[0:n-1,0:n-1] = x
+    
+    return y
+
+@nb.njit
+def stack_dim2_setval_id(x, n, value):
+    
+    y = np.zeros((n,n), dtype = x.dtype) 
+    
+    y['id'][:,:] = value
+    
+    y[0:n-1,0:n-1] = x
+    
+    return y
+
 #%%
 
 item_t_border_2d = np.dtype([('edge_id', np.int64), ('triangle_ids', np.int64), ('direction_normal', np.float64, (3,)), ('edge_length', np.float64), ('cum_edge_length', np.float64),],  align=True)
@@ -1101,6 +1152,16 @@ class System(object):
         
         self.boundary_2d = False
         
+        self.up_reaction_id = np.empty(self.ntypes, dtype = np.int64)
+        self.bp_reaction_ids = np.zeros(self.ntypes, dtype = item_t_bpr)
+        self.interaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_inter)
+        self.reaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_react)
+        self.N_bonds = np.zeros((self.ntypes, self.ntypes), dtype = np.int64)
+        self.interaction_defined  = np.zeros((self.ntypes, self.ntypes), dtype = nb.types.bool_)
+        self.pair_interaction = np.zeros(self.ntypes, dtype = nb.types.bool_)
+        
+        self.um_reaction_id = np.empty(self.ntypes_rb, dtype = np.int64)
+        
         print('System initialized')
         
     
@@ -1224,15 +1285,19 @@ class System(object):
         
         self.molecule_types[molecule_name] = MoleculeType(particle_pos, particle_types, particle_radii, molecule_name, collision_type, self, h_membrane)
 
-        self.um_reaction_id = np.empty(self.ntypes, dtype = np.int64)
-        self.um_reaction_id[:] = -1
+        # self.um_reaction_id = np.empty(self.ntypes, dtype = np.int64)
+        # self.um_reaction_id[:] = -1
+        self.um_reaction_id = stack_dim1_setval(self.um_reaction_id, self.ntypes_rb+1, -1)
         
         
-        molecule_id_to_name0 = np.empty(self.ntypes_rb+1, dtype = 'U20')
-        for i,name in enumerate(self.molecule_id_to_name):
-            molecule_id_to_name0[i] = name
-        molecule_id_to_name0[self.ntypes_rb] = molecule_name
-        self.molecule_id_to_name = molecule_id_to_name0
+        # molecule_id_to_name0 = np.empty(self.ntypes_rb+1, dtype = 'U20')
+        # for i,name in enumerate(self.molecule_id_to_name):
+        #     molecule_id_to_name0[i] = name
+        # molecule_id_to_name0[self.ntypes_rb] = molecule_name
+        # self.molecule_id_to_name = molecule_id_to_name0
+        
+        self.molecule_id_to_name = stack_dim1(self.molecule_id_to_name, self.ntypes_rb+1)
+        self.molecule_id_to_name[self.ntypes_rb] = molecule_name
         
         self.virial_scalar = np.zeros(self.ntypes_rb+1, dtype = np.float64)
         self.virial_scalar_Wall = np.zeros(self.ntypes_rb+1, dtype = np.float64)
@@ -1378,27 +1443,39 @@ class System(object):
         self.particle_types[Type][0]['id'] = self.ntypes
         self.particle_types[Type][0]['radius'] = radius
         
-        particle_id_to_name0 = np.empty(self.ntypes+1, dtype = 'U20')
-        for i,types in enumerate(self.particle_id_to_name):
-            particle_id_to_name0[i] = types
-        particle_id_to_name0[self.ntypes] = Type
-        self.particle_id_to_name = particle_id_to_name0
+        # particle_id_to_name0 = np.empty(self.ntypes+1, dtype = 'U20')
+        # for i,types in enumerate(self.particle_id_to_name):
+        #     particle_id_to_name0[i] = types
+        # particle_id_to_name0[self.ntypes] = Type
+        # self.particle_id_to_name = particle_id_to_name0
         
         self.ntypes += 1
         
-        self.up_reaction_id = np.empty(self.ntypes, dtype = np.int64)
-        self.up_reaction_id[:] = -1
-        self.bp_reaction_ids = np.zeros(self.ntypes, dtype = item_t_bpr)
+        self.particle_id_to_name = stack_dim1(self.particle_id_to_name, self.ntypes)
+        self.particle_id_to_name[self.ntypes-1] = Type
         
-        self.interaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_inter)
+        # self.up_reaction_id = np.empty(self.ntypes, dtype = np.int64)
+        # self.up_reaction_id[:] = -1
+        self.up_reaction_id = stack_dim1_setval(self.up_reaction_id, self.ntypes, -1)
         
-        self.reaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_react)
-        self.reaction_args['id'][:,:] = -1
+        # self.bp_reaction_ids = np.zeros(self.ntypes, dtype = item_t_bpr)
+        self.bp_reaction_ids = stack_dim1(self.bp_reaction_ids, self.ntypes)
         
-        self.N_bonds = np.zeros((self.ntypes, self.ntypes), dtype = np.int64)
+        # self.interaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_inter)
+        self.interaction_args = stack_dim2(self.interaction_args, self.ntypes)
         
-        self.interaction_defined  = np.zeros((self.ntypes, self.ntypes), dtype = nb.types.bool_)
-        self.pair_interaction = np.zeros(self.ntypes, dtype = nb.types.bool_)
+        # self.reaction_args = np.zeros((self.ntypes, self.ntypes), dtype = item_t_react)
+        # self.reaction_args['id'][:,:] = -1
+        self.reaction_args = stack_dim2_setval_id(self.reaction_args, self.ntypes, -1)
+        
+        # self.N_bonds = np.zeros((self.ntypes, self.ntypes), dtype = np.int64)
+        self.N_bonds = stack_dim2(self.N_bonds, self.ntypes)
+        
+        # self.interaction_defined  = np.zeros((self.ntypes, self.ntypes), dtype = nb.types.bool_)
+        self.interaction_defined = stack_dim2(self.interaction_defined, self.ntypes)
+        
+        # self.pair_interaction = np.zeros(self.ntypes, dtype = nb.types.bool_)
+        self.pair_interaction = stack_dim1(self.pair_interaction, self.ntypes)
         
         # self.force_measure = np.zeros(self.ntypes, dtype = np.int64)
         
