@@ -116,7 +116,7 @@ Propagation of translational and angular motion
     :func:`pyrid.system.update_pos.update_rb_compartments`
 
 
-The motion of an isolated rigid bead molecule j in solution can be
+The motion of an isolated rigid bead molecule in solution can be
 described in terms of the Langevin equation for translational and
 rotational motion. Note that we are always considering isolated
 molecules in dispersion and do not account for the hydrodynamic
@@ -126,22 +126,22 @@ the most general case the Langevin equation for translational and
 rotational motion reads
 :cite:p:`Ermak1978, Dickinson1985, Jones1991`:
 
-.. math:: m \frac{d^2\boldsymbol{r}_j(t)}{dt^2} = \boldsymbol{F}_j - \Big(\boldsymbol{\Xi}^{tt} \frac{d\boldsymbol{r}_j}{dt} + \boldsymbol{\Xi}^{tr} \frac{d\boldsymbol{\phi}_j}{dt}\Big) + \boldsymbol{R}^t
+.. math:: m \frac{d^2\boldsymbol{r}(t)}{dt^2} = \boldsymbol{F} - \Big(\boldsymbol{\Xi}^{tt} \frac{d\boldsymbol{r}}{dt} + \boldsymbol{\Xi}^{tr} \frac{d\boldsymbol{\phi}}{dt}\Big) + \boldsymbol{R}^t
 
-.. math:: \frac{d}{dt} \Big( I \frac{d \boldsymbol{\phi}_j(t)}{dt} \Big) = \boldsymbol{T}_j - \Big(\boldsymbol{\Xi}^{rr} \frac{d\boldsymbol{\phi}_j}{dt} + \boldsymbol{\Xi}^{rt} \frac{d\boldsymbol{r}_j}{dt}\Big) + \boldsymbol{R}^r,
+.. math:: \frac{d}{dt} \Big( I \frac{d \boldsymbol{\phi}(t)}{dt} \Big) = \boldsymbol{T} - \Big(\boldsymbol{\Xi}^{rr} \frac{d\boldsymbol{\phi}}{dt} + \boldsymbol{\Xi}^{rt} \frac{d\boldsymbol{r}}{dt}\Big) + \boldsymbol{R}^r,
 
-where :math:`\boldsymbol{r}_j(t)` is the position of the molecule center
-and :math:`\boldsymbol{\phi}_j(t)` the rotation angle.
-:math:`\boldsymbol{F}_j` is the total force exerted on molecule j and
-:math:`\boldsymbol{T}_j` is the torque. :math:`\boldsymbol{R}^t` and
+where :math:`\boldsymbol{r}(t)` is the position of the molecule center
+and :math:`\boldsymbol{\phi}(t)` the rotation angle.
+:math:`\boldsymbol{F}` is the total force exerted on the molecule and
+:math:`\boldsymbol{T}` is the torque. :math:`\boldsymbol{R}^t` and
 :math:`\boldsymbol{R}^r` describe the random, erratic movement of the
 molecule due to collisions with the solvent molecules where
 
 .. math:: \langle \boldsymbol{R}^a(t)\rangle = 0
 
-.. math:: \langle \boldsymbol{R}^a(t) \boldsymbol{R}^b(t')\rangle = 2 k_B T \boldsymbol{\Xi}_{ij}^{ab} \delta(t-t'),
+.. math:: \langle R^a_i(t) R^b_j(t')\rangle = 2 k_B T \Xi_{ij}^{ab} \delta(t-t'),
 
-with :math:`a,b \in \{t,r\}`. Here,
+with :math:`a,b \in \{t,r\}`. :math:`\Xi_{ij}^{ab}` are the components of the 3 x 3 friction tensors. Here,
 :math:`\boldsymbol{\Xi}^{tt}, \boldsymbol{\Xi}^{rr}, \boldsymbol{\Xi}^{tr}, \boldsymbol{\Xi}^{rt}`
 are the translational, rotational and translation-rotation coupling
 friction tensors of the rigid body in the lab frame. Also,
@@ -153,23 +153,23 @@ acceleration of the molecules can be neglected in the description of the
 diffusion process. As such it is convenient to describe the motion of
 molecules by overdamped Langevin dynamics also called Brownian motion
 where
-:math:`I \frac{d^2 \phi_j(t)}{dt^2} = m \frac{d^2 x_j(t)}{dt^2} = 0`:
+:math:`I \frac{d^2 \phi(t)}{dt^2} = m \frac{d^2 x(t)}{dt^2} = 0`:
 
-.. math:: \frac{d\boldsymbol{r}_j(t)}{dt} = \boldsymbol{M}_{j}^{tt} \boldsymbol{F}_j + \boldsymbol{M}_{j}^{tr} \boldsymbol{T}_j + \boldsymbol{S}^t
+.. math:: \frac{d\boldsymbol{r}(t)}{dt} = \boldsymbol{M}^{tt} \boldsymbol{F} + \boldsymbol{M}^{tr} \boldsymbol{T} + \boldsymbol{S}^t
 
-.. math:: \frac{d \boldsymbol{\phi}_j(t)}{dt} = \boldsymbol{M}_{j}^{rr} \boldsymbol{T}_j + \boldsymbol{M}_{j}^{rt} \boldsymbol{F}_j + \boldsymbol{S}^r.
+.. math:: \frac{d \boldsymbol{\phi}(t)}{dt} = \boldsymbol{M}^{rr} \boldsymbol{T} + \boldsymbol{M}^{rt} \boldsymbol{F} + \boldsymbol{S}^r.
 
 with
 
 .. math:: \langle \boldsymbol{S}^a(t)\rangle = 0
 
-.. math:: \langle \boldsymbol{S}^a(t) \boldsymbol{S}^b(t')\rangle = 2 k_B T \boldsymbol{M}_{ij}^{ab} \delta(t-t'),
+.. math:: \langle S^a_i(t) S^b_j(t')\rangle = 2 k_B T M_{ij}^{ab} \delta(t-t'),
 
 where
 :math:`\boldsymbol{M}^{tt}, \boldsymbol{M}^{rr}, \boldsymbol{M}^{tr}, \boldsymbol{M}^{rt}`
 are the translational, rotational and translation-rotation coupling
 mobility tensors of the rigid body in the lab frame and
-:math:`\boldsymbol{M}^{ab} = \frac{\boldsymbol{D}^{ab}}{k_B T}`. Also
+:math:`\boldsymbol{M}^{ab} = \frac{\boldsymbol{D}^{ab}}{k_B T}`. :math:`M_{ij}^{ab}` are the components of the 3 x 3 mobility tensors. Also
 :math:`\boldsymbol{M}^{rt} = \boldsymbol{M}^{tr,T}`. In most cases, the
 effect of the translation-rotation coupling on the molecular dynamics is
 negligible. However, translation-rotation coupling increases the
@@ -182,12 +182,12 @@ as :cite:p:`Ilie2015`
 .. math::
     :label: eq:drdt
 
-    \boldsymbol{r}_j(t) = \boldsymbol{r}_j(t-\Delta t) + \boldsymbol{A}_j \boldsymbol{M}_{j}^{tt,b} \boldsymbol{A}_j^T \boldsymbol{F}_j \Delta t + \boldsymbol{A}_j \sqrt{2 \boldsymbol{M}_{j}^{tt,b} k_B T}\, \boldsymbol{W}^t(\Delta t)
+    \boldsymbol{r}(t) = \boldsymbol{r}(t-\Delta t) + \boldsymbol{A} \boldsymbol{M}^{tt,b} \boldsymbol{A}^T \boldsymbol{F} \Delta t + \boldsymbol{A} \sqrt{2 \boldsymbol{M}^{tt,b} k_B T}\, \boldsymbol{W}^t(\Delta t)
 
 .. math::
     :label: eq:dphidt
     
-    \boldsymbol{\phi}_j(t) = \boldsymbol{\phi}_j(t-\Delta t) + \boldsymbol{A}_j \boldsymbol{M}_{j}^{rr,b} \boldsymbol{A}_j^T \boldsymbol{T}_j \Delta t + \boldsymbol{A}_j \sqrt{2 \boldsymbol{M}_{j}^{rr,b} k_B T}\, \boldsymbol{W}^r(\Delta t).
+    \boldsymbol{\phi}(t) = \boldsymbol{\phi}(t-\Delta t) + \boldsymbol{A} \boldsymbol{M}^{rr,b} \boldsymbol{A}^T \boldsymbol{T} \Delta t + \boldsymbol{A} \sqrt{2 \boldsymbol{M}^{rr,b} k_B T}\, \boldsymbol{W}^r(\Delta t).
 
 Here, :math:`\boldsymbol{W}(\Delta t)` is a 3-dimensional Wiener
 process, i.e.
@@ -198,7 +198,7 @@ all directions. The superscript :math:`b` indicates that the mobility
 tensors :math:`\boldsymbol{M}^{ab,b}` are given in terms of the
 body/local frame of the molecule, which is much more convenient when we
 talk about the propagation algorithm. In this context,
-:math:`\boldsymbol{A}_j` is the rotation matrix of molecule j. One
+:math:`\boldsymbol{A}` is the rotation matrix of the molecule. One
 problem with the rotational equation of motion is that several issues
 arise depending on how rotations are represented. Propagating the
 rotation in terms of Euler angles, e.g., will result in numerical drift
@@ -232,10 +232,9 @@ be thought of as an extension to complex numbers and were introduced in
 1844 by Sir William Rowan Hamilton :cite:p:`Hamilton1844`.
 The rotation quaternion :math:`\boldsymbol{q}(t)` propagates in response
 to the torque
-:math:`\boldsymbol{T}_i(t) = \boldsymbol{F}_i(t) \times \boldsymbol{r}_{ij}`
-exerted by the external forces, where :math:`\boldsymbol{r}_{ij}` is the
-distance vector between bead i and the center of diffusion of molecule
-j. The rotation matrix can be represented in terms of rotation
+:math:`\boldsymbol{T}_i(t) = \boldsymbol{F}_i(t) \times \boldsymbol{r}_{i}`
+exerted by the external forces, where :math:`\boldsymbol{r}_{i}` is the
+distance vector between bead i and the center of diffusion of molecule. The rotation matrix can be represented in terms of rotation
 quaternions by :cite:p:`Baraff2001` (:func:`pyrid.molecules.rigidbody_util.RBs.calc_orientation_quat`):
 
 .. math::
@@ -277,7 +276,7 @@ Inserting :math:numref:`eq:dphidt` into :math:numref:`eq:dg(dphi)`, we get:
 .. math::
     :label: eq:dqdt
 
-    \boldsymbol{q}_j(t) = \boldsymbol{q}_j(t-\Delta t) + \boldsymbol{B}_j\boldsymbol{A}_j \boldsymbol{M}_{j}^{rr,b} \boldsymbol{A}_j^T \boldsymbol{T}_j \Delta t + \boldsymbol{B}_j \boldsymbol{A}_j \sqrt{2 \boldsymbol{M}_{j}^{rr,b} k_B T}\, \boldsymbol{W}^r(\Delta t).
+    \boldsymbol{q}(t) = \boldsymbol{q}(t-\Delta t) + \boldsymbol{B}\boldsymbol{A} \boldsymbol{M}^{rr,b} \boldsymbol{A}^T \boldsymbol{T} \Delta t + \boldsymbol{B} \boldsymbol{A} \sqrt{2 \boldsymbol{M}^{rr,b} k_B T}\, \boldsymbol{W}^r(\Delta t).
 
 The factor :math:`\boldsymbol{B}\boldsymbol{A}` can, however, be
 simplified:

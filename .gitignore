@@ -2,7 +2,7 @@
 *.xyz
 *.MKV
 *.mp4
-#*.png
+*.png
 *.npz
 *.pid
 *.prop

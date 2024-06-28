@@ -28,10 +28,8 @@ Installation
 
    >>> conda activate pyrid-env
 
-6. Pip install PyRID and install numba and h5py via conda:
+6. Pip install PyRID:
 
    >>> pip install PyRID-0.0.1.tar.gz
-   >>> conda install numba
-   >>> conda install h5py
 
 To run your PyRID python scripts you can use, e.g., Spyder or Jupyter Lab, which both come with the Anaconda distribution.
