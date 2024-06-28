@@ -70,7 +70,7 @@ Again, you can also use the Monte Carlo sampling method:
 	Simulation.add_molecules('Surface',2, position, quaternion, mol_type_index, face_idx)
 
 
-For visualization of the molecule distribution you can call (see Fig. :ref:`fig:molecule_dictribution` B):
+For visualization of the molecule distribution you can call (see :numref:`fig:molecule_dictribution` B):
 
 .. code-block:: python
 	

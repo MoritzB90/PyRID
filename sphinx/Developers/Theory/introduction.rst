@@ -19,9 +19,9 @@ account for any of these features in a model.
 
 As an example, synaptic plasticity at excitatory synapses is mediated
 mainly by a change in AMPA receptor number at the postsynaptic density
-(PSD) (Fig. `1.1 <#fig:ampar_trafficking>`__). Of the different forms of
+(PSD) (:numref:`fig:ampar_trafficking`). Of the different forms of
 synaptic plasticity that have been discovered, long-term potentiation
-(LTP) is the most noted (Fig. `1.2 <#fig:synpl_processes>`__).
+(LTP) is the most noted (:numref:`fig:synpl_processes`).
 Therefore, it is of great interest to understand how AMPARs are
 trafficked. However, this question is not easily answered as AMPARs have
 a multitude of interaction partners which are important for AMPAR
@@ -163,7 +163,7 @@ and spatial scales at which these processes occur as well as the large
 number of complex molecules involved. A number of cell processes can be
 simulated on the required time scale by using simplifications. Various
 methods utilizing different approximations have therefore been developed
-(Fig. `1.3 <#fig:modelling_methods>`__). For example, large signaling
+(:numref:`fig:modelling_methods`). For example, large signaling
 pathways can be formulated in terms of systems of ODEs, also termed
 reaction rate equations in this setting, or in terms of chemical master
 equations which can be solved efficiently using stochastic simulation
@@ -236,7 +236,7 @@ interacting particles. PyRID runs about as fast as ReaDDy, is flexible
 and modifiable and supports 3D mesh geometries, surface diffusion, rigid
 bead models and many types of uni and bimolecular reactions. A
 comparison of features between PyRID, ReaDDy, MCell and Smoldyn is shown
-in Fig. `1.4 <#fig:FeatureComparison>`__.
+in :numref:`fig:FeatureComparison`.
 
 .. figure:: Figures/Modelling_Methods.png
    :width: 50%

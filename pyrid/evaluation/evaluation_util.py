@@ -247,7 +247,7 @@ class Evaluation(object):
         
         self.units = dict()
         for measure in hdf['Setup']['units']:
-            self.units[measure] = hdf['Setup']['units'][measure][()]#.decode()
+            self.units[measure] = hdf['Setup']['units'][measure][()].decode()
             
         
         self.Temp = hdf['Setup']['Temp'][()]

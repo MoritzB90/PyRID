@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-15T18:19:36.313Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="JxCcIUF3PwejV9G4ImCT" version="24.5.3" type="device">
+<mxfile host="Electron" modified="2024-06-22T07:30:35.867Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="3vz0zB2-33iGT-WDVIDo" version="24.5.3" type="device">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
-    <mxGraphModel dx="2100" dy="1242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1909" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -9,7 +9,7 @@
             <mxRectangle x="70" y="100" width="90" height="20" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Bimolecular&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Molecule A + Molecule B&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="dNxyNK7c78bLwvsdeMH5-12">
+        <UserObject label="&lt;font style=&quot;font-size: 20px;&quot;&gt;Bimolecular&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Molecule A + Molecule B&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="dNxyNK7c78bLwvsdeMH5-12">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#d5e8d4;strokeColor=#82b366;shadow=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="713.9899999999999" y="50" width="183" height="50" as="geometry" />
           </mxCell>
@@ -33,7 +33,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-3" value="Reaction on&amp;nbsp; particle pair {a,b}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-2" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-3" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction on&amp;nbsp; particle pair {a,b}&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-2" vertex="1" connectable="0">
           <mxGeometry x="0.0244" y="-1" relative="1" as="geometry">
             <mxPoint x="24" y="1" as="offset" />
           </mxGeometry>
@@ -43,20 +43,20 @@
             <mxPoint x="691.92" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-46" value="Reaction on&amp;nbsp; particle pair {n,m}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-38" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-46" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction on&amp;nbsp; particle pair {n,m}&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-38" vertex="1" connectable="0">
           <mxGeometry x="-0.1541" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="-4" as="offset" />
           </mxGeometry>
         </mxCell>
         <UserObject label="Enzymatic" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="dNxyNK7c78bLwvsdeMH5-14">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="490.96" y="130" width="116" height="40" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-1" target="nthaH2KU5fV0fkv0nu2V-21" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-2" value="Reaction path 2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-23" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path 2&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-23" vertex="1" connectable="0">
           <mxGeometry x="-0.0407" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -66,7 +66,7 @@
             <mxPoint x="291.92" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-25" value="Reaction path n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-17" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-25" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path n&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-17" vertex="1" connectable="0">
           <mxGeometry x="0.1534" relative="1" as="geometry">
             <mxPoint y="7" as="offset" />
           </mxGeometry>
@@ -82,26 +82,26 @@
           </mxCell>
         </UserObject>
         <UserObject label="A + B → D + B" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-21">
-          <mxCell style="treeFolding=1;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="194.76" y="280" width="108.5" height="30" as="geometry" />
+          <mxCell style="treeFolding=1;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+            <mxGeometry x="190" y="280" width="113.26" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="A + B → C + B" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-5">
-          <mxCell style="treeFolding=1;fontSize=14;rounded=1;sketch=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="69.48" y="280" width="108.5" height="30" as="geometry" />
+          <mxCell style="treeFolding=1;fontSize=16;rounded=1;sketch=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+            <mxGeometry x="60" y="280" width="117.98" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-1" target="nthaH2KU5fV0fkv0nu2V-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-1" value="Reaction path 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-20" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path 1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-20" vertex="1" connectable="0">
           <mxGeometry x="-0.1812" y="1" relative="1" as="geometry">
             <mxPoint x="-14" y="24" as="offset" />
           </mxGeometry>
         </mxCell>
         <UserObject label="A + B → E + B" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-25">
-          <mxCell style="treeFolding=1;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="428.89000000000004" y="280" width="108.5" height="30" as="geometry" />
+          <mxCell style="treeFolding=1;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+            <mxGeometry x="420" y="280" width="117.39" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-3" target="nthaH2KU5fV0fkv0nu2V-25" edge="1">
@@ -124,7 +124,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="Fusion" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-61">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;sketch=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;sketch=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1196.63" y="130" width="120" height="40" as="geometry" />
           </mxCell>
         </UserObject>
@@ -160,7 +160,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="A + B → C" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-80">
-          <mxCell style="treeFolding=1;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="991.92" y="280" width="88.08" height="30" as="geometry" />
           </mxCell>
         </UserObject>
@@ -184,9 +184,9 @@
             <mxGeometry x="1370" y="280" width="80" height="30" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Unimolecular&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Molecule A&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-89">
+        <UserObject label="&lt;font style=&quot;font-size: 20px;&quot;&gt;Unimolecular&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Molecule A&lt;/font&gt;&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-89">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="731.66" y="360" width="133" height="50" as="geometry" />
+            <mxGeometry x="720" y="360" width="160" height="50" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-90" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;shadow=0;strokeWidth=2;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-89" target="nthaH2KU5fV0fkv0nu2V-91" edge="1">
@@ -199,13 +199,13 @@
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-197" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-91" target="nthaH2KU5fV0fkv0nu2V-100" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-198" value="Reaction path 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-197" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-198" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path 1&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-197" vertex="1" connectable="0">
           <mxGeometry x="0.3969" relative="1" as="geometry">
             <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
         <UserObject label="Conversion" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-91">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="148.33" y="450" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
@@ -225,7 +225,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="Production" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-93">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="643.6600000000002" y="450" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
@@ -249,7 +249,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="Fission" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-96">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1080.2200000000003" y="450" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
@@ -262,12 +262,12 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="Decay" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-98">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1374.8500000000001" y="450" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="A → B" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-100">
-          <mxCell style="treeFolding=1;fontStyle=0;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=0;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="62.150000000000006" y="540" width="68.5" height="30" as="geometry" />
           </mxCell>
         </UserObject>
@@ -276,9 +276,9 @@
             <mxPoint x="824.41" y="510" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: 400;&quot;&gt;A → B + N&lt;/span&gt;&lt;span style=&quot;font-weight: 400; font-size: 11.6667px;&quot;&gt;&lt;sub&gt;C&lt;/sub&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;⋅C + ...&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-105">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;A → B + N&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;sub&gt;C&lt;/sub&gt;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;⋅C + ...&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-105">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="645.57" y="540" width="129.18" height="30" as="geometry" />
+            <mxGeometry x="637.79" y="540" width="144.75" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-106" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-93" target="nthaH2KU5fV0fkv0nu2V-107" edge="1">
@@ -289,9 +289,9 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <UserObject label="A → A + N&lt;span style=&quot;font-size: 11.6667px;&quot;&gt;&lt;sub&gt;B&lt;/sub&gt;&lt;/span&gt;⋅B +N&lt;span style=&quot;font-size: 11.6667px;&quot;&gt;&lt;sub&gt;C&lt;/sub&gt;&lt;/span&gt;⋅C + ..." name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-107">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;A → A + N&lt;sub&gt;B&lt;/sub&gt;⋅B +N&lt;sub&gt;C&lt;/sub&gt;⋅C + ...&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-107">
           <mxCell style="treeFolding=1;fontStyle=0;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="434.59" y="540" width="180" height="30" as="geometry" />
+            <mxGeometry x="420" y="540" width="194.59" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-108" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-96" target="nthaH2KU5fV0fkv0nu2V-109" edge="1">
@@ -303,7 +303,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="A → B + C" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-109">
-          <mxCell style="treeFolding=1;fontStyle=0;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=0;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1005.51" y="540" width="100" height="30" as="geometry" />
           </mxCell>
         </UserObject>
@@ -313,7 +313,7 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="A → ∅" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-162">
-          <mxCell style="treeFolding=1;fontStyle=0;fontSize=14;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=0;fontSize=16;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1407.0100000000002" y="540" width="68.68" height="30" as="geometry" />
           </mxCell>
         </UserObject>
@@ -322,17 +322,17 @@
             <mxPoint x="851.9700000000001" y="510" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-71" value="Reaction path 2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-173" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-71" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path 2&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="nthaH2KU5fV0fkv0nu2V-173" vertex="1" connectable="0">
           <mxGeometry x="-0.3771" y="-2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;A&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ C&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-174">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;A&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ C&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-174">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="178.83" y="540" width="72" height="30" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Biparticle&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Particle a + Particle b&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-180">
+        <UserObject label="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Biparticle&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Particle a + Particle b&lt;/font&gt;&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-180">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="177.95" y="620" width="183" height="50" as="geometry" />
           </mxCell>
@@ -343,7 +343,7 @@
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-181" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-182" target="Xs8TxQLDRZmYlR812Nf4-180" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="Bind" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-182">
+        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Bind&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-182">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="37.2" y="710" width="183" height="40" as="geometry" />
           </mxCell>
@@ -354,7 +354,7 @@
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-185" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-187" target="Xs8TxQLDRZmYlR812Nf4-184" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="Enzymatic" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-187">
+        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Enzymatic&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-187">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="315.45" y="710" width="183" height="40" as="geometry" />
           </mxCell>
@@ -364,9 +364,9 @@
             <mxPoint x="587.6299999999999" y="770" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: 400;&quot;&gt;U&lt;sub&gt;X&lt;/sub&gt;(&lt;/span&gt;r&lt;sub style=&quot;font-weight: 400;&quot;&gt;a&lt;/sub&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;,&lt;/span&gt;r&lt;sub style=&quot;font-weight: 400;&quot;&gt;b&lt;/sub&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;)&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-189">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;U&lt;sub&gt;X&lt;/sub&gt;(&lt;/span&gt;r&lt;sub style=&quot;font-weight: 400;&quot;&gt;a&lt;/sub&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;,&lt;/span&gt;r&lt;sub style=&quot;font-weight: 400;&quot;&gt;b&lt;/sub&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;)&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-189">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="27.2" y="790" width="70" height="30" as="geometry" />
+            <mxGeometry x="30" y="790" width="77.2" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-196" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-187" target="nthaH2KU5fV0fkv0nu2V-197" edge="1">
@@ -374,14 +374,14 @@
             <mxPoint x="587.6299999999999" y="770" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a + b &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;c + b&amp;nbsp;&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-197">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a + b &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;c + b&amp;nbsp;&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-197">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="281.34000000000003" y="790" width="99.18" height="30" as="geometry" />
+            <mxGeometry x="270" y="790" width="110.52" height="30" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Biparticle&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Particle a of Molecule A + Molecule B&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-200">
+        <UserObject label="&lt;font style=&quot;font-size: 20px;&quot;&gt;Biparticle&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Particle a of Molecule A + Molecule B&lt;/font&gt;&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-200">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="662.06" y="620" width="239.62" height="50" as="geometry" />
+            <mxGeometry x="641.88" y="620" width="280" height="50" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-201" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;shadow=0;strokeWidth=2;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-200" target="nthaH2KU5fV0fkv0nu2V-202" edge="1">
@@ -390,7 +390,7 @@
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-187" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-202" target="Xs8TxQLDRZmYlR812Nf4-186" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="Absoprtion" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-202">
+        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Absoprtion&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-202">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="690.3799999999999" y="710" width="183" height="40" as="geometry" />
           </mxCell>
@@ -400,9 +400,9 @@
             <mxPoint x="1054.8800000000003" y="770" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) + B &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ a&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;(A)&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-204">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) + B &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ a&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;(A)&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-204">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="590" y="790" width="110" height="30" as="geometry" />
+            <mxGeometry x="570" y="790" width="130" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-205" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-202" target="nthaH2KU5fV0fkv0nu2V-206" edge="1">
@@ -410,9 +410,9 @@
             <mxPoint x="1054.8800000000003" y="770" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) + B&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ b(A)&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-206">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) + B&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ b(A)&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-206">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="728.0899999999999" y="790" width="107.57" height="30" as="geometry" />
+            <mxGeometry x="719.05" y="790" width="125.66" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-171" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-167" target="nthaH2KU5fV0fkv0nu2V-172" edge="1">
@@ -429,16 +429,16 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <UserObject label="Conversion" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-165">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;sketch=0;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;sketch=0;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1015.2899999999998" y="710" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ b&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-170">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→ b&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-170">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="990.92" y="790" width="58.16" height="30" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;font style=&quot;font-size: 18px;&quot;&gt;Uniparticle&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;Particle a&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-163">
+        <UserObject label="&lt;font style=&quot;font-size: 20px;&quot;&gt;Uniparticle&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Particle a&lt;/font&gt;&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-163">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;glass=0;shadow=1;sketch=0;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1165.6299999999999" y="620" width="133" height="50" as="geometry" />
           </mxCell>
@@ -457,21 +457,21 @@
           </mxGeometry>
         </mxCell>
         <UserObject label="Release" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-167">
-          <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
+          <mxCell style="treeFolding=1;fontStyle=1;fontSize=18;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;shadow=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1352.6299999999997" y="710" width="133" height="40" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;nbsp;a(A) + B&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-172">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A) &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;nbsp;a(A) + B&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-172">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="1234.13" y="790" width="112.37" height="30" as="geometry" />
+            <mxGeometry x="1213.22" y="790" width="126.5" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-164" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;shadow=0;strokeWidth=2;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-163" target="nthaH2KU5fV0fkv0nu2V-165" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A)&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;nbsp;b(A) + B&lt;/span&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-178">
+        <UserObject label="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;a(A)&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;→&lt;/span&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&amp;nbsp;b(A) + B&lt;/span&gt;&lt;/font&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-178">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="1362.8400000000001" y="790" width="112.58" height="30" as="geometry" />
+            <mxGeometry x="1356.42" y="790" width="125.42" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="nthaH2KU5fV0fkv0nu2V-166" value="" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;elbow=vertical;html=1;shadow=0;strokeWidth=2;" parent="dNxyNK7c78bLwvsdeMH5-11" source="nthaH2KU5fV0fkv0nu2V-163" target="nthaH2KU5fV0fkv0nu2V-167" edge="1">
@@ -491,7 +491,7 @@
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="dNxyNK7c78bLwvsdeMH5-11" source="dNxyNK7c78bLwvsdeMH5-14" target="nthaH2KU5fV0fkv0nu2V-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-37" value="Reaction on&amp;nbsp; particle pair {c,d}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-36" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-37" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction on&amp;nbsp; particle pair {c,d}&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-36" vertex="1" connectable="0">
           <mxGeometry x="-0.3029" y="-2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -501,12 +501,12 @@
         </mxCell>
         <UserObject label="" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="Xs8TxQLDRZmYlR812Nf4-39">
           <mxCell style="treeFolding=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;shadow=1;html=1;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="744.89" y="200" width="118.5" height="30" as="geometry" />
+            <mxGeometry x="760" y="200" width="118.5" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="Xs8TxQLDRZmYlR812Nf4-44">
           <mxCell style="treeFolding=1;fontSize=14;rounded=1;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="750.3000000000001" y="280" width="107.68" height="30" as="geometry" />
+            <mxGeometry x="765.4100000000001" y="280" width="107.68" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="Xs8TxQLDRZmYlR812Nf4-63" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
@@ -520,7 +520,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Xs8TxQLDRZmYlR812Nf4-72" value="Reaction path n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-62" vertex="1" connectable="0">
+        <mxCell id="Xs8TxQLDRZmYlR812Nf4-72" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Reaction path n&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Xs8TxQLDRZmYlR812Nf4-62" vertex="1" connectable="0">
           <mxGeometry x="0.0245" y="1" relative="1" as="geometry">
             <mxPoint x="3" y="14" as="offset" />
           </mxGeometry>
@@ -553,7 +553,7 @@
         </UserObject>
         <UserObject label="" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="Xs8TxQLDRZmYlR812Nf4-186">
           <mxCell style="treeFolding=1;fontStyle=1;fontSize=14;html=1;rounded=1;dashed=1;dashPattern=1 4;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
-            <mxGeometry x="863.3900000000001" y="790" width="69.93" height="30" as="geometry" />
+            <mxGeometry x="864.6600000000001" y="790" width="69.93" height="30" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="Xs8TxQLDRZmYlR812Nf4-188">

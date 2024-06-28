@@ -32,7 +32,7 @@ PyRID supports any short ranged pair interaction potential. However, PyRID is no
     \end{cases}
 
 Here, :math:`k` is the force constant, :math:`r` the inter-particle distance and :math:`d_1`´, :math:`d_2` the radii of the two interacting particles. PyRID also comes with some plotting abilities based on the matplotlib, seaborn, and plotly (for 3D) libraries.
-You can, .e.g., plot the interaction potential energy and force (Fig. :numref:`fig:interaction_potentials`) by calling
+You can, .e.g., plot the interaction potential energy and force (:numref:`fig:interaction_potentials`) by calling
 
 .. code-block:: python
    

@@ -64,7 +64,7 @@ By default diffusion_tensor() only returns the translational and rotational diff
 
    Simulation.set_diffusion_tensor('B', D_tt, D_rr)
 
-PyRID also allows us to now plot the rigid bead model structure and diffusion tensors (Fig. :numref:`fig:moelcules_a_b`):
+PyRID also allows us to now plot the rigid bead model structure and diffusion tensors (:numref:`fig:moelcules_a_b`):
 
 .. code-block:: python
    

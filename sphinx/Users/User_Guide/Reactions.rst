@@ -4,7 +4,7 @@
 Reactions
 =========
 
-PyRID supports various uni- and bimolecular reactions. For bimolecular reactions, PyRID uses the Doi scheme. Thereby, two particles/molecules react with some rate :math:`k` if the inter-particle distance is below a certain reaction radius :math:`R_{react}`. Unimolecular reactions are handled using a variant of the Gillespie stochastic simulation algorithm, i.e. the time point of the next reaction is sampled from the expected lifetime distribution of the particle/molecule. Figure :numref:`fig:reactions_graph` gives an overview over the possible reactions that are supported by PyRID.
+PyRID supports various uni- and bimolecular reactions. For bimolecular reactions, PyRID uses the Doi scheme. Thereby, two particles/molecules react with some rate :math:`k` if the inter-particle distance is below a certain reaction radius :math:`R_{react}`. Unimolecular reactions are handled using a variant of the Gillespie stochastic simulation algorithm, i.e. the time point of the next reaction is sampled from the expected lifetime distribution of the particle/molecule. :numref:`fig:reactions_graph` gives an overview over the possible reactions that are supported by PyRID.
 
 .. figure:: Figures/Reactions_Graph.png
     :width: 70%
@@ -134,7 +134,7 @@ Fission reactions
 
 A fission reaction is the inverse of the molecule fusion reaction and thereby limited to two products.
 Also, if the educt is a surface molecule, we need to define whether to place the product on the surface or in the volume. If the product is placed in the volume, we also need to define for each product, if it is placed inside or outside the compartment. For volume molecules the situation is a bit easier as PyRID only allows for the products to also be volume molecules.
-The fission reaction :math:`\ce{C->[\ce{k_{-1}] A + B}` is setup as follows:
+The fission reaction :math:`\ce{C->[\ce{k_{-1}}] A + B}` is setup as follows:
 
 .. code-block:: python
    
@@ -209,7 +209,7 @@ Decay reactions are currently only supported for molecules, but not particles:
    Simulation.add_um_reaction('decay', 'A', 0.01)
 
 
-Due to the many possible combinations of reactions and other interactions it can become difficult keep to keep track over all the different relations in the system. Therefore, PyRID enables you to create interaction graphs (based on the pyvis library) for better visualization and analysis of the model (see figure :numref:`fig:ReactionsGraph2`). This feature is available via PyRIDs evaluation module that is introduced in detail later on.
+Due to the many possible combinations of reactions and other interactions it can become difficult keep to keep track over all the different relations in the system. Therefore, PyRID enables you to create interaction graphs (based on the pyvis library) for better visualization and analysis of the model (see :numref:`fig:ReactionsGraph2`). This feature is available via PyRIDs evaluation module that is introduced in detail later on.
 To create reaction graphs, first create an instance of PyRIDs EValuation class:
 
 .. code-block:: python

@@ -5,7 +5,7 @@ Short description
 
 
 .. automodule:: pyrid.data_structures.cell_list_util
-   :members:
+   :members: reverse_cell_mapping, create_cell_list_points, create_cell_list_mesh
 
 
 CellListMesh

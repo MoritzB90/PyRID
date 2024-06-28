@@ -43,7 +43,7 @@ The mesh has only been read but not yet added to the simulation. This can be don
    Simulation.set_compartments(Compartments, triangles, vertices, mesh_scale)
 
 Here, mesh_scale is a parameter, by which we can scale the mesh, if needed. By default, mesh_scale = 1.
-PyRID allows us to visualize the individual compartments using the 3D capabilities of the plotly library (figure :numref:`fig:Meshes`):
+PyRID allows us to visualize the individual compartments using the 3D capabilities of the plotly library (:numref:`fig:Meshes`):
 
 .. code-block:: python
 

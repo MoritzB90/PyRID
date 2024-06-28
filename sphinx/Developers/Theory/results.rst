@@ -45,7 +45,7 @@ The rotational time correlation function is given by
 
 where :math:`\hat{\boldsymbol{n}}(t)` is some unitary vector that
 describes the current orientation of the molecule at time point
-:math:`t`. Fig. `1.1 <#fig:Diff>`__ compares the simulation results to
+:math:`t`. :numref:`fig:Diff` compares the simulation results to
 the theoretical prediction, which, for the rotational time correlation
 function, is given by a multi-exponential decay function
 :cite:p:`Torre1999`:
@@ -99,9 +99,9 @@ basis vectors of the local frame, i.e.
 :math:`\hat{\boldsymbol{u}}_2 = \boldsymbol{e}_y = [0,1,0]`,
 :math:`\hat{\boldsymbol{u}}_3 = \boldsymbol{e}_z = [0,0,1]`,
 :math:`a_2-a_3` vanish such that we end up with a double exponential
-decay (Fig. `1.1 <#fig:Diff>`__ B).
+decay (:numref:`fig:Diff` B).
 
-Fig. `1.1 <#fig:Diff>`__ shows that the rotation and translation
+:numref:`fig:Diff` shows that the rotation and translation
 propagators result in the correct mean squared distribution and
 rotational time correlation.
 
@@ -163,9 +163,8 @@ simulate, e.g., a sub-region within a larger system without the need to
 simulate the dynamics of the molecules outside simulation box directly.
 As an example system we take a 3d model of synapse. The post- and
 presynaptic spine are both contained inside the simulation volume
-whereas dendrite and axon are cutoff at the simulation box border (Fig.
-`1.3 <#fig:fixed_concentration_val>`__ A). We define three molecular
-species: Species A diffuses in the volume outside the spines (in the
+whereas dendrite and axon are cutoff at the simulation box border (:numref:`fig:fixed_concentration_val` A). 
+We define three molecular species: Species A diffuses in the volume outside the spines (in the
 extracellular space), species B is located inside the postsynaptic spine
 and species C on the surface (within the membrane) of the postsynaptic
 spine. All species consist of a single particle with radius
@@ -180,9 +179,8 @@ volume or total surface area respectively. Thereby, there should be 1000
 molecules of each species in the volume and on the surface of each
 compartment as soon as the system has reached its equilibrium state.
 Indeed, after about :math:`0.5\,ms` the system has reached equilibrium
-and the number of each species fluctuates around the number 1000 (Fig.
-`1.3 <#fig:fixed_concentration_val>`__ B). As one would expect, species A
-fills the simulation volume the fastest as the border area is the
+and the number of each species fluctuates around the number 1000 (:numref:`fig:fixed_concentration_val` B). 
+As one would expect, species A fills the simulation volume the fastest as the border area is the
 largest. Species B and C which are located in the volume and on the
 surfaces of the postsynaptic compartment fill the simulation volume at
 about the same rate.
@@ -242,9 +240,8 @@ probability of encounter stays approximately the same. In contrast, if
 we assume a well stirred system, the concentration of educts would
 globaly decrease in time, lowering the probability of educt encounters.
 Therefore, the reaction kinetics are sped up in the stochastic
-simulation compared to the ode approach (Fig.
-`1.4 <#fig:ReactionKinetics_RateVal>`__). Interestingly,
-:cite:t:`Schoeneberg2013` found exactly the opposite effect,
+simulation compared to the ode approach (:numref:`fig:ReactionKinetics_RateVal`). 
+Interestingly, :cite:t:`Schoeneberg2013` found exactly the opposite effect,
 as the reaction kinetics where slowed down in the stochastic simulation.
 The reason for this discrepancy in the results is unclear. However, I
 simulated the very same system in ReaDDy and got the same result as with
@@ -349,8 +346,7 @@ different pair permutations of the available beads:
    \end{split}
 
 where :math:`k_i` are the microscopic reaction rates and :math:`R_i` the
-reaction radii. For better visualization, also see figure
-`1.5 <#fig:ReactionKinetics_RBM>`__ A and B. As such, molecules
+reaction radii. For better visualization, also see :numref:`fig:ReactionKinetics_RBM` A and B. As such, molecules
 :math:`A` and :math:`B` can undergo fusion to molecule :math:`C` via
 three pathways, defined by three bead pairs
 :math:`(a_1, b_1), (a_1, b_2), (a_2, b_2)`. Whereas for the particle
@@ -378,8 +374,7 @@ the molecule in addition to the translational diffusion constant that
 describes the motion of the molecule center. In our example, the bead
 motion is, however, close enough to that of a single spherical particle
 such that the results from the Brownian dynamics simulation are in close
-agreement with the ODE formulation (Fig.
-`1.5 <#fig:ReactionKinetics_RBM>`__ C).
+agreement with the ODE formulation (:numref:`fig:ReactionKinetics_RBM` C).
 
 .. figure:: Figures/Reaction_kinetics_RBM.png
    :width: 50%
@@ -408,7 +403,7 @@ principle that is true. Systems such as the above could also be modeled
 using single particle Brownian dynamics or even ODEs. However, if we
 take into account the excluded volume of the molecules by introducing a
 repulsive interactions between the beads, the reaction kinetics differ
-from the ODE solution (Fig. `1.5 <#fig:ReactionKinetics_RBM>`__ D). The
+from the ODE solution (:numref:`fig:ReactionKinetics_RBM` D). The
 bead radii are chosen equal to the reaction radius, where
 :math:`\sigma_{a_1} = 2.0 nm`, :math:`\sigma_{a_2} = 1.5 nm`,
 :math:`\sigma_{b_1} = 2.0 nm`, :math:`\sigma_{b_2} = 3.0 nm`. Thereby,
@@ -469,7 +464,7 @@ complex is accounted for by a fission reaction
    \ce{B ->[\ce{k_{off}}] P + U }.
 
 As expected from an autocatalytic reaction, the product :math:`B`
-follows a sigmoid function (Fig. `1.6 <#fig:reaction_diffusion_2D>`__).
+follows a sigmoid function (:numref:`fig:reaction_diffusion_2D`).
 We may compare the simulation result to the corresponding ODE
 description. The above system expressed in terms of a system of ODEs
 reads
@@ -493,9 +488,8 @@ in depth discussion on this topic and theoretical results for the
 Smoluchowski theory can be found in :cite:p:`Yogurtcu2015`.
 However, for the current system the simulation result can be matched
 using a constant reaction rate :math:`k_{macro}^{2D} = k_{macro}/5.6`
-despite the decay in molecule density over time (Fig.
-`1.6 <#fig:reaction_diffusion_2D>`__\ A). A closed form expression for
-:math:`k_{macro}` is extremely useful when setting up a reaction
+despite the decay in molecule density over time (:numref:`fig:reaction_diffusion_2D` A). 
+A closed form expression for :math:`k_{macro}` is extremely useful when setting up a reaction
 diffusion simulation. Even if results do not match exactly, the ODE
 approach can help to choose the correct parameters for a particle-based
 simulation that might take several order longer than solving the system
@@ -518,7 +512,7 @@ simulation box via a fixed concentration boundary. :math:`P` now
 represents a receptor binding site, :math:`U` the freely diffusing
 receptors and :math:`B` the bound receptor or an occupied binding site.
 In this adapted system the autocatalytic reaction scheme results in
-receptor clustering (Fig. `1.6 <#fig:reaction_diffusion_2D>`__\ B). Note
+receptor clustering (:numref:`fig:reaction_diffusion_2D` B). Note
 that whereas the reaction
 :math:`\ce{B + P ->[\ce{k_{enz}}] B + P^{\prime} }` is implemented as an
 enzymatic reaction in PyRID, the physical interpretation could be very
@@ -558,16 +552,15 @@ the pressure.
 Radial distribution function
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Figure `1.7 <#fig:rdf_hard_sphere>`__ shows the radial distribution
+:numref:`fig:rdf_hard_sphere` shows the radial distribution
 function for a hard sphere fluid that is modelled using the harmonic
 repulsive interaction potential (Eq.
 :math:numref:`eq:Harmonic repulsion`). The sphere
 diameter is set to :math:`1\,nm`. The simulation result is is in good
 agreement with a closed-form analytical expressions of the hard sphere
-radial distribution function :cite:p:`Trokhymchuk2005` (Fig.
-`1.7 <#fig:rdf_hard_sphere>`__ B). The analytical expression for the
-radial distribution function is too long to be presented here. The
-interested reader is referred to :cite:p:`Trokhymchuk2005`.
+radial distribution function :cite:p:`Trokhymchuk2005` (:numref:`fig:rdf_hard_sphere` B). 
+The analytical expression for the radial distribution function is too long to be presented here. 
+The interested reader is referred to :cite:p:`Trokhymchuk2005`.
 
 .. figure:: Figures/RDF_Hard_sphere.png
    :width: 50%
@@ -606,10 +599,8 @@ approximated by the solution to the Percus-Yevick equation
 
 where :math:`\eta = (\pi/6) \rho \sigma^3` is the packing fraction. The
 pressure obtained from the simulation of a hard sphere fluid is in close
-agreement with this theoretical result (Fig.
-`1.7 <#fig:rdf_hard_sphere>`__ **C**). In addition, the system does
-reach the target pressure using the Berendsen barostat (Fig.
-`1.7 <#fig:rdf_hard_sphere>`__ D)
+agreement with this theoretical result (:numref:`fig:rdf_hard_sphere` **C**). In addition, the system does
+reach the target pressure using the Berendsen barostat (:numref:`fig:rdf_hard_sphere` D)
 
 LLPs of Patchy Particles
 ------------------------
@@ -715,7 +706,7 @@ high compute cluster. In a final step, a concentration profile is
 sampled, from which the volume fraction of the dense and dilute phase
 are estimated :cite:p:`Espinosa2019`. I found that the
 coexistence curves acquired with PyRID were in good agreement with
-:cite:p:`Espinosa2020` (Fig. `1.8 <#fig:LLPS>`__). However,
+:cite:p:`Espinosa2020` (:numref:`fig:LLPS`). However,
 for the 5-valency case, :cite:t:`Espinosa2020` found a
 slightly higher volume fraction in the dense phase close to the critical
 point. Also, :cite:t:`Espinosa2020` found that the
@@ -793,22 +784,20 @@ with :math:`N_A = N_{tot}/4`, :math:`N_B = N_{tot}/4`,
 at :math:`\rho_{tot} = 0.00341 nm^{-3}` by scaling the simulation box
 accordingly. Simulations are carried out for :math:`300 ns` with an
 integration time step of :math:`0.1 ns`. The result of the performance
-test is shown in figure `1.9 <#fig:hgrid>`__ B. For particle numbers
+test is shown in :numref:`fig:hgrid` B. For particle numbers
 between 1.000 and 10.000, the computation time per particle update stays
 approximately constant at :math:`1.25 \mu s`, which corresponds to about
 800.000 particle updates per second. For particle numbers above 10.000,
-the performance starts to drop slightly (Fig. `1.9 <#fig:hgrid>`__ B,
+the performance starts to drop slightly (:numref:`fig:hgrid` B,
 blue line). The benchmark test has been performed on a machine with an
 Intel Core i5-9300H with 2.4 GHz and 24 GB DDR4 RAM. Interestingly,
-PyRID always performed better than ReaDDy for this benchmark test (Fig.
-`1.9 <#fig:hgrid>`__ B, yellow line). Also, ReaDDy scaled less linear
-for large particle numbers than PyRID. Shown are the results for ReaDDy
+PyRID always performed better than ReaDDy for this benchmark test (:numref:`fig:hgrid` B, yellow line). 
+Also, ReaDDy scaled less linear for large particle numbers than PyRID. Shown are the results for ReaDDy
 ran on the sequential kernel. In addition, I performed the benchmark
 test for the parallel kernel but the results were always worse. However,
 in :cite:p:`Hoffmann2019`, where the same benchmark test has
 been used, ReaDDy scaled much better and there was almost no performance
-drop even at 100.000 particles for the sequential kernel (Fig.
-`1.9 <#fig:hgrid>`__ B, green line). Also, performance increased
+drop even at 100.000 particles for the sequential kernel (:numref:`fig:hgrid` B, green line). Also, performance increased
 significantly when using the parallel kernel (down to
 :math:`\approx 0.5 \mu s`). The performance has been tested on a
 slightly faster but comparable machine with an Intel Core i7 6850K
@@ -840,11 +829,11 @@ simulation volume is densely packed with both components such that we
 reach a volume fraction of :math:`52\%`. The simulation ran for
 :math:`1e4` steps. When not using the hierarchical grid approach but the
 classical linked cell list algorithm, PyRID only reaches about 80000
-particle updates per second (pu/s) on average (Fig. `1.9 <#fig:hgrid>`__
+particle updates per second (pu/s) on average (:numref:`fig:hgrid`
 A). However, when using the hierarchical grid, more than 500000 pu/s are
-reached (Fig. `1.9 <#fig:hgrid>`__ A). If instead of the two component
+reached (:numref:`fig:hgrid` A). If instead of the two component
 system we only simulate a one component system, PyRID also only reaches
-about 500000 pu/s (Fig. `1.9 <#fig:hgrid>`__ A). Thereby, PyRID performs
+about 500000 pu/s (:numref:`fig:hgrid` A). Thereby, PyRID performs
 similar independent of whether the system is mono- or polydisperse.
 
 .. figure:: Figures/benchmark_hgrid.png

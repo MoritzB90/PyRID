@@ -3,7 +3,7 @@ Evaluation
 ==========
 
 There are many ways in which one could want to analyze the data gathered during a simulation.
-Via the Evaluation class, PyRID offers a straight forward way to read the data from the hdf5 files and even to do some analysis on these or do basic plots (Fig. :ref:`fig:evaluation`). 
+Via the Evaluation class, PyRID offers a straight forward way to read the data from the hdf5 files and even to do some analysis on these or do basic plots (:numref:`fig:evaluation`). 
 We can create an instance of the Evaluation class by
 
 .. code-block:: python

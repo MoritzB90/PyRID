@@ -252,7 +252,7 @@ else:
         Simulation.load_checkpoint('4_sites_Equil', 0, directory = '4_sites/checkpoints/')
 
     Simulation.System.box_lengths[0] *= 3
-    Simulation.System.Vol = Simulation.System.box_lengths.prod()
+    Simulation.System.volume = Simulation.System.box_lengths.prod()
     
 
 #%%

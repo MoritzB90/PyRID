@@ -673,9 +673,8 @@ vector. The normal vector of the triangle plane is given by
 :math:`\boldsymbol{n} = (\boldsymbol{p}_1-\boldsymbol{p}_0)\times(\boldsymbol{p}_2-\boldsymbol{p}_0)`.
 In the following, I will write the three vertices of a triangle as
 :math:`\boldsymbol{p}_0, \boldsymbol{p}_1` and :math:`\boldsymbol{p}_2`
-and vertices are always sorted in counter clockwise order (Fig.
-`1.1 <#fig:gedodesic_StanfordBunny>`__ B). Thereby, the normal vector of
-a triangle points outside the mesh compartment. In PyRID, a compartment
+and vertices are always sorted in counter clockwise order (:numref:`fig:gedodesic_StanfordBunny` B). 
+Thereby, the normal vector of a triangle points outside the mesh compartment. In PyRID, a compartment
 is defined by a triangulated manifold mesh, which is a mesh without
 holes and disconnected vertices or edges, i.e. it has no gaps and
 separates the space on the inside of the compartment from the space
@@ -684,7 +683,7 @@ minimum three triangles it is most convenient to store meshes in a
 shared vertex mesh data structure :cite:p:`Shirley2009` where
 an array with all vertex position vectors is kept as well as an array
 holding for each triangle the indices of the three vertices that make up
-the triangle (Fig. `1.1 <#fig:gedodesic_StanfordBunny>`__ A).
+the triangle (:numref:`fig:gedodesic_StanfordBunny` A).
 
 .. _`sec:vol_mol`:
 
@@ -758,8 +757,7 @@ a triangle until it crosses a triangle edge. In this case, the
 molecule’s displacement vector :math:`\Delta R` is advanced until that
 edge and then rotated into the plane of the neighboring triangle where
 the rotation axis is given by the shared triangle edge. Thereby, the
-molecule will move in a strait line on the mesh surface (Figure
-`1.1 <#fig:gedodesic_StanfordBunny>`__ C-E). This method is equivalent
+molecule will move in a strait line on the mesh surface (:numref:`fig:gedodesic_StanfordBunny` C-E). This method is equivalent
 to unfolding the triangles over the shared edge such that they end up in
 a common tangent space, i.e. such that they are co-planar, advancing the
 position vector, and folding/rotating back. From the latter method it
@@ -794,11 +792,10 @@ Surface ray marching
 First, we need to be able to detect if a triangle edge has been crossed,
 and to which neighbouring triangle this edge belongs. Therefore, in
 addition to the triangle and vertex data, for each triangle, the vertex
-indices of the three triangle edges are kept in an array (Fig.
-`1.1 <#fig:gedodesic_StanfordBunny>`__\ A). Edges are sorted in counter
+indices of the three triangle edges are kept in an array (:numref:`fig:gedodesic_StanfordBunny` A). Edges are sorted in counter
 clockwise order. Also, for each of the three edges the index of the
 corresponding neighbouring triangle is kept in a separate array for fast
-lookup (Fig. `1.1 <#fig:gedodesic_StanfordBunny>`__\ A).
+lookup (:numref:`fig:gedodesic_StanfordBunny` A).
 
 The triangle edge intersection test can be made efficient by the use of
 barycentric coordinates. Let
@@ -929,8 +926,7 @@ PyRID supports three kinds of boundary conditions:
 Repulsive boundary conditions are handled either by a repulsive
 interaction potential or via ray tracing, depending on the molecule type
 (see section 1.5.2 :ref:`sec:vol_mol`). For periodic boundary
-conditions, the minimal image convention is applied (Fig.
-`[fig:fixed_concentration] <#fig:fixed_concentration>`__ C). Thereby,
+conditions, the minimal image convention is applied (:numref:`fig:fixed_concentration` C). Thereby,
 each particle only interacts with the closest image of the other
 particles in the system. Note, however, that the box size must not
 become too small, otherwise particles start to interact with themselves.
@@ -1105,7 +1101,7 @@ the bead/particle level. In addition, reactions are categorized into
 bi-molecular (second order) and uni-molecular (first order) and zero
 order reactions. Each uni- and bimolecular reaction can consist of
 several different reaction paths, each belonging to a different reaction
-type (for an overview see Fig. `1.3 <#fig:ReactionsGraph>`__).
+type (for an overview see :numref:`fig:ReactionsGraph`).
 Uni-molecular reactions are divided into the following categories:
 
 #. decay reactions,
@@ -1734,7 +1730,7 @@ PyRID also allows the user to assign individual mesh triangles to a
 group and thereby define surface regions on which to distribute
 molecules. Example results for the distribution of volume and surface
 molecules using the above described methods are shown in Fig.
-`1.6 <#fig:Poisson-Disc-Sampling>`__.
+:numref:`fig:Poisson-Disc-Sampling`.
 
 .. figure:: Figures/Sphere_Packing.png
    :width: 50%
@@ -1786,7 +1782,7 @@ The tightly packed dynamic array (dense array)
 
 A tightly packed dynamic array is a dynamic array (similar to lists in
 python or vectors in C++) where elements can be quickly deleted via a
-pop and swap mechanism (Fig. `1.7 <#fig:DynamicArray_Molecules>`__). The
+pop and swap mechanism (:numref:`fig:DynamicArray_Molecules`). The
 problem with standard numpy arrays but also lists and C++ vectors is
 that deletion of elements is very expensive. For example, if we want to
 delete an element at index m of a numpy array of size n, numpy would
@@ -1819,7 +1815,7 @@ The dynamic array with holes
     :func:`pyrid.data_structures.dynamic_array_util.HolesArray`
 
 To store molecules and particles, we use a dynamic array with holes
-(Fig. `1.7 <#fig:DynamicArray_Molecules>`__). A dynamic array with holes
+(:numref:`fig:DynamicArray_Molecules`). A dynamic array with holes
 is an array where elements can be quickly deleted by creating ‘holes’ in
 the array. These holes are tracked via a free linked list. The array
 with holes has the benefit over the ‘tightly packed array’ that elements
@@ -1878,7 +1874,7 @@ The data structure we need to organize the reactions is a little bit
 more complex than a simple dense, dynamic array or one with holes, as is
 used to keep track of all the rigid body molecules and particles in the
 system. Instead a combination of different dynamic arrays and a hash
-table is used (Fig. `1.10 <#fig:DynamicArray_Reactions>`__). Let me
+table is used (:numref:`fig:DynamicArray_Reactions`). Let me
 motivate this: Our data structure needs to be able to do four things as
 efficient as possible:
 
