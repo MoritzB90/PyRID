@@ -375,7 +375,7 @@ supermatrix :cite:p:`Carrasco1999`:
     :label: eq:mobility_supermatrix
 
     \begin{pmatrix}
-    \boldsymbol{M}^{tt} & \boldsymbol{M}^{tr,T} \\
+    \boldsymbol{M}^{tt} & \boldsymbol{M}^{tr} \\
     \boldsymbol{M}^{rt} & \boldsymbol{M}^{rr} \\
     \end{pmatrix}
     = 
@@ -386,7 +386,7 @@ supermatrix :cite:p:`Carrasco1999`:
     \end{pmatrix}
     = 
     \begin{pmatrix}
-    \boldsymbol{\Xi}^{tt} & \boldsymbol{\Xi}^{tr,T} \\
+    \boldsymbol{\Xi}^{tt} & \boldsymbol{\Xi}^{tr} \\
     \boldsymbol{\Xi}^{rt} & \boldsymbol{\Xi}^{rr} \\
     \end{pmatrix}^{-1}.
 
@@ -775,15 +775,18 @@ details of the method sketched above.
    two array that hold for each triangle the vertex indices of the three
    triangle edges and the triangle indices of the three triangle
    neighbours are used. **(A)** Triangle vertices belonging to a
-   triangle are ordered counterclockwise, as are edges. For in triangle
-   and edge intersection tests barycentric triangle coordinates are
-   used. **(A)** Visualization of mesh surface ray marching. If a
+   triangle are ordered counterclockwise, as are edges. Efficient algorithms 
+   based on barycentric triangle coordinates are used to check whether a point 
+   lies within a triangle or whether a displacement vector intersects a triangle edge. 
+   **(A)** Visualization of mesh surface ray marching. If a
    molecule (green sphere) crosses a triangle edge, its displacement
    vector is advanced to the corresponding edge and then rotated into
    the plane of the neighboring triangle. **D,E** By the ray marching
    method described in the text, molecules follow a geodesic paths on
    the mesh surface. **F** The mean squared displacement of diffusing
-   surface molecules is in agreement with theory.
+   surface molecules is in agreement with theory. According to theory, 
+   in 2 dimensions :math:`MSD = 4Dt`. In this validation example, 
+   :math:`D=43 nm^2/\mu s`.
 
 Surface ray marching
 ^^^^^^^^^^^^^^^^^^^^
@@ -953,16 +956,16 @@ particle bath. Thereby, we can simulate, e.g., a sub-region within a
 larger system without the need to simulate the dynamics of the molecules
 outside simulation box directly. Instead, molecules that are outside the
 simulation box are treated as ’virtual’ molecules that only become part
-of the simulation if they cross the simulation box border. In PyRID it
+of the simulation if they cross the simulation box boundary. In PyRID it
 is possible to have mesh compartments intersect with the simulation box
 boundary. Molecules then enter and exit the simulation across the
 intersection surface or the intersection line in the case of surface
 molecules.
 
 Each iteration of a simulation, the expected number of hits between a
-molecule type and simulation box borders are calculated. The number of
+molecule type and simulation box boundaries are calculated. The number of
 hits depends on the outside concentration of the molecule, the diffusion
-coefficient and the border surface area. The average number of volume
+coefficient and the boundary surface area. The average number of volume
 molecules that hit a boundary of area :math:`A` from one side within a
 time step :math:`\Delta t` can be calculated from the molecule
 concentration :math:`C` and the average distance a diffusing molecule
@@ -1001,7 +1004,7 @@ boundary, e.g. of a mesh compartment, we may also want to account for
 the distance traveled parallel to the plane in order to correctly
 resolve collision with the mesh. However, currently PyRID does not
 account for this. For small integration time steps and meshes that are
-further than :math:`\sqrt{4Dt}` away from the simulation box border, the
+further than :math:`\sqrt{4Dt}` away from the simulation box boundary, the
 error introduced should, however, be negligible.
 
 Now that the number of molecules and their distance away from the plane
@@ -1035,9 +1038,9 @@ no molecular interactions are simulated.
    corresponding edges that intersect with the boundary (purple lines).
    If boundary conditions are set to "fixed concentration" transparent
    triangles and edges act as absorbing boundaries but in addition
-   release new molecules into the simulation volume. (Right) The same is
-   the case for those parts of the simulation box border that is not
-   intersecting with one of the compartments. **B** For periodic
+   release new molecules into the simulation volume. (Right) If mesh compartments 
+   intersect the boundary of the simulation box, the remaining part of the box
+   boundary must also be represented by a triangulated mesh. **B** For periodic
    boundary conditions, PyRID follows the minimal image convention, i.e.
    a particle (black marker) only interacts (colored arrows) with the
    closest image (grey marker) of the other particles in the system.
@@ -1303,11 +1306,15 @@ then given by
 
 .. math:: p = 1-\exp\Big(-\sum_i^n k_i \Delta t \Big),
 
-where :math:`n` is the number of reaction paths. Here, we assume that
-the time step :math:`\Delta t` is so small that the molecule can only
-undergo one reaction. As such, the accuracy of the simulation strongly
-depends on the proportion between the reaction rate and the time step
-:math:`\Delta t`. If :math:`k_t \cdot \Delta t>0.1`, PyRID will print
+where :math:`n` is the number of reaction paths and :math:`k_i` the microscopic reaction rate for each path. 
+Here, we distinguish between the microscopic reaction rate, 
+which is the rate at which two molecules react if their distance is below :math:`R_{react}` and the 
+macroscopic reaction rate, which is the rate at which any two molecules react on average. 
+The macroscopic reaction rate is what you usually get as a result out of some experimental measurement.
+We assume that the time step :math:`\Delta t` is so small that the molecules can only
+undergo one reaction within :math:`\Delta t`. As such, the accuracy of the simulation strongly
+depends on the ratio between the microscopic reaction rate and the time step
+:math:`\Delta t`. If :math:`\sum_i^n k_i \cdot \Delta t>0.1`, PyRID will print
 out a warning. As for uni-molecular reactions, each bi-molecular
 reaction can contain several reaction paths, each of which can be of a
 different bi-molecular reaction type. PyRID supports the following

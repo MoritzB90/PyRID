@@ -163,7 +163,7 @@ simulate, e.g., a sub-region within a larger system without the need to
 simulate the dynamics of the molecules outside simulation box directly.
 As an example system we take a 3d model of synapse. The post- and
 presynaptic spine are both contained inside the simulation volume
-whereas dendrite and axon are cutoff at the simulation box border (:numref:`fig:fixed_concentration_val` A). 
+whereas dendrite and axon are cutoff at the simulation box boundary (:numref:`fig:fixed_concentration_val` A). 
 We define three molecular species: Species A diffuses in the volume outside the spines (in the
 extracellular space), species B is located inside the postsynaptic spine
 and species C on the surface (within the membrane) of the postsynaptic
@@ -180,7 +180,7 @@ molecules of each species in the volume and on the surface of each
 compartment as soon as the system has reached its equilibrium state.
 Indeed, after about :math:`0.5\,ms` the system has reached equilibrium
 and the number of each species fluctuates around the number 1000 (:numref:`fig:fixed_concentration_val` B). 
-As one would expect, species A fills the simulation volume the fastest as the border area is the
+As one would expect, species A fills the simulation volume the fastest as the boundary area is the
 largest. Species B and C which are located in the volume and on the
 surfaces of the postsynaptic compartment fill the simulation volume at
 about the same rate.
@@ -230,7 +230,7 @@ mixed system. Therefore, the simulation results are also only directly
 comparable with the ODE approach, if the reactions are reaction rate
 limited, not diffusion limited such that the system has enough time to
 equilibrate in between reactions. Let us take a very simple example
-where :math:`\ce{A + B -> C }`. If the reaction kinetics are rate
+where :math:`\ce{A + B -> C }`. If the reaction kinetics are diffusion
 limited, the reaction products do not have enough time to mix with the
 rest of the system. Thereby, regions of low educt concentration evolve
 where reactions had occurred, while in the regions where no reactions
@@ -275,7 +275,7 @@ PyRID.
    described by two exponential functions instead of one.
 
 Given a reaction radius :math:`R_{react}`, we would like to know at what
-reaction rate :math:`k_t` a simulation would match an experimentally
+microscopic reaction rate :math:`k` a simulation would match an experimentally
 measured macroscopic reaction rate :math:`k^{macro}`. For two
 non-interacting molecule species :math:`A` and :math:`B` with
 translational diffusion constants :math:`D^t_A` and :math:`D^t_B` and
@@ -285,10 +285,10 @@ translational diffusion constants :math:`D^t_A` and :math:`D^t_B` and
 .. math::
    :label: eq:k_macro
 
-   k_{macro} = 4 \pi (D^t_A+D^t_B) \left[R_{react}-\sqrt{\frac{D^t_A+D^t_B}{k_t}} \, \tanh\left(R_{react} \, \sqrt{\frac{k_t}{D^t_A+D^t_B}}\right)\right]
+   k_{macro} = 4 \pi (D^t_A+D^t_B) \left[R_{react}-\sqrt{\frac{D^t_A+D^t_B}{k}} \, \tanh\left(R_{react} \, \sqrt{\frac{k}{D^t_A+D^t_B}}\right)\right]
 
 Equation :math:numref:`eq:k_macro` can solved numerically for
-:math:`k_t`. Also, if the :math:`k_t \rightarrow \infty`,
+:math:`k`. Also, if the :math:`k \rightarrow \infty`,
 :math:numref:`eq:k_macro` simplifies to the Smoluchowski equation
 where we can express the reaction radius in terms of the macroscopic
 reaction rate :cite:p:`Erban2009`:
@@ -298,17 +298,17 @@ reaction rate :cite:p:`Erban2009`:
 
    R_{react} = \frac{k_{macro}}{4 \pi (D^t_A + D^t_B)}
 
-In the limit where :math:`k_t << \frac{D_A^t+D_B^t}{R_{react}^2}`, Eq.
+In the limit where :math:`k << \frac{D_A^t+D_B^t}{R_{react}^2}`, Eq.
 :math:numref:`eq:k_macro` can be Taylor expanded and simplifies to
 :cite:p:`Erban2009`:
 
 .. math::
    :label: eq:k_macro3
 
-   k_t = \frac{k_{macro}}{4/3 \pi R_{react}^3}
+   k = \frac{k_{macro}}{4/3 \pi R_{react}^3}
 
 The above equations are, however, only valid in the case where molecules
-are represented by single particles and also only in 3 dimensions. PyRID
+are represented by single particles and also only in 3 dimensions. PyRID 
 has a build in method to calculate the reaction rates and radii based on
 equation :math:numref:`eq:k_macro`.
 
@@ -343,6 +343,7 @@ different pair permutations of the available beads:
       \ce{A(a_1) + B(b_1) ->[\ce{k_2, R_2}] D } \\
       \ce{A(a_1) + B(b_2) ->[\ce{k_3, R_3}] C } \\
       \ce{A(a_2) + B(b_2) ->[\ce{k_4, R_4}] C } \\
+      \ce{C ->[\ce{k_{-1}, R_{-1}}] A + B } \\
    \end{split}
 
 where :math:`k_i` are the microscopic reaction rates and :math:`R_i` the
@@ -353,7 +354,7 @@ three pathways, defined by three bead pairs
 pairs :math:`(a_1, b_2)` and :math:`(a_2, b_2)` only one reaction
 pathway is defined respectively, for the particle pair
 :math:`(a_1, b_1)` a second reaction path has been defined for the
-fusion of molecules :math:`A` and :math:`B` to molecule :math:`C`. We
+fusion of molecules :math:`A` and :math:`B` to molecule :math:`D`. We
 may also describe this system in terms of a system of ODEs:
 
 .. math::
