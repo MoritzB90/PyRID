@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-22T07:30:35.867Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="3vz0zB2-33iGT-WDVIDo" version="24.5.3" type="device">
+<mxfile host="Electron" modified="2024-06-29T07:56:32.599Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="nch3VcMnywzybGy6F5cc" version="24.5.3" type="device">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
-    <mxGraphModel dx="1909" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2100" dy="1242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -71,12 +71,12 @@
             <mxPoint y="7" as="offset" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="R(&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;a&lt;/sub&gt;,&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;b&lt;/sub&gt;) ≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-1">
+        <UserObject label="|&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;ab&lt;/sub&gt;|≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-1">
           <mxCell style="treeFolding=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;shadow=1;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="190.05" y="200" width="117.93" height="30" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="R(&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;c&lt;/sub&gt;,&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;d&lt;/sub&gt;) ≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-3">
+        <UserObject label="|&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;cd&lt;/sub&gt;|&amp;nbsp;≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Edward Morrison" position="Brand Manager" location="Office 2" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-3">
           <mxCell style="treeFolding=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;shadow=1;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="489.71" y="210" width="118.5" height="30" as="geometry" />
           </mxCell>
@@ -128,7 +128,7 @@
             <mxGeometry x="1196.63" y="130" width="120" height="40" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="R(&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;a&lt;/sub&gt;,&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;b&lt;/sub&gt;) ≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-75">
+        <UserObject label="|&lt;b&gt;r&lt;/b&gt;&lt;sub&gt;ab&lt;/sub&gt;|&amp;nbsp;≤ R&lt;sub&gt;react&lt;/sub&gt;" name="Tessa Miller" position="CFO" location="Office 1" email="me@example.com" placeholders="1" id="nthaH2KU5fV0fkv0nu2V-75">
           <mxCell style="treeFolding=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;shadow=1;html=1;" parent="dNxyNK7c78bLwvsdeMH5-11" vertex="1">
             <mxGeometry x="1036.6299999999999" y="200" width="160" height="30" as="geometry" />
           </mxCell>
