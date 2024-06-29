@@ -41,11 +41,11 @@ squared displacement (MSD) is given by
 The rotational time correlation function is given by
 :cite:p:`Torre1999`:
 
-.. math:: MSD = \frac{3}{2} \langle (\hat{\boldsymbol{n}}(t+\Delta t)\hat{\boldsymbol{n}}(t))^2 \rangle - \frac{1}{2},
+.. math:: P_{l} = \frac{3}{2} \langle (\hat{\boldsymbol{n}}_l(t+\Delta t)\hat{\boldsymbol{n}}_l(t))^2 \rangle - \frac{1}{2},
 
-where :math:`\hat{\boldsymbol{n}}(t)` is some unitary vector that
-describes the current orientation of the molecule at time point
-:math:`t`. :numref:`fig:Diff` compares the simulation results to
+where :math:`\hat{\boldsymbol{n}}_l(t)` are the unitary vectors that
+describe the current orientation of the molecule at time point
+:math:`t` for each of the 3 rotation axis (:math:`l \in {1,2,3}`). :numref:`fig:Diff` compares the simulation results to
 the theoretical prediction, which, for the rotational time correlation
 function, is given by a multi-exponential decay function
 :cite:p:`Torre1999`:
@@ -53,9 +53,9 @@ function, is given by a multi-exponential decay function
 .. math::
    :label: eq:P2
 
-   P_{2,l}(t) = \sum_{i=1}^5 a_{i,l} exp(-t/\tau_i),
+   P_{l}(t) = \sum_{i=1}^5 a_{i,l} exp(-t/\tau_i),
 
-where :math:`l \in {1,2,3}`. The relaxation times are given by
+The relaxation times are given by
 
 .. math::
 
@@ -81,23 +81,23 @@ The amplitudes of the individual exponential decays are given by
    :label: eq:amplitude_rotrelax
 
    \begin{split}
-   a_{1,l} = \frac{3}{4}(F+G) \\
+   a_{1,l} = \frac{3}{4}(F_l+G_l) \\
    a_{2,l} = 3 \hat{n}_{l,2}^2 \hat{n}_{l,3}^2 \\
    a_{3,l} = 3 \hat{n}_{l,1}^2 \hat{n}_{l,3}^2 \\
    a_{4,l} = 3 \hat{n}_{l,1}^2 \hat{n}_{l,2}^2 \\
-   a_{5,l} = \frac{3}{4}(F-G),
+   a_{5,l} = \frac{3}{4}(F_l-G_l),
    \end{split}
 
-with :math:`F = - \frac{1}{3} + \sum_{k=1}^3 \hat{n}_k^4` and
-:math:`G=\frac{1}{\Delta}\Big( -D + \sum_{k=1}^3 D^{rr,b}_k \Big[ \hat{n}_k^4 + 2 \hat{n}_m^2 \hat{n}_n^2 \Big] \Big)`,
+with :math:`F_l = - \frac{1}{3} + \sum_{k=1}^3 \hat{n}_{l,k}^4` and
+:math:`G_l=\frac{1}{\Delta}\Big( -D + \sum_{k=1}^3 D^{rr,b}_k \Big[ \hat{n}_{l,k}^4 + 2 \hat{n}_{l,m}^2 \hat{n}_{l,n}^2 \Big] \Big)`,
 where :math:`m, n \in \{1,2,3\}-\{k\}`.
 
 If we choose the normal vectors of each axis
 :math:`\hat{\boldsymbol{n}}_l` such that these are identical with the
 basis vectors of the local frame, i.e.
-:math:`\hat{\boldsymbol{u}}_1 = \boldsymbol{e}_x = [1,0,0]`,
-:math:`\hat{\boldsymbol{u}}_2 = \boldsymbol{e}_y = [0,1,0]`,
-:math:`\hat{\boldsymbol{u}}_3 = \boldsymbol{e}_z = [0,0,1]`,
+:math:`\hat{\boldsymbol{n}}_1 = \boldsymbol{e}_x = [1,0,0]`,
+:math:`\hat{\boldsymbol{n}}_2 = \boldsymbol{e}_y = [0,1,0]`,
+:math:`\hat{\boldsymbol{n}}_3 = \boldsymbol{e}_z = [0,0,1]`,
 :math:`a_2-a_3` vanish such that we end up with a double exponential
 decay (:numref:`fig:Diff` B).
 
