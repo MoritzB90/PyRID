@@ -1540,7 +1540,7 @@ class Simulation(object):
             self.progress_properties = ['it/s', 'pu/s']+progress_bar_properties
         
         if self.Observer is not None:
-            self.hdf = h5py.File(self.file_path / 'hdf5' / (self.file_name+'.h5'), 'a')
+            self.hdf = h5py.File(self.file_path / (self.file_name+'.h5'), 'a')
         
         print_system_count = False
         

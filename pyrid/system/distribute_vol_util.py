@@ -751,9 +751,14 @@ def poisson_disc_sampling(Compartment, System, radii, mol_type_ids, N, weights, 
     pos_tri = np.empty(3, dtype = np.float64)
     
     if System.mesh==True: 
-        
+        print("debugging Cell division <3")
         rc = max(np.max(radii)*2, np.max(System.box_lengths)/25)
         cells_per_dim = (Compartment.box_lengths / rc).astype(np.int64)
+        print(radii)
+        print(System.box_lengths)
+        print(rc)
+        print(Compartment.box_lengths)
+        print(cells_per_dim)
         if np.any(cells_per_dim<3):
             print('error: Cell division <3')
         cell_length_per_dim = Compartment.box_lengths / cells_per_dim
@@ -1255,6 +1260,12 @@ def poisson_disc_sampling_uniform(Compartment, radii, mol_type_ids, weights, N, 
         
         rc = max(np.max(radii)*2, np.max(Compartment.box_lengths)/25)
         cells_per_dim = (Compartment.box_lengths / rc).astype(np.int64)
+        print("Debugging Cell division <3 2")
+        print(radii)
+        print(System.box_lengths)
+        print(rc)
+        print(Compartment.box_lengths)
+        print(cells_per_dim)
         if np.any(cells_per_dim<3):
             print('error: Cell division <3')
         cell_length_per_dim = Compartment.box_lengths / cells_per_dim

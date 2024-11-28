@@ -257,6 +257,10 @@ def create_cell_list_points(rc, sample_points, Compartment):
     """
     
     cells_per_dim = (Compartment.box_lengths / rc).astype(np.int64)
+    print("Debugging Cell division <3 3")
+    print(rc)
+    print(Compartment.box_lengths)
+    print(cells_per_dim)
     if np.any(cells_per_dim<3):
         print('error: Cell division <3')
     cell_length_per_dim = Compartment.box_lengths / cells_per_dim

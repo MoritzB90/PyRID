@@ -129,11 +129,11 @@ class Evaluation(object):
         self.file_name = file_name
             
         if path is None:
-            self.path = Path(os.getcwd()) / 'Files' / self.file_name
-            self.fig_path = Path(os.getcwd()) / 'Figures'
+            self.path = Path(os.getcwd()) / self.file_name
+            self.fig_path = Path(os.getcwd())
         else:
             self.path = Path(path) / self.file_name
-            self.fig_path = Path(path) / 'Figures'
+            self.fig_path = Path(path)
             
             try:
                 os.makedirs(self.fig_path) 
@@ -231,11 +231,11 @@ class Evaluation(object):
             self.file_name = file_name
             
         if path is None:
-            self.path = Path(os.getcwd()) / 'Files/hdf5' / (self.file_name+'.h5')
+            self.path = Path(os.getcwd()) / (self.file_name+'.h5')
             self.fig_path = Path(os.getcwd()) / 'Figures'
         else:
             self.path = Path(path) / (self.file_name+'.h5')
-            self.fig_path = Path(path) / 'Figures'
+            self.fig_path = Path(path)
             
             try:
                 os.makedirs(self.fig_path) 
@@ -1215,13 +1215,13 @@ class Evaluation(object):
         overlap=0)
         
         try:
-            os.makedirs(self.fig_path / 'Graphs') 
+            os.makedirs(self.fig_path) 
         except FileExistsError:
             # directory already exists
             pass
             
         # g.set_options('{"layout": {"randomSeed":0}}')
-        g.show(str(self.fig_path / 'Graphs' / (self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')))
+        g.show(str(self.fig_path / (self.file_name+'_'+graph_type+'_'+graph_subtype+'.html')))
         
 #%%
 
