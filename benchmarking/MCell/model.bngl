@@ -1,0 +1,39 @@
+begin molecule types
+  A
+  B
+  C
+end molecule types 
+
+begin parameters
+  # unit of diffusion constants is cm^2/s
+  MCELL_DIFFUSION_CONSTANT_3D_A 4.0e-5
+  MCELL_DIFFUSION_CONSTANT_3D_B 4.0e-5
+  MCELL_DIFFUSION_CONSTANT_3D_C 4.0e-5
+
+  # unit is number of molecules
+  num_A_to_release 100
+  num_B_to_release 100
+
+  # unit of rate is 1/(M*s)
+  rate_A_B_to_C 3.0e9
+end parameters  
+
+begin compartments
+  CellCube 3 1
+end compartments
+
+begin seed species
+  A@CellCube num_A_to_release
+  B@CellCube num_B_to_release
+end seed species
+
+begin reaction rules
+  A + B -> C  rate_A_B_to_C  
+end reaction rules
+
+begin observables
+  Molecules A A
+  Molecules B B
+  Molecules C C
+end observables  
+
